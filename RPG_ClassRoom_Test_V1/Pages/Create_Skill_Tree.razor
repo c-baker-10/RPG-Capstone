@@ -1,21 +1,18 @@
 ﻿@page "/c_s_m"
 @using Objects
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Create A Skill Tree</PageTitle>
 
-<h1>Counter</h1>
-
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">@node.name</button>
+<button class="btn btn-primary" @onclick="AddNode">Press for Node</button>
 
 @code {
-    private int currentCount = 10;
 
-    Node node = new Node();
+    List<Node> Nodes = new List<Node>();
+    Node node;
 
-    private void IncrementCount()
+    private void AddNode()
     {
-        currentCount++;
+        Nodes.Add(node = new Node());
+
     }
 }
