@@ -1,4 +1,4 @@
-﻿@page "/counter"
+﻿@page "/c_s_m"
 @using Objects
 
 <PageTitle>Counter</PageTitle>
@@ -7,10 +7,12 @@
 
 <p role="status">Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Press to Count</button>
+<button class="btn btn-primary" @onclick="IncrementCount">@node.name</button>
 
 @code {
     private int currentCount = 10;
+
+    Node node = new Node();
 
     private void IncrementCount()
     {

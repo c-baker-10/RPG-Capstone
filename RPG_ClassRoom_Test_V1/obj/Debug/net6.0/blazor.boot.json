@@ -196,13 +196,13 @@
       "mscorlib.dll": "sha256-MnMyZHtcymf0sLxXeFBbQZVsdNdxT0GXJaa9t3ZdSek=",
       "netstandard.dll": "sha256-+SGdnDhVMiZ9hq0EsYwJ+mcK0odf3bAtXnSKLorGDCs=",
       "System.Private.CoreLib.dll": "sha256-mqfalNg3wC8XHlyA+j5ioNcnc0kt4prNudKdyJoaYaU=",
-      "RPG_ClassRoom_Test_V1.dll": "sha256-5hbjiRbrP+AYC+oUH7YjwT4QREJBauq3E0KFBAXK2Q8="
+      "RPG_ClassRoom_Test_V1.dll": "sha256-SbbTgDYhI6qT1DBNXFSm+RNYCORxH4ZUwXwUaH8hwwY="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
-      "RPG_ClassRoom_Test_V1.pdb": "sha256-tqwJmsTMELSYF7Zl1IgZJToo6oPRYHmnt8AUlQIeQzE="
+      "RPG_ClassRoom_Test_V1.pdb": "sha256-zAwB8TIKGt6MBOfSOkZqPjlNScXrD81DXeio95Mq0mM="
     },
     "runtime": {
       "dotnet.6.0.9.vdw3peowtw.js": "sha256-Azk5sbYFVo84h8NpIst9roIPGLH2y8ewQ9SY\/sUHvgs=",
