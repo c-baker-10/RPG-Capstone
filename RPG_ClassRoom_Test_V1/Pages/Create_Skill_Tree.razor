@@ -1,18 +1,33 @@
 ﻿@page "/c_s_m"
 @using Objects
 
+<style>
+    .rectangle {
+        height: 50px;
+        width: 100px;
+        background-color: #055;
+    }
+</style>
+
 <PageTitle>Create A Skill Tree</PageTitle>
 
 <button class="btn btn-primary" @onclick="AddNode">Press for Node</button>
 
+@foreach (Node node in Nodes)
+{
+    <div class="rectangle"> @node.x_Value</div>
+};
+
 @code {
 
+    private int index = 0;
     List<Node> Nodes = new List<Node>();
     Node node;
 
     private void AddNode()
     {
-        Nodes.Add(node = new Node());
+        Nodes.Add(node = new Node(index));
+        index++;
 
     }
 }

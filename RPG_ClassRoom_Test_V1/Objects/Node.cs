@@ -4,5 +4,10 @@
     {
         public int x_Value = 0;
         public int y_Value = 0;
+
+        public Node(int index)
+        {
+            x_Value = index;
+        }
     }
 }
