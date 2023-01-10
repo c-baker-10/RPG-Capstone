@@ -1,0 +1,302 @@
+﻿@page "/makeskilltree"
+
+@using Objects
+@using Microsoft.JSInterop
+@using System;
+@using System.IO;
+@using System.Text;
+@inject IJSRuntime JS;
+
+<h3>Make a Skill Tree</h3>
+
+<button class="btn btn-primary" @onclick="AddNode">Add Node</button>
+
+<button class="btn btn-primary" @onclick="AddConnection">Add Connections</button>
+
+<button class="btn btn-primary" @onclick="RemoveNode">Remove Node</button>
+
+<button class="btn btn-primary" @onclick="RemoveConnector">Remove Connector</button>
+
+<button class="btn btn-primary" @onclick="EditNode">Edit Selected Node</button>
+
+<button class="btn btn-primary" @onclick="ConnectNode"> Connect Nodes</button>
+
+<button class="btn btn-primary" @onclick="SaveTree"> Save Skill Tree</button>
+
+<p style ="display:inline">Selected Node: </p>
+@if (SelectedNode != null)
+{
+     <p style="display:inline"> <b> @SelectedNode.name </b> </p>
+}
+
+<p style="display:inline"> Selected Connector: </p>
+@if (SelectedConnector != null)
+{
+    <p style="display:inline"> <b> @SelectedConnector.name </b> </p>
+}
+
+@if (SelectedNode != null && editing)
+{
+    <div align="right">
+        <p> User Input: </p>
+        <EditForm Model="@SelectedNode">
+            <label for="Name"> Node Name</label>
+            <InputText id="Name" @bind-Value="SelectedNode.name" />
+        </EditForm>
+        <ul>
+            @if (SelectedNode.NodeConnections != null)
+            {
+                @foreach (Node node in SelectedNode.NodeConnections)
+                {
+                    <li> @node.name </li>
+                }
+            }
+        </ul>
+      
+        <button class="btn btn-primary" @onclick="DoneEdit"> Done</button>
+    </div>
+}
+
+@foreach (Connectors Connect in Connections)
+{
+    <div class="resizedrag" @onclick="() => SelectedConnectorMethod(Connect)" id="@Connect.name"> <p> @Connect.name </p></div>
+}
+
+@foreach (Node node in Nodes)
+{
+    <div class="draggable" @onclick="() => SelectedNodeMethod(node)" id="@node.name"> <p> @node.name </p> </div>
+}
+
+@code {
+
+    List<Node> Nodes = new List<Node>();
+    List<Connectors> Connections = new List<Connectors>();
+
+    Node SelectedNode, node;
+    Connectors SelectedConnector, connector;
+
+    int SelectedNodeIndex = -1;
+
+    // allows divs to be dragged and dropped
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
+        await JS.InvokeVoidAsync("resizeDrag", ".resizedrag");
+    }
+
+    // sets clicked node to be selected
+    private void SelectedNodeMethod(Node node)
+    {
+        if (!connecting)
+        {
+            if (SelectedNode != node)
+            {
+                SelectedNode = node;
+            }
+        }
+        else
+        {
+            if(SelectedNode != null && SelectedNode != node)
+            {
+                SelectedNode.NodeConnections.Add(node);
+            }
+        }
+
+    }
+
+    // sets clicked connector to be selected
+    private void SelectedConnectorMethod(Connectors connector)
+    {
+        if (SelectedConnector != connector)
+        {
+            SelectedConnector = connector;
+        }
+    }
+
+    private int index = 1;
+    // adds a node to the page
+    private void AddNode()
+    {
+        Node node = new Node("N" + index);
+        Nodes.Add(node);
+        index++;
+    }
+
+    // removes selected node from the page
+    private void RemoveNode()
+    {
+        Nodes.Remove(SelectedNode);
+        SelectedNode = null;
+    }
+
+    private int ConnectionsIndex = 1;
+    // adds a connector to the page
+    private void AddConnection()
+    {
+        Connections.Add(connector = new Connectors("C" + ConnectionsIndex));
+        ConnectionsIndex++;
+    }
+
+    // removes selected connector from the page
+    private void RemoveConnector()
+    {
+        Connections.Remove(SelectedConnector);
+        SelectedConnector = null;
+    }
+
+    private bool editing = false;
+    // add/update values to selected node and review its information
+    private void EditNode()
+    {
+        editing = true;
+
+    }
+    // get out of editing mode
+    private void DoneEdit()
+    {
+        editing = false;
+    }
+
+    private bool connecting = false;
+    private void ConnectNode()
+    {
+        if(connecting == true)
+        {
+            connecting = false;
+        }
+        else
+        {
+            connecting = true;
+        }
+    }
+
+
+    int FileIndex = 1;
+    string FileName, FileDesPath, TreeInfo;
+    private float[] posistion = new float[5];
+
+    private async void SaveTree()
+    {
+        // set file name and destination path
+        FileName = "SkillTree" + FileIndex;
+        FileDesPath = @"C:\Users\Caleb\Desktop\BlazorApp1\SavedSkillTrees\" + FileName;
+
+        // Check if file already exists. If yes, adds one to the exisiting file name
+        while (true)
+        {
+            if (File.Exists(FileDesPath))
+            {
+                // update file name and destination path if current file name exists
+                FileIndex++;
+                FileName = "SkillTree" + FileIndex;
+                FileDesPath = @"C:\Users\Caleb\Desktop\BlazorApp1\SavedSkillTrees\" + FileName;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        // Create a FileStream Object to write to a text file. The parameters are complete path of the text file in the
+        // system, in Create mode, the access to this process is. Write and for other processes is None
+        FileStream FileWrite = new FileStream(FileDesPath, FileMode.Create, FileAccess.Write, FileShare.None);
+        FileIndex++;
+
+        // node info section
+        TreeInfo = "NODE\n";
+
+        foreach (Node node in Nodes)
+        {
+            // store node name
+            //TreeInfo += "Node name: " + node.name + "\n";
+            TreeInfo += node.name + ";";
+
+            // store node description
+            //TreeInfo += "Node description: ";
+            if (node.description != null)
+            {
+                TreeInfo += node.description + ";";
+            }
+            else
+            {
+                TreeInfo += "null;";
+            }
+
+            // store node links
+            //TreeInfo += "Node links: ";
+            if (node.links != null)
+            {
+                TreeInfo += node.links + ";";
+            }
+            else
+            {
+                TreeInfo += "null;";
+            }
+
+
+            // get x and y posistions and width and height
+            posistion = await JS.InvokeAsync<float[]>("xyPosistion", node.name);
+
+            // store x and y posistions and width and height
+            //TreeInfo += "X value: "; 
+            TreeInfo += posistion[0] + "px;";
+            //TreeInfo += "Y value: ";
+            TreeInfo += posistion[1] + "px;";
+            //TreeInfo += "Width value: ";
+            TreeInfo += posistion[2] + "px;";
+            //TreeInfo += "Height value: "; 
+            TreeInfo += posistion[3] + "px;";
+
+            TreeInfo += "\n";
+
+        }
+
+        // node connection info section
+        TreeInfo += "NODE-CONNECTIONS\n";
+        foreach (Node node in Nodes)
+        {
+            TreeInfo += node.name + ";";
+            foreach(Node ConnectNode in node.NodeConnections)
+            {
+                TreeInfo += ConnectNode.name + ";";
+            }
+            TreeInfo += "\n";
+        }
+
+        // connector info section
+        TreeInfo += "CONNECTORS\n";
+
+        foreach (Connectors connect in Connections)
+        {
+            // store general info
+            //TreeInfo += "Connector name: ";
+            TreeInfo += connect.name + ";";
+
+            // get x and y posistions and width and height
+            posistion = await JS.InvokeAsync<float[]>("xyPosistion", connect.name);
+
+            // store x and y posistions and width and height
+            //TreeInfo += "X value: ";
+            TreeInfo += posistion[0] + "px;";
+            //TreeInfo += "Y value: ";
+            TreeInfo += posistion[1] + "px;";
+            //TreeInfo += "Width value: ";
+            TreeInfo += posistion[2] + "px;";
+            //TreeInfo += "Height value: ";
+            TreeInfo += posistion[3] + "px;";
+
+            TreeInfo += "\n";
+        }
+
+        // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
+        byte[] writeArr = Encoding.UTF8.GetBytes(TreeInfo);
+
+        // Using the Write method write the encoded byte array to the textfile
+        FileWrite.Write(writeArr, 0, TreeInfo.Length);
+
+        // Closee the FileStream object
+        FileWrite.Close();
+
+    }
+
+}

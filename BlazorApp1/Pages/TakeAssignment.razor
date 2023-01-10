@@ -1,0 +1,126 @@
+﻿@page "/takeassignment/{name}"
+
+@using Objects
+
+@inject NavigationManager UriHelper
+
+<h3>TakeAssignment</h3>
+
+@foreach (AssignmentQuestion Q in Questions)
+{
+    <p> @Q.question </p>
+    <from>
+        @foreach(string Op in Q.options)
+        {
+            <input type="@Q.type" id=@Op  @bind="Q.inputedAnswers" />
+            <label> @Op</label> 
+            <br/>
+        }
+    </from>
+}
+
+<br />
+<button class="btn btn-primary" @onclick="Submit">Submit</button>
+
+@foreach(AssignmentQuestion Q in Questions)
+{
+    <p>@Q.question</p>
+    <p>@Q.inputedAnswers</p>
+}
+
+@code {
+
+    [Parameter]
+    public string name { get; set; }
+
+    private string FolderPath = @"C:\Users\Caleb\Desktop\BlazorApp1\AssignmentFolder\";
+    private List<AssignmentQuestion> Questions;
+    AssignmentQuestion question;
+    private bool QuestionSec;
+    private bool TypeSec;
+    private bool OptionSec;
+    private bool AnswerSec;
+
+    private string inputAnswer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Questions = new List<AssignmentQuestion>();
+        QuestionSec = false;
+        TypeSec = false;
+        OptionSec = false;
+        AnswerSec = false;
+
+        // Read a text file line by line.
+        string[] lines = File.ReadAllLines(FolderPath + name);
+
+        foreach (string line in lines)
+        {
+            if (line.Trim() == "questions")
+            {
+                QuestionSec = true;
+                TypeSec = false;
+                OptionSec = false;
+                AnswerSec = false;
+                continue;
+            }
+            else if (line.Trim() == "type")
+            {
+                QuestionSec = false;
+                TypeSec = true;
+                OptionSec = false;
+                AnswerSec = false;
+                continue;
+            }
+            else if (line.Trim() == "options")
+            {
+                QuestionSec = false;
+                TypeSec = false;
+                OptionSec = true;
+                AnswerSec = false;
+                continue;
+            }
+            else if (line.Trim() == "answer")
+            {
+                QuestionSec = false;
+                TypeSec = false;
+                OptionSec = false;
+                AnswerSec = true;
+                continue;
+            }
+            else if (line.Trim() == "end")
+            {
+                QuestionSec = false;
+                TypeSec = false;
+                OptionSec = false;
+                AnswerSec = false;
+                Questions.Add(question);
+                continue;
+            }
+
+            if (QuestionSec)
+            {
+                question = new AssignmentQuestion(line);
+            }
+            else if (TypeSec)
+            {
+                question.type = line;
+            }
+            else if (OptionSec)
+            {
+                question.options = line.Split(';');
+            }
+            else if (AnswerSec)
+            {
+                question.answers = line.Split(';');
+            }
+        }
+    }
+
+    public void Submit()
+    {
+        UriHelper.NavigateTo($"assignments");
+    }
+
+
+}

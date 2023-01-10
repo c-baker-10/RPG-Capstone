@@ -1,0 +1,29 @@
+﻿@page "/assignments"
+
+@inject NavigationManager UriHelper
+
+<h3>Assignments</h3>
+<br/>
+
+@foreach (string file in Files)
+{
+    <div class="container" @onclick="() => TakeAssignment(Path.GetFileName(file))">
+        @Path.GetFileNameWithoutExtension(file)
+    </div>
+}
+
+@code {
+    private string FolderPath = @"C:\Users\Caleb\Desktop\BlazorApp1\AssignmentFolder\";
+    private string[] Files;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Files = Directory.GetFiles(FolderPath);
+
+    }
+
+    public void TakeAssignment(string fileName)
+    {
+        UriHelper.NavigateTo($"takeassignment/{fileName}");
+    }
+}

@@ -1,0 +1,23 @@
+﻿@page "/nodeinformation/{name}/{fileName}"
+
+@using Objects
+
+@inject NavigationManager UriHelper
+
+<h3> @name Information</h3>
+
+<button class="btn btn-primary" @onclick="Back">Back</button>
+
+@code {
+
+    [Parameter]
+    public string name { get; set; }
+
+    [Parameter]
+    public string fileName { get; set; }
+
+    public void Back()
+    {
+        UriHelper.NavigateTo($"skilltree/{fileName}");
+    }
+}

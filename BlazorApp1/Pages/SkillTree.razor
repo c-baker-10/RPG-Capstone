@@ -1,0 +1,187 @@
+﻿@page "/skilltree"
+@page "/skilltree/{sentFile}"
+
+@using System;
+@using System.IO;
+@using Objects
+
+@inject IJSRuntime JS;
+@inject NavigationManager UriHelper
+
+<h3>SkillTree</h3>
+
+@if (Files != null)
+{
+    <label for="Files">Choose a file:</label>
+    <select name="Files" id="Files" @bind="FileName">
+    <option disabled selected value> -- select an option -- </option>
+    @foreach (string file in Files)
+    {
+            <option>@Path.GetFileNameWithoutExtension(file) </option>
+    }
+    </select>
+}
+
+<button class="btn btn-primary" @onclick="LoadTree">Load Tree</button>
+
+@if (Connections != null)
+{
+    @foreach (Connectors Connect in Connections)
+    {
+        <div id="@Connect.name" class="ConnectorCSS"> <p> @Connect.name </p></div>
+    }
+}
+
+@if (Nodes != null)
+{
+    @foreach (Node node in Nodes)
+    {
+        <div id="@node.name" class="nodeCSS" @onclick="() => NodePage(node)"> <p> @node.name </p> </div>
+    }
+}
+
+@code {
+
+    bool NodeSec, ConnectionSec, Connectors;
+
+    private List<Node> Nodes;
+    private List<Connectors> Connections;
+
+    private string FolderPath = @"C:\Users\Caleb\Desktop\BlazorApp1\SavedSkillTrees\";
+    private string FileName;
+    private string[] Files;
+    private string[] info;
+
+    [Parameter]
+    public string sentFile { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Files = Directory.GetFiles(FolderPath);
+
+        if (sentFile != null)
+        {
+            FileName = sentFile;
+            LoadTree();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(Nodes != null && Connections != null)
+        {
+            foreach (Node node in Nodes)
+            {
+                await JS.InvokeVoidAsync("setNodePosistion", node.name, node.xPosistion, node.yPosistion);
+            }
+            foreach (Connectors conectors in Connections)
+            {
+                JS.InvokeVoidAsync("setConnectorPosistion", conectors.name, conectors.xPosistion, conectors.yPosistion, conectors.width, conectors.height);
+            }
+        }
+    }
+
+    private async void LoadTree()
+    {
+        Nodes = new List<Node>();
+        Connections = new List<Connectors>();
+
+        NodeSec = false;
+        ConnectionSec = false;
+        Connectors = false;
+
+        // Read a text file line by line.
+        string[] lines = File.ReadAllLines(FolderPath + FileName);
+
+        foreach (string line in lines)
+        {
+            if (line == "NODE")
+            { 
+                NodeSec = true; 
+                ConnectionSec = false;
+                Connectors = false;
+                continue;
+            }
+            if (line == "NODE-CONNECTIONS")
+            { 
+                NodeSec = false;
+                ConnectionSec = true;
+                Connectors = false;
+                continue;
+            }
+            if (line == "CONNECTORS") 
+            { 
+                NodeSec = false;
+                ConnectionSec = false;
+                Connectors = true;
+                continue;
+            }
+
+            info = line.Split(";");
+
+            if(NodeSec)
+            {
+                Node node = new Node(info[0]);
+
+                if(info[1] != "null")
+                {
+                    node.description = info[1];
+                }
+
+                if (info[2] != "null")
+                {
+                    node.links = info[2];
+                }
+
+                node.xPosistion = info[3];
+                node.yPosistion = info[4];
+                node.width = info[5];
+                node.height = info[6];
+
+                Nodes.Add(node);
+            }
+            else if (ConnectionSec)
+            {
+                foreach(Node node in Nodes)
+                {
+                    if(node.name == info[0])
+                    {
+                        foreach(string name in info)
+                        {
+                            if(name != info[0])
+                            {
+                                foreach (Node connectNode in Nodes)
+                                {
+                                    if(connectNode.name == name)
+                                    {
+                                        node.NodeConnections.Add(connectNode);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+            else if (Connectors)
+            {
+                Connectors connect = new Connectors(info[0]);
+
+                connect.xPosistion = info[1];
+                connect.yPosistion = info[2];
+                connect.width = info[3];
+                connect.height = info[4];
+
+                Connections.Add(connect);
+            }
+        }
+    }
+
+    public void NodePage(Node node)
+    {
+        UriHelper.NavigateTo($"nodeinformation/{node.name}/{FileName}");
+    }
+
+}
