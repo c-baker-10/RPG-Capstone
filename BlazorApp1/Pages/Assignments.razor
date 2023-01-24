@@ -13,7 +13,7 @@
 }
 
 @code {
-    private string FolderPath = @"C:\Users\Caleb\Desktop\BlazorApp1\AssignmentFolder\";
+    private string FolderPath = Directory.GetCurrentDirectory() + @"\AssignmentFolder\";
     private string[] Files;
 
     protected override async Task OnInitializedAsync()

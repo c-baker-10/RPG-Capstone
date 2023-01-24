@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xDcfua/ZTF2ywyWaLRShJWjIE5s8OBeGNlRIjCQpHSj+IEOEhyTRwf0140Uh9Uo1K3+ccTQKouSMrmutYpcAlw==",
+  "dgSpecHash": "0ogAk8vDH7dihHM9IBl7wFI6pYvtznOpB0jTu8YKdgWPj7v17mgORe7jRmxI+xYx8kaB04/3TLZPA3zljO1rRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Caleb\\Desktop\\BlazorApp1\\BlazorApp1.csproj",
+  "projectFilePath": "C:\\Users\\Caleb\\Source\\Repos\\RPG-Capstone\\BlazorApp1\\BlazorApp1.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -47,7 +47,7 @@
     private List<Node> Nodes;
     private List<Connectors> Connections;
 
-    private string FolderPath = @"C:\Users\Caleb\Desktop\BlazorApp1\SavedSkillTrees\";
+    private string FolderPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\";
     private string FileName;
     private string[] Files;
     private string[] info;
