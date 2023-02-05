@@ -1,0 +1,10 @@
+﻿Name|
+testUser
+General| 
+General information
+Badges|
+No badges yet
+Items|
+No items yet
+Stuff|
+Random information

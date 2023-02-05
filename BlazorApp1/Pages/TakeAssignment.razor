@@ -56,7 +56,7 @@
 
         foreach (string line in lines)
         {
-            if (line.Trim() == "questions")
+            if (line.Trim() == "questions|")
             {
                 QuestionSec = true;
                 TypeSec = false;
@@ -64,7 +64,7 @@
                 AnswerSec = false;
                 continue;
             }
-            else if (line.Trim() == "type")
+            else if (line.Trim() == "type|")
             {
                 QuestionSec = false;
                 TypeSec = true;
@@ -72,7 +72,7 @@
                 AnswerSec = false;
                 continue;
             }
-            else if (line.Trim() == "options")
+            else if (line.Trim() == "options|")
             {
                 QuestionSec = false;
                 TypeSec = false;
@@ -80,7 +80,7 @@
                 AnswerSec = false;
                 continue;
             }
-            else if (line.Trim() == "answer")
+            else if (line.Trim() == "answer|")
             {
                 QuestionSec = false;
                 TypeSec = false;
@@ -88,7 +88,7 @@
                 AnswerSec = true;
                 continue;
             }
-            else if (line.Trim() == "end")
+            else if (line.Trim() == "end|")
             {
                 QuestionSec = false;
                 TypeSec = false;

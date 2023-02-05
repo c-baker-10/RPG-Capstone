@@ -1,28 +1,44 @@
 ﻿@page "/persona"
 
-<h3>Welcome "Name": level #1</h3>
+@using Objects
+
+<h3>Welcome @user.UserName: level #@user.Level</h3>
 
 <br/>
 
 <img src="PersonaImages/ExampleImage.png" alt="Example Persona" class="avater">
 
 <div class="container">
-    General
+    @user.General
 </div>
 
 <div class="container">
-    Badges
+    @user.Badges
 </div>
 
 <div class="container">
-    Items
+    @user.Items
 </div>
 
 <div class="container">
-    Stuff
+    @user.Stuff
 </div>
 
 
 @code {
+    User user;
 
+    protected override async Task OnInitializedAsync()
+    {
+        user = new User();
+
+        user.UserName = "testUser";
+
+        user.General = "General";
+        user.Badges = "Badges";
+        user.Items = "Items";
+        user.Stuff = "Stuff";
+
+        user.Level = "1";
+    }
 }

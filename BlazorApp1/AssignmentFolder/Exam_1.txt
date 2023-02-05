@@ -1,27 +1,27 @@
-﻿questions
+﻿questions|
 What is 1 + 2
-type
+type|
 radio
-options
+options|
 2;3;4;5
-answer
+answer|
 3
-end
-questions
+end|
+questions|
 What values are larger then 3
-type
+type|
 checkbox
-options 
+options|
 2;3;4;5
-answer
+answer|
 4;5
-end
-questions
+end|
+questions|
 What values is 5 + 1
-type
+type|
 text
-options
+options|
 
-answer
+answer|
 anything
-end
+end|

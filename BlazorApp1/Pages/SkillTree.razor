@@ -96,21 +96,21 @@
 
         foreach (string line in lines)
         {
-            if (line == "NODE")
+            if (line == "NODE|")
             { 
                 NodeSec = true; 
                 ConnectionSec = false;
                 Connectors = false;
                 continue;
             }
-            if (line == "NODE-CONNECTIONS")
+            if (line == "NODE-CONNECTIONS|")
             { 
                 NodeSec = false;
                 ConnectionSec = true;
                 Connectors = false;
                 continue;
             }
-            if (line == "CONNECTORS") 
+            if (line == "CONNECTORS|")
             { 
                 NodeSec = false;
                 ConnectionSec = false;
