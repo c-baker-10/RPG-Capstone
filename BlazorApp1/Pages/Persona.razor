@@ -26,19 +26,103 @@
 
 
 @code {
-    User user;
+
+    private string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
+    private string FileName = "testUser.txt";
+    private User user;
+
 
     protected override async Task OnInitializedAsync()
     {
+        string[] lines = File.ReadAllLines(FolderPath + FileName);
+
         user = new User();
 
-        user.UserName = "testUser";
+        bool UserName = false;
+        bool General = false;
+        bool Badges = false;
+        bool Items = false;
+        bool Stuff = false;
+        bool Level = false;
 
-        user.General = "General";
-        user.Badges = "Badges";
-        user.Items = "Items";
-        user.Stuff = "Stuff";
+        foreach (string line in lines)
+        {
+            if (line == "NAME|")
+            {
+                UserName = true; 
+                General = false; Badges = false; Items = false; Stuff = false; Level = false;
+                continue;
+            }
+            if (line == "GENERAL|")
+            {
+                UserName = false;
+                General = true;
+                Badges = false; Items = false; Stuff = false; Level = false;
+                continue;
+            }
+            if (line == "BADGES|")
+            {
+                UserName = false;
+                General = false;
+                Badges = true;
+                Items = false; Stuff = false; Level = false;
+                continue;
+            }
+            if (line == "ITEMS|")
+            {
+                UserName = false;
+                General = false;
+                Badges = false;
+                Items = true;
+                Stuff = false; Level = false;
+                continue;
+            }
+            if (line == "STUFF|")
+            {
+                UserName = false;
+                General = false;
+                Badges = false;
+                Items = false;
+                Stuff = true;
+                Level = false;
+                continue;
+            }
+            if (line == "LEVEL|")
+            {
+                UserName = false;
+                General = false;
+                Badges = false;
+                Items = false;
+                Stuff = false;
+                Level = true;
+                continue;
+            }
 
-        user.Level = "1";
+            if (UserName)
+            {
+                user.UserName = line;
+            }
+            else if (General)
+            {
+                user.General = line;
+            }
+            else if (Badges)
+            {
+                user.Badges = line;
+            }
+            else if (Items)
+            {
+                user.Items = line;
+            }
+            else if (Stuff)
+            {
+                user.Stuff = line;
+            }
+            else if (Level)
+            {
+                user.Level = line;
+            }
+
+        }
     }
 }

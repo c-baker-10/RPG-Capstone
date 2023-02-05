@@ -1,10 +1,12 @@
-﻿Name|
+﻿NAME|
 testUser
-General| 
+GENERAL|
 General information
-Badges|
+BADGES|
 No badges yet
-Items|
+ITEMS|
 No items yet
-Stuff|
+STUFF|
 Random information
+LEVEL|
+1
