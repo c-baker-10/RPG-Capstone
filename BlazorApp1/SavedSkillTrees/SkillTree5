@@ -1,0 +1,8 @@
+NODE|
+N1;null;null;732px;644.1875px;37.453125px;40px;True;
+N2;null;null;727px;265.1875px;37.453125px;40px;False;
+NODE-CONNECTIONS|
+N1;
+N2;
+CONNECTORS|
+C1;735px;308.1875px;25px;336.17188px;

@@ -9,19 +9,21 @@
 
 <h3>Make a Skill Tree</h3>
 
-<button class="btn btn-primary" @onclick="AddNode">Add Node</button>
+<button class="btn btn-primary" @onclick="AddNode"> Add Node </button>
 
-<button class="btn btn-primary" @onclick="AddConnection">Add Connections</button>
+<button class="btn btn-primary" @onclick="AddConnection">Add Connections </button>
 
-<button class="btn btn-primary" @onclick="RemoveNode">Remove Node</button>
+<button class="btn btn-primary" @onclick="RemoveNode">Remove Node </button>
 
-<button class="btn btn-primary" @onclick="RemoveConnector">Remove Connector</button>
+<button class="btn btn-primary" @onclick="RemoveConnector">Remove Connector </button>
 
-<button class="btn btn-primary" @onclick="EditNode">Edit Selected Node</button>
+<button class="btn btn-primary" @onclick="EditNode">Edit Selected Node </button>
 
-<button class="btn btn-primary" @onclick="ConnectNode"> Connect Nodes</button>
+<button class="btn btn-primary" @onclick="ConnectNode"> Connect Nodes </button>
 
-<button class="btn btn-primary" @onclick="SaveTree"> Save Skill Tree</button>
+<button class="btn btn-primary" @onclick="SelectStart"> Start Node </button>
+
+<button class="btn btn-primary" @onclick="SaveTree"> Save Skill Tree </button>
 
 <p style ="display:inline">Selected Node: </p>
 @if (SelectedNode != null)
@@ -170,6 +172,14 @@
         }
     }
 
+    private void SelectStart()
+    {
+        if (SelectedNode.startingNode == false)
+        {
+            SelectedNode.startingNode = true;
+        }
+    }
+
 
     int FileIndex = 1;
     string FileName, FileDesPath, TreeInfo;
@@ -179,7 +189,7 @@
     {
         // set file name and destination path
         FileName = "SkillTree" + FileIndex;
-        FileDesPath = @"C:\Users\Caleb\Desktop\BlazorApp1\SavedSkillTrees\" + FileName;
+        FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + FileName;
 
         // Check if file already exists. If yes, adds one to the exisiting file name
         while (true)
@@ -189,7 +199,7 @@
                 // update file name and destination path if current file name exists
                 FileIndex++;
                 FileName = "SkillTree" + FileIndex;
-                FileDesPath = @"C:\Users\Caleb\Desktop\BlazorApp1\SavedSkillTrees\" + FileName;
+                FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + FileName;
             }
             else
             {
@@ -203,7 +213,7 @@
         FileIndex++;
 
         // node info section
-        TreeInfo = "NODE\n";
+        TreeInfo = "NODE|\n";
 
         foreach (Node node in Nodes)
         {
@@ -247,12 +257,14 @@
             //TreeInfo += "Height value: "; 
             TreeInfo += posistion[3] + "px;";
 
+            TreeInfo += node.startingNode +";";
+
             TreeInfo += "\n";
 
         }
 
         // node connection info section
-        TreeInfo += "NODE-CONNECTIONS\n";
+        TreeInfo += "NODE-CONNECTIONS|\n";
         foreach (Node node in Nodes)
         {
             TreeInfo += node.name + ";";
@@ -264,7 +276,7 @@
         }
 
         // connector info section
-        TreeInfo += "CONNECTORS\n";
+        TreeInfo += "CONNECTORS|\n";
 
         foreach (Connectors connect in Connections)
         {

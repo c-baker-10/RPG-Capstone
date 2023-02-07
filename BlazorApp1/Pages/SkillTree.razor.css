@@ -18,3 +18,14 @@
     text-align: center;
     box-sizing: border-box;
 }
+.UserCSS {
+    width: 2%;
+    min-height: 2.5em;
+    margin: 1rem 0 0 1rem;
+    background-color: forestgreen;
+    color: white;
+    border-radius: 0.75em;
+    transform: translate(0px, 0px);
+    text-align: center;
+    top: 400px;
+}

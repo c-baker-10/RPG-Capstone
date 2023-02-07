@@ -77,6 +77,17 @@
     text-align: center;
     box-sizing: border-box;
 }
+.UserCSS[b-w4mggbtoum] {
+    width: 2%;
+    min-height: 2.5em;
+    margin: 1rem 0 0 1rem;
+    background-color: forestgreen;
+    color: white;
+    border-radius: 0.75em;
+    transform: translate(0px, 0px);
+    text-align: center;
+    top: 400px;
+}
 /* _content/BlazorApp1/Shared/MainLayout.razor.rz.scp.css */
 .page[b-45rkf8v3vv] {
     position: relative;
