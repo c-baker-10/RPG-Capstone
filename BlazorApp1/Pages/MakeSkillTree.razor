@@ -53,8 +53,10 @@
         <EditForm Model="@SelectedNode">
             <label for="Name"> Node Name</label>
             <InputText id="Name" @bind-Value="SelectedNode.name" /> <br/>
-            <label for="Etype"> Node Education Type</label>
-            <InputText id="Etype" @bind-Value="SelectedNode.EducationType" />
+            <label for="Edtype"> Node Education Type</label>
+            <InputText id="Edtype" @bind-Value="SelectedNode.EducationType" />
+            <label for="Entype"> Node Education Type</label>
+            <InputText id="Entype" @bind-Value="SelectedNode.EducationType" />
         </EditForm>
         <ul>
             @if (SelectedNode.NodeConnections != null)
@@ -289,6 +291,8 @@
             TreeInfo += node.startingNode +";";
 
             TreeInfo += node.EducationType +";";
+
+            TreeInfo += node.entryScore + ";";
 
             TreeInfo += "\n";
 

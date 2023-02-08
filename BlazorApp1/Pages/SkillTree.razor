@@ -37,13 +37,16 @@
     @foreach (Node node in Nodes)
     {
         <div id="@node.name" class="nodeCSS" @onclick="() => NodePage(node)"> <p> @node.name </p> </div>
+        @if (node.userAt)
+        {
+            <div id="@(node.name+"userIcon")" class="UserCSS"> </div>
+        }
+
     }
-    <div id="userIcon" class="UserCSS"> </div>
 }
 
 
 @code {
-    string test = null;
 
     bool NodeSec, ConnectionSec, Connectors;
 
@@ -55,6 +58,8 @@
     private string[] Files;
     private string[] info;
 
+    private User user = new User();
+
     [Parameter]
     public string sentFile { get; set; }
 
@@ -62,6 +67,7 @@
     protected override async Task OnInitializedAsync()
     {
         Files = Directory.GetFiles(FolderPath);
+        user = user.buildUser();
 
         if (sentFile != null)
         {
@@ -77,13 +83,9 @@
             foreach (Node node in Nodes)
             {
                 await JS.InvokeVoidAsync("setNodePosistion", node.name, node.xPosistion, node.yPosistion);
-                if(node.startingNode)
+                if (node.userAt)
                 {
-                    string xstring = node.xPosistion.Remove(node.xPosistion.Length-2);
-                    Decimal xint = Decimal.Parse(xstring) + 50;
-                    string finalthing = xint + "px";
-
-                    await JS.InvokeVoidAsync("setNodePosistion", "userIcon", finalthing, node.yPosistion);
+                    await JS.InvokeVoidAsync("setNodePosistion", node.name+"userIcon", Decimal.Parse(node.xPosistion.Remove(node.xPosistion.Length - 2)) + 50 + "px", node.yPosistion);
                 }
             }
             foreach (Connectors conectors in Connections)
@@ -152,6 +154,7 @@
 
                 node.startingNode = bool.Parse(info[7]);
                 node.EducationType = info[8];
+                node.entryScore = info[9];
 
                 Nodes.Add(node);
             }
@@ -189,6 +192,29 @@
                 connect.height = info[4];
 
                 Connections.Add(connect);
+            }
+        }
+        UserLocation();
+    }
+
+    private void UserLocation()
+    {
+        foreach(Node node in Nodes)
+        {
+            if(node.startingNode)
+            {
+                node.userAt = true;
+                foreach(Node n in node.NodeConnections)
+                {
+                    foreach (string[] skill in user.skillDistribution)
+                    {
+                        if (n.EducationType.Equals(skill[0]) && Int32.Parse(n.entryScore) <= Int32.Parse(skill[1]))
+                        {
+                            n.userAt = true;
+                            node.userAt = false;
+                        }
+                    }
+                }
             }
         }
     }

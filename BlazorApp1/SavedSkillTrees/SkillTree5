@@ -1,6 +1,6 @@
 NODE|
-N1;null;null;732px;644.1875px;37.453125px;40px;True;addition;
-N2;null;null;727px;265.1875px;37.453125px;40px;False;addition;
+N1;null;null;732px;644.1875px;37.453125px;40px;True;addition;50;
+N2;null;null;727px;265.1875px;37.453125px;40px;False;addition;70;
 NODE-CONNECTIONS|
 N1;
 N2;

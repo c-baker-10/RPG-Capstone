@@ -1,0 +1,14 @@
+NODE|
+N1;null;null;840px;712.1875px;37.453125px;40px;True;addition;50;
+N2;null;null;1105px;503.1875px;37.453125px;40px;False;addition;70;
+N3;null;null;558px;503.1875px;37.453125px;40px;False;subtraction;50;
+N4;null;null;1105px;309.1875px;37.453125px;40px;False;addition;100;
+NODE-CONNECTIONS|
+N1;N2;N3;
+N2;N3;
+N3;
+N4;
+CONNECTORS|
+C1;847.4531px;514.1875px;25px;198px;
+C2;592px;510.15625px;515.7031px;25px;
+C3;1109.4531px;349.1875px;27px;154px;

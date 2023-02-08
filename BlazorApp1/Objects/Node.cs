@@ -18,6 +18,7 @@
         public string width { get; set; }
         public string height { get; set; }
         public string EducationType { get; set; }
+        public string entryScore { get; set; }
 
         public bool startingNode = false;
         public bool userAt = false;
