@@ -9,21 +9,30 @@
 
 <h3>Make a Skill Tree</h3>
 
-<button class="btn btn-primary" @onclick="AddNode"> Add Node </button>
+<label for="Files">Node options:</label>
+<select name="Files" id="Files" @bind="NodeInput">
+    <option disabled selected value> -- select an option -- </option>
+    <option> Add Node </option>
+    <option> Remove Node </option>
+    <option> Edit Selected Node </option>
+    <option> Connect Nodes </option>
+    <option> Start Node </option>
+</select>
 
-<button class="btn btn-primary" @onclick="AddConnection">Add Connections </button>
+<button class="btn btn-primary" @onclick="Nodeinput"> enter </button>
 
-<button class="btn btn-primary" @onclick="RemoveNode">Remove Node </button>
+<label for="Files">Connection options:</label>
+<select name="Files" id="Files" @bind="ConnectionInput">
+    <option disabled selected value> -- select an option -- </option>
+    <option> Add Connection </option>
+    <option> Remove Connection </option>
+</select>
 
-<button class="btn btn-primary" @onclick="RemoveConnector">Remove Connector </button>
+<button class="btn btn-primary" @onclick="Connectioninput"> enter </button>
 
-<button class="btn btn-primary" @onclick="EditNode">Edit Selected Node </button>
+<button class="btn btn-primary" @onclick="SaveTree" style="float: right" > Save Skill Tree </button>
 
-<button class="btn btn-primary" @onclick="ConnectNode"> Connect Nodes </button>
-
-<button class="btn btn-primary" @onclick="SelectStart"> Start Node </button>
-
-<button class="btn btn-primary" @onclick="SaveTree"> Save Skill Tree </button>
+<br/>
 
 <p style ="display:inline">Selected Node: </p>
 @if (SelectedNode != null)
@@ -43,14 +52,17 @@
         <p> User Input: </p>
         <EditForm Model="@SelectedNode">
             <label for="Name"> Node Name</label>
-            <InputText id="Name" @bind-Value="SelectedNode.name" />
+            <InputText id="Name" @bind-Value="SelectedNode.name" /> <br/>
+            <label for="Etype"> Node Education Type</label>
+            <InputText id="Etype" @bind-Value="SelectedNode.EducationType" />
         </EditForm>
         <ul>
             @if (SelectedNode.NodeConnections != null)
             {
+                <p style="display:inline">Node Connections: </p>
                 @foreach (Node node in SelectedNode.NodeConnections)
                 {
-                    <li> @node.name </li>
+                    <p style="display:inline"> @node.name </p>
                 }
             }
         </ul>
@@ -77,6 +89,9 @@
     Node SelectedNode, node;
     Connectors SelectedConnector, connector;
 
+    string NodeInput;
+    string ConnectionInput;
+
     int SelectedNodeIndex = -1;
 
     // allows divs to be dragged and dropped
@@ -84,6 +99,21 @@
     {
         await JS.InvokeVoidAsync("dragAndDrop", ".draggable");
         await JS.InvokeVoidAsync("resizeDrag", ".resizedrag");
+    }
+
+    private void Nodeinput()
+    {
+        if (NodeInput == "Add Node"){ AddNode(); }
+        if (NodeInput == "Remove Node") { RemoveNode(); }
+        if (NodeInput == "Edit Selected Node") { EditNode(); }
+        if (NodeInput == "Connect Nodes") { ConnectNode(); }
+        if (NodeInput == "Start Nodes") { SelectStart(); }
+    }
+
+    private void Connectioninput()
+    {
+        if (ConnectionInput == "Add Connection") { AddConnection(); } 
+        if (ConnectionInput == "Remove Connection") { RemoveConnector(); }
     }
 
     // sets clicked node to be selected
