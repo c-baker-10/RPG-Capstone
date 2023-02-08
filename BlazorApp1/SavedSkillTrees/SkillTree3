@@ -5,7 +5,7 @@ N3;null;null;558px;503.1875px;37.453125px;40px;False;subtraction;50;
 N4;null;null;1105px;309.1875px;37.453125px;40px;False;addition;100;
 NODE-CONNECTIONS|
 N1;N2;N3;
-N2;N3;
+N2;N4;
 N3;
 N4;
 CONNECTORS|

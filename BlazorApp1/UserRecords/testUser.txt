@@ -11,5 +11,5 @@ Random information
 LEVEL|
 1
 DISTRIBUTION|
-addition;80
-subtraction;60
+addition;120;
+subtraction;60;

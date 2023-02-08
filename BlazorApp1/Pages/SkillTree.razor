@@ -201,7 +201,7 @@
     {
         foreach(Node node in Nodes)
         {
-            if(node.startingNode)
+            if(node.startingNode || node.userAt)
             {
                 node.userAt = true;
                 foreach(Node n in node.NodeConnections)
