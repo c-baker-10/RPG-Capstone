@@ -15,7 +15,7 @@
     <option> Add Node </option>
     <option> Remove Node </option>
     <option> Edit Selected Node </option>
-    <option> Connect Nodes </option>
+    <option value="Connect Nodes"> @NodeConnections </option>
     <option> Start Node </option>
 </select>
 
@@ -39,11 +39,24 @@
 {
      <p style="display:inline"> <b> @SelectedNode.name </b> </p>
 }
+else
+{
+    <p style="display:inline"> <b> None </b> </p>
+}
 
 <p style="display:inline"> Selected Connector: </p>
 @if (SelectedConnector != null)
 {
     <p style="display:inline"> <b> @SelectedConnector.name </b> </p>
+}
+else
+{
+    <p style="display:inline"> <b> None </b> </p>
+}
+
+@if (connecting)
+{
+    <p style="display:inline"> <b> @SelectedNode.name -> @ConnectedNodeName</b> </p>
 }
 
 @if (SelectedNode != null && editing)
@@ -54,17 +67,24 @@
             <label for="Name"> Node Name</label>
             <InputText id="Name" @bind-Value="SelectedNode.name" /> <br/>
             <label for="Edtype"> Node Education Type</label>
-            <InputText id="Edtype" @bind-Value="SelectedNode.EducationType" />
-            <label for="Entype"> Node Education Type</label>
-            <InputText id="Entype" @bind-Value="SelectedNode.EducationType" />
+            <InputText id="Edtype" @bind-Value="SelectedNode.EducationType" /> <br />
+            <label for="Entype"> Node Entry Score</label>
+            <InputText id="Entype" @bind-Value="SelectedNode.entryScore" />
         </EditForm>
         <ul>
             @if (SelectedNode.NodeConnections != null)
             {
                 <p style="display:inline">Node Connections: </p>
-                @foreach (Node node in SelectedNode.NodeConnections)
+                @if (SelectedNode.NodeConnections.Count == 0)
                 {
-                    <p style="display:inline"> @node.name </p>
+                    <p style="display:inline"> None </p>
+                }
+                else
+                {
+                    @foreach (Node node in SelectedNode.NodeConnections)
+                    {
+                        <p style="display:inline"> @node.name </p>
+                    }
                 }
             }
         </ul>
@@ -93,6 +113,8 @@
 
     string NodeInput;
     string ConnectionInput;
+    string ConnectedNodeName;
+    string NodeConnections = "Connect Nodes";
 
     int SelectedNodeIndex = -1;
 
@@ -130,8 +152,9 @@
         }
         else
         {
-            if(SelectedNode != null && SelectedNode != node)
+            if (SelectedNode != null && SelectedNode != node && !SelectedNode.NodeConnections.Contains(node))
             {
+                ConnectedNodeName = node.name;
                 SelectedNode.NodeConnections.Add(node);
             }
         }
@@ -195,10 +218,13 @@
     {
         if(connecting == true)
         {
+            NodeConnections = "Connecting Nodes";
             connecting = false;
         }
         else
         {
+            NodeConnections = "Stop Connecting Nodes";
+            ConnectedNodeName = "";
             connecting = true;
         }
     }
