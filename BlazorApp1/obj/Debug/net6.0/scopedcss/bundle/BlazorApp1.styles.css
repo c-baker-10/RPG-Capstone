@@ -6,18 +6,6 @@
     border: 4px solid black;
     margin: 20px;
 }
-/* _content/BlazorApp1/Pages/DragAndDrop.razor.rz.scp.css */
-.draggable[b-ybsbcof13q] {
-    width: 25%;
-    min-height: 6.5em;
-    margin: 1rem 0 0 1rem;
-    background-color: #29e;
-    color: white;
-    border-radius: 0.75em;
-    padding: 4%;
-    touch-action: none;
-    user-select: none;
-}
 /* _content/BlazorApp1/Pages/MakeSkillTree.razor.rz.scp.css */
 .draggable[b-w8rhkp1k05] {
     width: 2%;
