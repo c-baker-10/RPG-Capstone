@@ -20,10 +20,17 @@
         public User buildUser()
         {
             string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
-            string FileName = "testUser.txt";
-
-            string[] lines = File.ReadAllLines(FolderPath + FileName);
-
+            string FileName = User.UserName + ".txt";
+            string[] lines;
+            try
+            {
+                lines = File.ReadAllLines(FolderPath + FileName);
+            }
+            catch(FileNotFoundException e)
+            {
+                lines = File.ReadAllLines(FolderPath + "testUser.txt");
+            }
+     
             User user = new User();
 
             bool UserName = false;

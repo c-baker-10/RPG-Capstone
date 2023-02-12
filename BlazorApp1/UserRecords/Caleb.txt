@@ -1,0 +1,15 @@
+﻿NAME|
+Caleb
+GENERAL|
+General information
+BADGES|
+No badges yet
+ITEMS|
+No items yet
+STUFF|
+Random information
+LEVEL|
+1
+DISTRIBUTION|
+addition;0;
+subtraction;0;

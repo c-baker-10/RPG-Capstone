@@ -2,24 +2,32 @@
 
 @page "/"
 
+@using Objects
 @inject NavigationManager UriHelper
 
 <h3>Login</h3>
 
-<Form>
+<EditForm Model="@user">
     <label for="UserName"> User Name</label>
-    <Input type="text" id="UserName" /> <br />
+    <InputText id="UserName" @bind-Value="@name" /> <br />
     <label for="UserPassword"> Password</label>
-    <Input type="text" id="UserPassword" /> <br />
-</Form>
+    <InputText id="UserPassword" @bind-Value="@password" /> <br />
+</EditForm>
 
 
 <button class="btn btn-primary" @onclick="Submit"> Submit </button>
 
 @code {
 
+    private User user = new User();
+    string name;
+    string password;
+
     private void Submit()
     {
+        User.UserName = name;
+        user = user.buildUser();
+        user.Password = password;
         UriHelper.NavigateTo($"home");
     }
 
