@@ -3,7 +3,7 @@
     public class User
     {
 
-        public string UserName { get; set; }
+        public static string UserName { get; set; }
         public string Password { get; set; }
 
         public string General { get; set; }
@@ -101,7 +101,7 @@
 
                 if (UserName)
                 {
-                    user.UserName = line;
+                    User.UserName = line;
                 }
                 else if (General)
                 {

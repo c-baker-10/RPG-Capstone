@@ -1,0 +1,26 @@
+﻿@layout LoginLayout
+
+@page "/"
+
+@inject NavigationManager UriHelper
+
+<h3>Login</h3>
+
+<Form>
+    <label for="UserName"> User Name</label>
+    <Input type="text" id="UserName" /> <br />
+    <label for="UserPassword"> Password</label>
+    <Input type="text" id="UserPassword" /> <br />
+</Form>
+
+
+<button class="btn btn-primary" @onclick="Submit"> Submit </button>
+
+@code {
+
+    private void Submit()
+    {
+        UriHelper.NavigateTo($"home");
+    }
+
+}
