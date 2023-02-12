@@ -5,13 +5,13 @@
 @using Objects
 @inject NavigationManager UriHelper
 
-<h3>Login</h3>
+<h1> RPG Classroom Login</h1>
 
 <EditForm Model="@user">
     <label for="UserName"> User Name</label>
-    <InputText id="UserName" @bind-Value="@name" /> <br />
+    <InputText id="UserName" @bind-Value="@name" placeholder="username" /> <br />
     <label for="UserPassword"> Password</label>
-    <InputText id="UserPassword" @bind-Value="@password" /> <br />
+    <InputText id="UserPassword" @bind-Value="@password" placeholder="password" type="password" /> <br />
 </EditForm>
 
 
@@ -20,8 +20,8 @@
 @code {
 
     private User user = new User();
-    string name;
-    string password;
+    private string name;
+    private string password;
 
     private void Submit()
     {
