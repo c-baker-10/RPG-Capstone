@@ -1,5 +1,7 @@
 ﻿NAME|
 Caleb
+PASSWORD|
+AJ6NLuwnRv52+goUVYYvKWIYvfZ6gU2t27RxRjGDVPw=
 GENERAL|
 General information
 BADGES|

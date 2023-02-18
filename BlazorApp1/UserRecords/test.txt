@@ -1,0 +1,15 @@
+﻿NAME|
+test
+GENERAL|
+General information
+BADGES|
+No badges yet
+ITEMS|
+No items yet
+STUFF|
+Random information
+LEVEL|
+1
+DISTRIBUTION|
+addition;120;
+subtraction;60;

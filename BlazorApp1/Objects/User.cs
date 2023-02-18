@@ -5,7 +5,6 @@
 
         public static string UserName { get; set; }
         public string Password { get; set; }
-
         public string General { get; set; }
         public string Badges { get; set; }
         public string Items { get; set; }
@@ -34,6 +33,7 @@
             User user = new User();
 
             bool UserName = false;
+            bool Password = false;
             bool General = false;
             bool Badges = false;
             bool Items = false;
@@ -46,12 +46,20 @@
                 if (line == "NAME|")
                 {
                     UserName = true;
+                    Password = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    continue;
+                }
+                if (line == "PASSWORD|")
+                {
+                    UserName = false;
+                    Password = true; 
                     General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
                     continue;
                 }
                 if (line == "GENERAL|")
                 {
                     UserName = false;
+                    Password = false;
                     General = true;
                     Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
                     continue;
@@ -59,6 +67,7 @@
                 if (line == "BADGES|")
                 {
                     UserName = false;
+                    Password = false;
                     General = false;
                     Badges = true;
                     Items = false; Stuff = false; Level = false; Distribution = false;
@@ -67,6 +76,7 @@
                 if (line == "ITEMS|")
                 {
                     UserName = false;
+                    Password = false;
                     General = false;
                     Badges = false;
                     Items = true;
@@ -76,6 +86,7 @@
                 if (line == "STUFF|")
                 {
                     UserName = false;
+                    Password = false;
                     General = false;
                     Badges = false;
                     Items = false;
@@ -86,6 +97,7 @@
                 if (line == "LEVEL|")
                 {
                     UserName = false;
+                    Password = false;
                     General = false;
                     Badges = false;
                     Items = false;
@@ -97,6 +109,7 @@
                 if (line == "DISTRIBUTION|")
                 {
                     UserName = false;
+                    Password = false;
                     General = false;
                     Badges = false;
                     Items = false;
@@ -109,6 +122,10 @@
                 if (UserName)
                 {
                     User.UserName = line;
+                }
+                else if (Password)
+                {
+                    user.Password = line;
                 }
                 else if (General)
                 {
