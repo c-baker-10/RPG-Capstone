@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Objects
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">RPG Classroom</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -14,11 +16,14 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="makeskilltree">
+        @if (user.Type == "Teacher")
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="makeskilltree">
                 <span class="oi oi-command" aria-hidden="true"></span> Make a Skill Tree
             </NavLink>
         </div>
+        }
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="skilltree">
                 <span class="oi oi-people" aria-hidden="true"></span> Skill Tree
@@ -45,5 +50,12 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private User user = new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = user.buildUser();
     }
 }
