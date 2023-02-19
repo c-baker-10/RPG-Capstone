@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lwGRNh4YloACZ+D9fTBeEylVd4ta7J63WBTy5uljLOE=",
+  "Hash": "62GjhSFzxlk/ToEpUTZKJDvHa14bOXP/rCvH6sFYcE4=",
   "Source": "BlazorApp1",
   "BasePath": "_content/BlazorApp1",
   "Mode": "Default",
@@ -304,6 +304,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\JSFolder\\Resize-Drag.js"
+    },
+    {
+      "Identity": "C:\\Users\\Caleb\\source\\repos\\RPG-Capstone\\BlazorApp1\\wwwroot\\JSFolder\\UserInput.js",
+      "SourceId": "BlazorApp1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Caleb\\source\\repos\\RPG-Capstone\\BlazorApp1\\wwwroot\\",
+      "BasePath": "_content/BlazorApp1",
+      "RelativePath": "JSFolder/UserInput.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\JSFolder\\UserInput.js"
     },
     {
       "Identity": "C:\\Users\\Caleb\\source\\repos\\RPG-Capstone\\BlazorApp1\\wwwroot\\JSFolder\\xyValues.js",

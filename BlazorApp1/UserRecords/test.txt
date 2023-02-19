@@ -1,5 +1,9 @@
 ﻿NAME|
 test
+PASSWORD|
+
+TYPE|
+Teacher
 GENERAL|
 General information
 BADGES|

@@ -5,6 +5,7 @@
 
         public static string UserName { get; set; }
         public string Password { get; set; }
+        public string Type { get; set; }
         public string General { get; set; }
         public string Badges { get; set; }
         public string Items { get; set; }
@@ -34,6 +35,7 @@
 
             bool UserName = false;
             bool Password = false;
+            bool Type = false;
             bool General = false;
             bool Badges = false;
             bool Items = false;
@@ -46,13 +48,21 @@
                 if (line == "NAME|")
                 {
                     UserName = true;
-                    Password = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    Password = false; Type = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
                     continue;
                 }
                 if (line == "PASSWORD|")
                 {
                     UserName = false;
-                    Password = true; 
+                    Password = true;
+                    Type = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    continue;
+                }
+                if (line == "TYPE|")
+                {
+                    UserName = false;
+                    Password = false;
+                    Type = true; 
                     General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
                     continue;
                 }
@@ -60,6 +70,7 @@
                 {
                     UserName = false;
                     Password = false;
+                    Type = false;
                     General = true;
                     Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
                     continue;
@@ -68,6 +79,7 @@
                 {
                     UserName = false;
                     Password = false;
+                    Type = false;
                     General = false;
                     Badges = true;
                     Items = false; Stuff = false; Level = false; Distribution = false;
@@ -77,6 +89,7 @@
                 {
                     UserName = false;
                     Password = false;
+                    Type = false;
                     General = false;
                     Badges = false;
                     Items = true;
@@ -87,6 +100,7 @@
                 {
                     UserName = false;
                     Password = false;
+                    Type = false;
                     General = false;
                     Badges = false;
                     Items = false;
@@ -98,6 +112,7 @@
                 {
                     UserName = false;
                     Password = false;
+                    Type = false;
                     General = false;
                     Badges = false;
                     Items = false;
@@ -110,6 +125,7 @@
                 {
                     UserName = false;
                     Password = false;
+                    Type = false;
                     General = false;
                     Badges = false;
                     Items = false;
@@ -126,6 +142,10 @@
                 else if (Password)
                 {
                     user.Password = line;
+                }
+                else if (Type)
+                {
+                    user.Type = line;
                 }
                 else if (General)
                 {
@@ -151,7 +171,6 @@
                 {
                     user.skillDistribution.Add(line.Split(";"));
                 }
-
             }
 
             return user;

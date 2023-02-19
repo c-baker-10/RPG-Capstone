@@ -8,6 +8,7 @@
 @using System.Text;
 
 @inject NavigationManager UriHelper
+@inject IJSRuntime JS;
 
 @if (hasAccount)
 {
@@ -48,6 +49,18 @@ else
         <InputText id="UserPassword" @bind-Value="newPassword2" placeholder="password" type="password" /> <br />
     </EditForm>
 
+    <br />
+
+    <h>Check which apply</h>
+    <br />
+
+    <input type="radio" id="TeacherBtn" name="accountType" value="Teacher">
+    <label for="TeacherBtn">Teacher</label>
+    <br />
+    <input type="radio" id="StudentgBtn" name="accountType" value="Student">
+    <label for="StudentgBtn">Student</label>
+    <br />
+
     <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
 }
 @code {
@@ -57,7 +70,7 @@ else
     private List<string> accounts = new List<string>();
     private string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
 
-    private bool currectAccount = true, currectPassword = true;
+    private bool currectAccount = true, currectPassword = true, Teacher = false, Student = false;
 
     HashAlgorithmName hashAlgorthm = HashAlgorithmName.SHA512;
 
@@ -132,10 +145,12 @@ else
         hasAccount = false;
     }
 
-    private string newName, newPassword1, newPassword2, accountInfo;
-    private void SubmitNewAccount()
+    private string newName, newPassword1, newPassword2, accountInfo, accountType;
+    private async void SubmitNewAccount()
     {
         accountInfo = "";
+
+        accountType = await JS.InvokeAsync<string>("RadioButtons", "accountType");
 
         if (newName == null || newPassword1 == null || newPassword2 == null)
         {
@@ -148,6 +163,10 @@ else
         else if (newPassword1 != newPassword2)
         {
             // passwords are not the same
+        }
+        else if (accountType == "none")
+        {
+            // please select a account type
         }
         else
         {
@@ -166,6 +185,8 @@ else
                 numBytesRequested: 256 / 8));
 
             accountInfo += "PASSWORD|\n" + hashed + "\n";
+
+            accountInfo += "TYPE|\n" + accountType + "\n";
 
             accountInfo += "GENERAL|\nGeneral information\nBADGES|\nNo badges yet\nITEMS|\nNo items yet\nSTUFF|\nRandom information\nLEVEL|\n0";
 
