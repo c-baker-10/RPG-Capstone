@@ -6,7 +6,22 @@
 
 <br/>
 
-<img src="PersonaImages/ExampleImage.png" alt="Example Persona" class="avater">
+<img src=@PersonaImgSource alt="Example Persona" class="avater">
+
+<div class="center">
+@if (Imgs != null)
+{
+    <label for="Files">Choose a persona:</label>
+    <select name="Files" id="Files" @bind="PersonaImgName">
+        @foreach (string file in Imgs)
+        {
+            <option>@Path.GetFileNameWithoutExtension(file) </option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="UpdateImg">Update</button>
+}
+</div>
+<br />
 
 <div class="container">
     @user.General
@@ -38,11 +53,22 @@
 @code {
 
     private string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
-    private string FileName = "testUser.txt";
+    // private string PersonaImgPath = Directory.GetCurrentDirectory() + @"\wwwroot\PersonaImages\";
+    private string PersonaImgPath = @"PersonaImages\";
+    private string PersonaImgName = "Example Image.PNG";
+    private string PersonaImgSource;
+    private string[] Imgs;
     private User user = new User();
 
     protected override async Task OnInitializedAsync()
     {
         user = user.buildUser();
+        Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
+        PersonaImgSource = PersonaImgPath + PersonaImgName;
+    }
+
+    private void UpdateImg()
+    {
+        PersonaImgSource = PersonaImgPath + PersonaImgName + ".PNG";
     }
 }
