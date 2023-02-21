@@ -53,7 +53,6 @@
 @code {
 
     private string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
-    // private string PersonaImgPath = Directory.GetCurrentDirectory() + @"\wwwroot\PersonaImages\";
     private string PersonaImgPath = @"PersonaImages\";
     private string PersonaImgName = "Example Image.PNG";
     private string PersonaImgSource;
@@ -62,7 +61,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        user = user.buildUser();
+        user.buildUser();
         Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
         PersonaImgSource = PersonaImgPath + PersonaImgName;
     }

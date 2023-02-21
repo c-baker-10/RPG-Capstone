@@ -1,6 +1,8 @@
 ﻿@inherits LayoutComponentBase
 @inject NavigationManager UriHelper
 
+@using Objects
+
 <PageTitle>BlazorApp1</PageTitle>
 
 <div class="page">
@@ -20,8 +22,11 @@
 </div>
 
 @code{
+    private User user = new User();
     public void Logout()
     {
+        user.buildUser();
+        user.saveData();
         UriHelper.NavigateTo($"");
     }
 }

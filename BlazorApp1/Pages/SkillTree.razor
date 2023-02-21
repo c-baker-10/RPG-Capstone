@@ -67,7 +67,7 @@
     protected override async Task OnInitializedAsync()
     {
         Files = Directory.GetFiles(FolderPath);
-        user = user.buildUser();
+        user.buildUser();
 
         if (sentFile != null)
         {

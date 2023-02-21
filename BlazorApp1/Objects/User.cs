@@ -1,8 +1,12 @@
-﻿namespace BlazorApp1.Objects
+﻿using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text;
+
+namespace BlazorApp1.Objects
 {
     public class User
     {
-
         public static string UserName { get; set; }
         public string Password { get; set; }
         public string Type { get; set; }
@@ -17,7 +21,7 @@
         public string Level { get; set; }
 
 
-        public User buildUser()
+        public void buildUser()
         {
             string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
             string FileName = User.UserName + ".txt";
@@ -30,8 +34,6 @@
             {
                 lines = File.ReadAllLines(FolderPath + "testUser.txt");
             }
-     
-            User user = new User();
 
             bool UserName = false;
             bool Password = false;
@@ -141,40 +143,78 @@
                 }
                 else if (Password)
                 {
-                    user.Password = line;
+                    this.Password = line;
                 }
                 else if (Type)
                 {
-                    user.Type = line;
+                    this.Type = line;
                 }
                 else if (General)
                 {
-                    user.General = line;
+                    this.General = line;
                 }
                 else if (Badges)
                 {
-                    user.Badges = line;
+                    this.Badges = line;
                 }
                 else if (Items)
                 {
-                    user.Items = line;
+                    this.Items = line;
                 }
                 else if (Stuff)
                 {
-                    user.Stuff = line;
+                    this.Stuff = line;
                 }
                 else if (Level)
                 {
-                    user.Level = line;
+                    this.Level = line;
                 }
                 else if (Distribution)
                 {
-                    user.skillDistribution.Add(line.Split(";"));
+                    this.skillDistribution.Add(line.Split(";"));
                 }
             }
-
-            return user;
         }
+        public void saveData()
+        {
+            string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
+            string FileName = User.UserName + ".txt";
+            string accountInfo = "";
 
+            File.Delete(FolderPath+FileName);
+
+            FileStream FileWrite = new FileStream(FolderPath + FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            accountInfo += "NAME|\n" + User.UserName + "\n";
+
+            accountInfo += "PASSWORD|\n" + this.Password + "\n";
+
+            accountInfo += "TYPE|\n" + this.Type + "\n";
+
+            accountInfo += "GENERAL|\n" + this.General + "\n";
+
+            accountInfo += "BADGES|\n" + this.Badges + "\n";
+
+            accountInfo += "ITEMS|\n" + this.Items + "\n";
+
+            accountInfo += "STUFF|\n" + this.Stuff + "\n";
+
+            accountInfo += "LEVEL|\n" + this.Level + "\n";
+
+            accountInfo += "DISTRIBUTION|\n";
+            foreach (string[] skill in this.skillDistribution)
+            {
+                accountInfo += skill[0] + ";" + skill[1] + ";\n";
+            }
+
+            // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
+            byte[] writeArr = Encoding.UTF8.GetBytes(accountInfo);
+
+            // Using the Write method write the encoded byte array to the textfile
+            FileWrite.Write(writeArr, 0, accountInfo.Length);
+
+            // Closee the FileStream object
+            FileWrite.Close();
+        }
     }
 }
