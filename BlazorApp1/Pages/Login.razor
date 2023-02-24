@@ -62,6 +62,11 @@ else
     <br />
 
     <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
+
+    <br />
+    <br />
+
+    <button class="btn btn-primary" @onclick="Back"> Back </button>
 }
 @code {
 
@@ -143,6 +148,11 @@ else
 
     private void newAccount(){
         hasAccount = false;
+    }
+
+    private void Back()
+    {
+        hasAccount = true;
     }
 
     private string newName, newPassword1, newPassword2, accountInfo, accountType;

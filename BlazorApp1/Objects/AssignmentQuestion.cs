@@ -14,8 +14,19 @@
         public string[] inputedAnswers { get; set; }
         public bool correct { get; set; }
 
+        public int points { get; set; }
+
         public void correctInput()
         {
+            if(type == "text")
+            {
+                if (inputedAnswers[0].Contains(answers[0]))
+                {
+                    correct = true;
+                    return;
+                }
+            }
+
             if(answers.Length != inputedAnswers.Length)
             {
                 correct = false;

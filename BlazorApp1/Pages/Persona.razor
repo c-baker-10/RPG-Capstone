@@ -2,6 +2,8 @@
 
 @using Objects
 
+@inject NavigationManager UriHelper
+
 <h3>Welcome @User.UserName (@user.Type): general level #@user.Level</h3>
 
 <br/>
@@ -42,14 +44,23 @@
 <div class="container">
     Current skill level distribution:
     <br />
-    @foreach(string[] s in user.skillDistribution)
+    @foreach (string[] s in user.skillDistribution)
     {
-        <p style ="display:inline">@s[0]</p>
+        <p style="display:inline">@s[0]</p>
         <p style="display:inline"> - </p>
         <p style="display:inline">@s[1]</p>
-        <br/>
+        <br />
     }
 </div>
+
+<div class="container">
+    <p>Assignment Lists:</p>
+    @foreach (Assignment A in Assignment.AssignmentList)
+    {
+        <p @onclick="assignment">@A.assignmentName</p>
+    }
+</div>
+
 
 @code {
 
@@ -70,5 +81,10 @@
     private void UpdateImg()
     {
         PersonaImgSource = PersonaImgPath + PersonaImgName + ".PNG";
+    }
+
+    private void assignment()
+    {
+        UriHelper.NavigateTo($"assignments");
     }
 }

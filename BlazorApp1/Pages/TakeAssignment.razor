@@ -24,6 +24,7 @@
 
 <br />
 <button class="btn btn-primary" @onclick="Submit">Submit</button>
+
 }
 else{
     <h3>Assignment taken</h3>
@@ -52,7 +53,7 @@ else{
     private string FolderPath =  Directory.GetCurrentDirectory() + @"\AssignmentFolder\";
     private List<AssignmentQuestion> Questions;
     AssignmentQuestion question;
-    private bool QuestionSec, TypeSec, OptionSec, AnswerSec;
+    private bool QuestionSec, TypeSec, OptionSec, AnswerSec, points;
     private bool Review = false;
 
     private string inputAnswer;
@@ -64,6 +65,8 @@ else{
         TypeSec = false;
         OptionSec = false;
         AnswerSec = false;
+        points = false;
+
 
         // Read a text file line by line.
         string[] lines = File.ReadAllLines(FolderPath + name);
@@ -76,6 +79,7 @@ else{
                 TypeSec = false;
                 OptionSec = false;
                 AnswerSec = false;
+                points = false;
                 continue;
             }
             else if (line.Trim() == "type|")
@@ -84,6 +88,7 @@ else{
                 TypeSec = true;
                 OptionSec = false;
                 AnswerSec = false;
+                points = false;
                 continue;
             }
             else if (line.Trim() == "options|")
@@ -92,6 +97,7 @@ else{
                 TypeSec = false;
                 OptionSec = true;
                 AnswerSec = false;
+                points = false;
                 continue;
             }
             else if (line.Trim() == "answer|")
@@ -100,6 +106,16 @@ else{
                 TypeSec = false;
                 OptionSec = false;
                 AnswerSec = true;
+                points = false;
+                continue;
+            }
+            else if (line.Trim() == "Points|")
+            {
+                QuestionSec = false;
+                TypeSec = false;
+                OptionSec = false;
+                AnswerSec = false;
+                points = true;
                 continue;
             }
             else if (line.Trim() == "end|")
@@ -128,6 +144,10 @@ else{
             {
                 question.answers = line.Split(';');
             }
+            else if (points)
+            {
+                question.points = Int32.Parse(line);
+            }
         }
     }
 
@@ -136,32 +156,38 @@ else{
         string ans = "";
         foreach (AssignmentQuestion Q in Questions)
         {
-            if (Q.type == "radio")
-            {
-                ans = await JS.InvokeAsync<string>("RadioButtons", Q.type);
-                Q.inputedAnswers = ans.Split(';');
-                Q.correctInput();
-            }
-            else if (Q.type == "checkbox")
-            {
-                ans = await JS.InvokeAsync<string>("CheckBoxs", Q.type);
-                Q.inputedAnswers = ans.Split(';');
-                Q.correctInput();
-            }
-            else if (Q.type == "text")
-            {
-                //Doesn't work yet
-                //ans = await JS.InvokeAsync<string>("TextFeild", Q.type);
-                //Q.inputedAnswers = ans.Split(';');
-                //Q.correctInput();
-            }
+            ans = await JS.InvokeAsync<string>("input", Q.type);
+            Q.inputedAnswers = ans.Split(';');
+            Q.correctInput();
         }
 
         Review = true;
+
+        StateHasChanged();
     }
 
     public void Finished()
     {
+        int totalPoints = 0;
+        int totalUserPoints = 0;
+        foreach (AssignmentQuestion Q in Questions)
+        {
+            if(Q.correct)
+            {
+                totalUserPoints += Q.points;
+            }
+            totalPoints += Q.points;
+        }
+
+        foreach (Assignment A in Assignment.AssignmentList)
+        {
+            if (A.assignmentName == name)
+            {
+                A.score = (totalUserPoints / totalPoints) * 100 + "";
+                A.taken = true;
+            }
+        }
+
         UriHelper.NavigateTo($"assignments");
     }
 

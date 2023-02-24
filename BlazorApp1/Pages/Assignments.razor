@@ -2,14 +2,27 @@
 
 @inject NavigationManager UriHelper
 
+@using Objects
+
 <h3>Assignments</h3>
 <br/>
 
-@foreach (string file in Files)
+@foreach (Assignment A in Assignment.AssignmentList)
 {
-    <div class="container" @onclick="() => TakeAssignment(Path.GetFileName(file))">
-        @Path.GetFileNameWithoutExtension(file)
-    </div>
+    @if (A.taken)
+    {
+        <div class="container">
+            @Path.GetFileNameWithoutExtension(A.assignmentName)
+            <p style="display:inline; float: right">  Grade: @A.score%</p>
+        </div>
+    }
+    else
+    {
+        <div class="container" @onclick="() => TakeAssignment(A.assignmentName)">
+            @Path.GetFileNameWithoutExtension(A.assignmentName)
+            <p style="display:inline; float: right">  Grade: not taken </p>
+        </div>
+    }
 }
 
 @code {
@@ -18,8 +31,28 @@
 
     protected override async Task OnInitializedAsync()
     {
+        bool added = false;
+
         Files = Directory.GetFiles(FolderPath);
 
+        foreach (string file in Files)
+        {
+            foreach (Assignment assignment in Assignment.AssignmentList)
+            {
+                if (assignment.assignmentName == Path.GetFileName(file))
+                {
+                    added = true;
+                }
+            }
+
+            if (!added)
+            {
+                Assignment A = new Assignment();
+                A.assignmentName = Path.GetFileName(file);
+                Assignment.AssignmentList.Add(A);
+            }
+            added = false;
+        }
     }
 
     public void TakeAssignment(string fileName)

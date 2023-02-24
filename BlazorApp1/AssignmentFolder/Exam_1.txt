@@ -6,6 +6,8 @@ options|
 2;3;4;5
 answer|
 3;
+Points|
+1
 end|
 questions|
 What values are larger then 3
@@ -15,6 +17,8 @@ options|
 2;3;4;5
 answer|
 4;5;
+Points|
+1
 end|
 questions|
 What values is 5 + 1
@@ -23,5 +27,7 @@ text
 options|
 
 answer|
-anything
+6
+Points|
+1
 end|
