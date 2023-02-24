@@ -5,7 +5,7 @@ radio
 options|
 2;3;4;5
 answer|
-3
+3;
 end|
 questions|
 What values are larger then 3
@@ -14,7 +14,7 @@ checkbox
 options|
 2;3;4;5
 answer|
-4;5
+4;5;
 end|
 questions|
 What values is 5 + 1

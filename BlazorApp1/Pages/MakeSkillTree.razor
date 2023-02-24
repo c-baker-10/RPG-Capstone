@@ -100,7 +100,7 @@ else
 
 @foreach (Node node in Nodes)
 {
-    <div class="draggable" @onclick="() => SelectedNodeMethod(node)" id="@node.name"> <p> @node.name </p> </div>
+    <div class="draggable" @onclick="() => SelectedNodeMethod(node)" id="@node.name"> <p style="color:black"> @node.name </p> </div>
 }
 
 @code {
