@@ -58,7 +58,7 @@
     private string[] Files;
     private string[] info;
 
-    private User user = new User();
+   // private User user = new User();
 
     [Parameter]
     public string sentFile { get; set; }
@@ -67,7 +67,7 @@
     protected override async Task OnInitializedAsync()
     {
         Files = Directory.GetFiles(FolderPath);
-        user.buildUser();
+        //user.buildUser();
 
         if (sentFile != null)
         {
@@ -206,7 +206,7 @@
                 node.userAt = true;
                 foreach(Node n in node.NodeConnections)
                 {
-                    foreach (string[] skill in user.skillDistribution)
+                    foreach (string[] skill in User.user.skillDistribution)
                     {
                         if (n.EducationType.Equals(skill[0]) && Int32.Parse(n.entryScore) <= Int32.Parse(skill[1]))
                         {

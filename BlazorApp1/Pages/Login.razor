@@ -98,6 +98,8 @@ else
         if(name == "test")
         {
             User.UserName = name;
+            User.user = user;
+            User.user.buildUser();
             UriHelper.NavigateTo($"home");
             return;
         }
@@ -120,7 +122,8 @@ else
         }
 
         User.UserName = name;
-        user.buildUser();
+        User.user = user;
+        User.user.buildUser();
 
         // Generate a 128-bit salt using a sequence of
         // cryptographically strong random bytes.
@@ -137,7 +140,8 @@ else
             numBytesRequested: 256 / 8));
 
 
-        if (user.Password == hashed){
+        if (User.user.Password == hashed)
+        {
             UriHelper.NavigateTo($"home");
         }
         else{
@@ -210,9 +214,10 @@ else
             FileWrite.Close();
 
             User.UserName = newName;
+            User.user = user;
+            User.user.buildUser();
 
             UriHelper.NavigateTo($"home");
         }
     }
-
 }

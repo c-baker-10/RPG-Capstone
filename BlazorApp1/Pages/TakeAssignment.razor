@@ -52,7 +52,7 @@ else{
 
     private string FolderPath =  Directory.GetCurrentDirectory() + @"\AssignmentFolder\";
     private List<AssignmentQuestion> Questions;
-    private User user = new User();
+    //private User user = new User();
     AssignmentQuestion question;
     private bool QuestionSec, TypeSec, OptionSec, AnswerSec, points, Distribution;
     private bool Review = false;
@@ -62,7 +62,7 @@ else{
 
     protected override async Task OnInitializedAsync()
     {
-        user.buildUser();
+        //user.buildUser();
 
         Questions = new List<AssignmentQuestion>();
         QuestionSec = false;
@@ -203,7 +203,7 @@ else{
                 totalUserPoints += Q.points;
                 foreach (string[] distribution in Q.skillValueDistribution)
                 {
-                    foreach (string[] skill in user.skillDistribution)
+                    foreach (string[] skill in User.user.skillDistribution)
                     {
                         if(skill[0] == distribution[0])
                         {

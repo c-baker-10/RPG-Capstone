@@ -4,7 +4,7 @@
 
 @inject NavigationManager UriHelper
 
-<h3>Welcome @User.UserName (@user.Type): general level #@user.Level</h3>
+<h3>Welcome @User.UserName (@User.user.Type): general level #@User.user.Level</h3>
 
 <br/>
 
@@ -26,25 +26,25 @@
 <br />
 
 <div class="container">
-    @user.General
+    @User.user.General
 </div>
 
 <div class="container">
-    @user.Badges
+    @User.user.Badges
 </div>
 
 <div class="container">
-    @user.Items
+    @User.user.Items
 </div>
 
 <div class="container">
-    @user.Stuff
+    @User.user.Stuff
 </div>
 
 <div class="container">
     Current skill level distribution:
     <br />
-    @foreach (string[] s in user.skillDistribution)
+    @foreach (string[] s in User.user.skillDistribution)
     {
         <p style="display:inline">@s[0]</p>
         <p style="display:inline"> - </p>
@@ -69,11 +69,11 @@
     private string PersonaImgName = "Example Image.PNG";
     private string PersonaImgSource;
     private string[] Imgs;
-    private User user = new User();
+  //  private User user = new User();
 
     protected override async Task OnInitializedAsync()
     {
-        user.buildUser();
+        //user.buildUser();
         Assignment.getAssignments();
         Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
         PersonaImgSource = PersonaImgPath + PersonaImgName;
