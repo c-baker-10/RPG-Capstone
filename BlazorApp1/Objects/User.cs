@@ -203,9 +203,12 @@ namespace BlazorApp1.Objects
             accountInfo += "LEVEL|\n" + this.Level + "\n";
 
             accountInfo += "DISTRIBUTION|\n";
-            foreach (string[] skill in this.skillDistribution)
+            if (skillDistribution != null)
             {
-                accountInfo += skill[0] + ";" + skill[1] + ";\n";
+                foreach (string[] skill in this.skillDistribution)
+                {
+                    accountInfo += skill[0] + ";" + skill[1] + ";\n";
+                }
             }
 
             // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
