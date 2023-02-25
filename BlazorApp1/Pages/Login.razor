@@ -41,12 +41,16 @@ else
         <InputText id="UserName" @bind-Value="newName" placeholder="username" /> <br />
 
         <p>Please enter a password</p>
-        <label for="UserPassword"> Password</label>
+        <label for="UserPassword"> Password </label>
         <InputText id="UserPassword" @bind-Value="newPassword1" placeholder="password" type="password" /> <br />
 
         <p>Please enter in the password again</p>
-        <label for="UserPassword"> Password</label>
+        <label for="UserPassword"> Password </label>
         <InputText id="UserPassword" @bind-Value="newPassword2" placeholder="password" type="password" /> <br />
+
+        <p>Please enter your teachers access code</p>
+        <label for="AccessCode"> Access Code </label>
+        <InputText id="AccessCode" @bind-Value="accessCode" placeholder="Access Code" /> <br />
     </EditForm>
 
     <br />
@@ -159,7 +163,8 @@ else
         hasAccount = true;
     }
 
-    private string newName, newPassword1, newPassword2, accountInfo, accountType;
+    private string newName, newPassword1, newPassword2, accountInfo, accountType, accessCode;
+    private bool validCode;
     private async void SubmitNewAccount()
     {
         accountInfo = "";
@@ -184,6 +189,22 @@ else
         }
         else
         {
+            // Read a text file line by line.
+            string[] lines = File.ReadAllLines(FolderPath + "Access Codes.txt");
+            validCode = false;
+            foreach(string code in lines)
+            {
+                if(accessCode == code)
+                {
+                    validCode = true;
+                }
+            }
+            if (!validCode)
+            {
+                // wrong access code given
+                return;
+            }
+
             FileStream FileWrite = new FileStream(FolderPath + newName+".txt", FileMode.Create, FileAccess.Write, FileShare.None);
 
             accountInfo += "NAME|\n" + newName + "\n";
