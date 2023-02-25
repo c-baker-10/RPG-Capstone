@@ -8,6 +8,9 @@ answer|
 3;
 Points|
 1
+DISTRIBUTION|
+addition;10;
+subtraction;0;
 end|
 questions|
 What values are larger then 3
@@ -19,6 +22,9 @@ answer|
 4;5;
 Points|
 1
+DISTRIBUTION|
+addition;10;
+subtraction;0;
 end|
 questions|
 What values is 5 + 1
@@ -30,4 +36,7 @@ answer|
 6
 Points|
 1
+DISTRIBUTION|
+addition;10;
+subtraction;0;
 end|

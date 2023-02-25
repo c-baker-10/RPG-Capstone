@@ -13,8 +13,9 @@
         public string[] answers { get; set; }
         public string[] inputedAnswers { get; set; }
         public bool correct { get; set; }
-
         public int points { get; set; }
+
+        public List<string[]> skillValueDistribution = new List<string[]>();
 
         public void correctInput()
         {

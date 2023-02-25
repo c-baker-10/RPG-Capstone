@@ -74,6 +74,7 @@
     protected override async Task OnInitializedAsync()
     {
         user.buildUser();
+        Assignment.getAssignments();
         Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
         PersonaImgSource = PersonaImgPath + PersonaImgName;
     }

@@ -31,28 +31,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        bool added = false;
-
-        Files = Directory.GetFiles(FolderPath);
-
-        foreach (string file in Files)
-        {
-            foreach (Assignment assignment in Assignment.AssignmentList)
-            {
-                if (assignment.assignmentName == Path.GetFileName(file))
-                {
-                    added = true;
-                }
-            }
-
-            if (!added)
-            {
-                Assignment A = new Assignment();
-                A.assignmentName = Path.GetFileName(file);
-                Assignment.AssignmentList.Add(A);
-            }
-            added = false;
-        }
+        Assignment.getAssignments();
     }
 
     public void TakeAssignment(string fileName)

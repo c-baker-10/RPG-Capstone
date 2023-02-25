@@ -52,20 +52,25 @@ else{
 
     private string FolderPath =  Directory.GetCurrentDirectory() + @"\AssignmentFolder\";
     private List<AssignmentQuestion> Questions;
+    private User user = new User();
     AssignmentQuestion question;
-    private bool QuestionSec, TypeSec, OptionSec, AnswerSec, points;
+    private bool QuestionSec, TypeSec, OptionSec, AnswerSec, points, Distribution;
     private bool Review = false;
 
     private string inputAnswer;
 
+
     protected override async Task OnInitializedAsync()
     {
+        user.buildUser();
+
         Questions = new List<AssignmentQuestion>();
         QuestionSec = false;
         TypeSec = false;
         OptionSec = false;
         AnswerSec = false;
         points = false;
+        Distribution = false;
 
 
         // Read a text file line by line.
@@ -80,6 +85,7 @@ else{
                 OptionSec = false;
                 AnswerSec = false;
                 points = false;
+                Distribution = false;
                 continue;
             }
             else if (line.Trim() == "type|")
@@ -89,6 +95,7 @@ else{
                 OptionSec = false;
                 AnswerSec = false;
                 points = false;
+                Distribution = false;
                 continue;
             }
             else if (line.Trim() == "options|")
@@ -98,6 +105,7 @@ else{
                 OptionSec = true;
                 AnswerSec = false;
                 points = false;
+                Distribution = false;
                 continue;
             }
             else if (line.Trim() == "answer|")
@@ -107,6 +115,7 @@ else{
                 OptionSec = false;
                 AnswerSec = true;
                 points = false;
+                Distribution = false;
                 continue;
             }
             else if (line.Trim() == "Points|")
@@ -116,6 +125,17 @@ else{
                 OptionSec = false;
                 AnswerSec = false;
                 points = true;
+                Distribution = false;
+                continue;
+            }
+            else if (line.Trim() == "DISTRIBUTION|")
+            {
+                QuestionSec = false;
+                TypeSec = false;
+                OptionSec = false;
+                AnswerSec = false;
+                points = false;
+                Distribution = true;
                 continue;
             }
             else if (line.Trim() == "end|")
@@ -124,6 +144,8 @@ else{
                 TypeSec = false;
                 OptionSec = false;
                 AnswerSec = false;
+                points = false;
+                Distribution = false;
                 Questions.Add(question);
                 continue;
             }
@@ -147,6 +169,10 @@ else{
             else if (points)
             {
                 question.points = Int32.Parse(line);
+            }
+            else if (Distribution)
+            {
+                question.skillValueDistribution.Add(line.Split(";"));
             }
         }
     }
@@ -175,6 +201,16 @@ else{
             if(Q.correct)
             {
                 totalUserPoints += Q.points;
+                foreach (string[] distribution in Q.skillValueDistribution)
+                {
+                    foreach (string[] skill in user.skillDistribution)
+                    {
+                        if(skill[0] == distribution[0])
+                        {
+                            skill[1] = Int32.Parse(skill[1]) + Int32.Parse(distribution[1]) + "";
+                        }
+                    }
+                }
             }
             totalPoints += Q.points;
         }

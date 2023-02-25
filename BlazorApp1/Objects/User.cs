@@ -7,6 +7,7 @@ namespace BlazorApp1.Objects
 {
     public class User
     {
+
         public static string UserName { get; set; }
         public string Password { get; set; }
         public string Type { get; set; }
