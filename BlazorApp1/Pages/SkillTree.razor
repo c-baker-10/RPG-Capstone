@@ -58,8 +58,6 @@
     private string[] Files;
     private string[] info;
 
-   // private User user = new User();
-
     [Parameter]
     public string sentFile { get; set; }
 
@@ -67,7 +65,6 @@
     protected override async Task OnInitializedAsync()
     {
         Files = Directory.GetFiles(FolderPath);
-        //user.buildUser();
 
         if (sentFile != null)
         {

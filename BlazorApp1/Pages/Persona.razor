@@ -69,11 +69,9 @@
     private string PersonaImgName = "Example Image.PNG";
     private string PersonaImgSource;
     private string[] Imgs;
-  //  private User user = new User();
 
     protected override async Task OnInitializedAsync()
     {
-        //user.buildUser();
         Assignment.getAssignments();
         Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
         PersonaImgSource = PersonaImgPath + PersonaImgName;
