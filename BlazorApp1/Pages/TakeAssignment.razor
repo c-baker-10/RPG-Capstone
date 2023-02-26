@@ -194,8 +194,8 @@ else{
 
     public void Finished()
     {
-        int totalPoints = 0;
-        int totalUserPoints = 0;
+        float totalPoints = 0;
+        float totalUserPoints = 0;
         foreach (AssignmentQuestion Q in Questions)
         {
             if(Q.correct)
@@ -221,6 +221,8 @@ else{
             {
                 A.score = (totalUserPoints / totalPoints) * 100 + "";
                 A.taken = true;
+                string[] list = { A.assignmentName, A.score};
+                User.user.takenAssignments.Add(list);
             }
         }
 

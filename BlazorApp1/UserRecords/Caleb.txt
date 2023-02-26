@@ -17,3 +17,5 @@ LEVEL|
 DISTRIBUTION|
 addition;20
 subtraction;0
+TAKEN ASSIGNMENTS|
+

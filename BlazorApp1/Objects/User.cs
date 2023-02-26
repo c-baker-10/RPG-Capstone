@@ -20,6 +20,8 @@ namespace BlazorApp1.Objects
         public string[] Grades { get; set; }
 
         public List<string[]> skillDistribution = new List<string[]>();
+
+        public List<string[]> takenAssignments = new List<string[]>();
         public string Level { get; set; }
 
 
@@ -46,20 +48,21 @@ namespace BlazorApp1.Objects
             bool Stuff = false;
             bool Level = false;
             bool Distribution = false;
+            bool takenAssignments = false;
 
             foreach (string line in lines)
             {
                 if (line == "NAME|")
                 {
                     UserName = true;
-                    Password = false; Type = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    Password = false; Type = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "PASSWORD|")
                 {
                     UserName = false;
                     Password = true;
-                    Type = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    Type = false; General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "TYPE|")
@@ -67,7 +70,7 @@ namespace BlazorApp1.Objects
                     UserName = false;
                     Password = false;
                     Type = true; 
-                    General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    General = false; Badges = false; Items = false; Stuff = false; Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "GENERAL|")
@@ -76,7 +79,7 @@ namespace BlazorApp1.Objects
                     Password = false;
                     Type = false;
                     General = true;
-                    Badges = false; Items = false; Stuff = false; Level = false; Distribution = false;
+                    Badges = false; Items = false; Stuff = false; Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "BADGES|")
@@ -86,7 +89,7 @@ namespace BlazorApp1.Objects
                     Type = false;
                     General = false;
                     Badges = true;
-                    Items = false; Stuff = false; Level = false; Distribution = false;
+                    Items = false; Stuff = false; Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "ITEMS|")
@@ -97,7 +100,7 @@ namespace BlazorApp1.Objects
                     General = false;
                     Badges = false;
                     Items = true;
-                    Stuff = false; Level = false; Distribution = false;
+                    Stuff = false; Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "STUFF|")
@@ -109,7 +112,7 @@ namespace BlazorApp1.Objects
                     Badges = false;
                     Items = false;
                     Stuff = true;
-                    Level = false; Distribution = false;
+                    Level = false; Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "LEVEL|")
@@ -122,7 +125,7 @@ namespace BlazorApp1.Objects
                     Items = false;
                     Stuff = false;
                     Level = true;
-                    Distribution = false;
+                    Distribution = false; takenAssignments = false;
                     continue;
                 }
                 if (line == "DISTRIBUTION|")
@@ -136,6 +139,21 @@ namespace BlazorApp1.Objects
                     Stuff = false;
                     Level = false;
                     Distribution = true;
+                    takenAssignments = false;
+                    continue;
+                }
+                if (line == "TAKEN ASSIGNMENTS|")
+                {
+                    UserName = false;
+                    Password = false;
+                    Type = false;
+                    General = false;
+                    Badges = false;
+                    Items = false;
+                    Stuff = false;
+                    Level = false;
+                    Distribution = false;
+                    takenAssignments = true;
                     continue;
                 }
 
@@ -175,6 +193,10 @@ namespace BlazorApp1.Objects
                 {
                     this.skillDistribution.Add(line.Split(";"));
                 }
+                else if(takenAssignments)
+                {
+                    this.takenAssignments.Add(line.Split(";"));
+                }
             }
         }
         public void saveData()
@@ -209,6 +231,22 @@ namespace BlazorApp1.Objects
                 foreach (string[] skill in this.skillDistribution)
                 {
                     accountInfo += skill[0] + ";" + skill[1] + "\n";
+                }
+            }
+
+            accountInfo += "TAKEN ASSIGNMENTS|\n";
+            if (takenAssignments != null)
+            {
+                foreach (string[] skill in this.takenAssignments)
+                {
+                    foreach(string s in skill)
+                    {
+                        if(s != "")
+                        {
+                            accountInfo += s + ";";
+                        }
+                    }
+                    accountInfo += "\n";
                 }
             }
 

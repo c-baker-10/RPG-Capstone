@@ -39,7 +39,6 @@ namespace BlazorApp1.Objects
                     bool Due = false;
                     foreach(string s in lines)
                     {
-        
                         if(s == "DUE|")
                         {
                             Due = true;
@@ -50,7 +49,15 @@ namespace BlazorApp1.Objects
                             A.dueDate = s;
                             break;
                         }
+                    }
 
+                    foreach (string[] name in User.user.takenAssignments) 
+                    {
+                        if (A.assignmentName == name[0])
+                        {
+                            A.taken = true;
+                            A.score = name[1];
+                        }
                     }
 
                     Assignment.AssignmentList.Add(A);
