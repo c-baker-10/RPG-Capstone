@@ -61,3 +61,10 @@ C:\Users\Caleb\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\refint\Blaz
 C:\Users\Caleb\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\BlazorApp1.pdb
 C:\Users\Caleb\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\BlazorApp1.genruntimeconfig.cache
 C:\Users\Caleb\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\ref\BlazorApp1.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\bin\Debug\net6.0\BitMiracle.LibTiff.NET.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\bin\Debug\net6.0\IronSoftware.Drawing.Common.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\bin\Debug\net6.0\SixLabors.Fonts.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\bin\Debug\net6.0\SixLabors.ImageSharp.Drawing.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\bin\Debug\net6.0\IronXL.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\bin\Debug\net6.0\SixLabors.ImageSharp.dll
+C:\Users\Caleb\source\repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\BlazorApp1.csproj.CopyComplete

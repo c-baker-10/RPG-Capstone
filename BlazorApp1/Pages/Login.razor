@@ -77,7 +77,8 @@ else
     private User user = new User();
     private string name, password, hashed;
     private List<string> accounts = new List<string>();
-    private string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
+    private string UserFolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
+    private string GenFolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\General\";
 
     private bool currectAccount = true, currectPassword = true, Teacher = false, Student = false;
 
@@ -87,7 +88,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        foreach (string file in Directory.GetFiles(FolderPath))
+        foreach (string file in Directory.GetFiles(UserFolderPath))
         {
             accounts.Add(Path.GetFileNameWithoutExtension(file));
         }
@@ -190,7 +191,7 @@ else
         else
         {
             // Read a text file line by line.
-            string[] lines = File.ReadAllLines(FolderPath + "Access Codes.txt");
+            string[] lines = File.ReadAllLines(GenFolderPath + "Access Codes.txt");
             validCode = false;
             foreach(string code in lines)
             {
@@ -205,7 +206,7 @@ else
                 return;
             }
 
-            FileStream FileWrite = new FileStream(FolderPath + newName+".txt", FileMode.Create, FileAccess.Write, FileShare.None);
+            FileStream FileWrite = new FileStream(UserFolderPath + newName + ".txt", FileMode.Create, FileAccess.Write, FileShare.None);
 
             accountInfo += "NAME|\n" + newName + "\n";
 
@@ -223,7 +224,17 @@ else
 
             accountInfo += "TYPE|\n" + accountType + "\n";
 
-            accountInfo += "GENERAL|\nGeneral information\nBADGES|\nNo badges yet\nITEMS|\nNo items yet\nSTUFF|\nRandom information\nLEVEL|\n0";
+            accountInfo += "GENERAL|\nGeneral information\nBADGES|\nNo badges yet\nITEMS|\nNo items yet\nSTUFF|\nRandom information\nLEVEL|\n0\n";
+
+            accountInfo += "DISTRIBUTION|\n";
+
+            // Read a text file line by line.
+            lines = File.ReadAllLines(GenFolderPath + "User Skills.txt");
+            foreach (string skill in lines)
+            {
+                accountInfo += skill + ";0\n";
+            }
+
 
             // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
             byte[] writeArr = Encoding.UTF8.GetBytes(accountInfo);
