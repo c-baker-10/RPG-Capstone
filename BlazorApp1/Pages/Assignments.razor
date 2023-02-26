@@ -9,18 +9,18 @@
 
 @foreach (Assignment A in Assignment.AssignmentList)
 {
-    @if (A.taken)
+    @if (A.taken || DateTime.Compare(DateTime.Parse(time.ToString("g")), DateTime.Parse(A.dueDate)) > 0)
     {
-        <div class="container">
+        <div class="unavailable" style="outline-color: blue">
             @Path.GetFileNameWithoutExtension(A.assignmentName)
-            <p style="display:inline; float: right">  Grade: @A.score%</p>
+            <p style="display:inline; float: right">  Grade: @A.score%  Due: @A.dueDate</p>
         </div>
     }
     else
     {
-        <div class="container" @onclick="() => TakeAssignment(A.assignmentName)">
+        <div class="available" @onclick="() => TakeAssignment(A.assignmentName)">
             @Path.GetFileNameWithoutExtension(A.assignmentName)
-            <p style="display:inline; float: right">  Grade: not taken </p>
+            <p style="display:inline; float: right">  Grade: not taken  Due: @A.dueDate</p>
         </div>
     }
 }
@@ -28,6 +28,7 @@
 @code {
     private string FolderPath = Directory.GetCurrentDirectory() + @"\AssignmentFolder\";
     private string[] Files;
+    private DateTime time = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {

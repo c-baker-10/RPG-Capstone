@@ -57,7 +57,7 @@
     <p>Assignment Lists:</p>
     @foreach (Assignment A in Assignment.AssignmentList)
     {
-        <p @onclick="assignment">@A.assignmentName</p>
+        <p @onclick="assignment" >@A.assignmentName  due: @A.dueDate</p>
     }
 </div>
 

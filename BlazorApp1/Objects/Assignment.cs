@@ -1,4 +1,6 @@
-﻿namespace BlazorApp1.Objects
+﻿using System.Xml.Linq;
+
+namespace BlazorApp1.Objects
 {
     public class Assignment
     {
@@ -7,6 +9,7 @@
         public string score { get; set; }
 
         public bool taken = false;
+        public string dueDate { get; set; }
 
         public static void getAssignments()
         {
@@ -30,6 +33,26 @@
                 {
                     Assignment A = new Assignment();
                     A.assignmentName = Path.GetFileName(file);
+
+                    // Read a text file line by line.
+                    string[] lines = File.ReadAllLines(FolderPath + A.assignmentName);
+                    bool Due = false;
+                    foreach(string s in lines)
+                    {
+        
+                        if(s == "DUE|")
+                        {
+                            Due = true;
+                            continue;
+                        }
+                        else if (Due)
+                        {
+                            A.dueDate = s;
+                            break;
+                        }
+
+                    }
+
                     Assignment.AssignmentList.Add(A);
                 }
                 added = false;

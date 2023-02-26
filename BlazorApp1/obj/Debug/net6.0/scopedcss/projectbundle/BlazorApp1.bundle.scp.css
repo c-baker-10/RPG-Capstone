@@ -1,9 +1,17 @@
 /* _content/BlazorApp1/Pages/Assignments.razor.rz.scp.css */
-.container[b-0npzfyuhw4] {
+.available[b-0npzfyuhw4] {
     width: 100%;
     float: left;
     padding: 20px;
     border: 4px solid black;
+    margin: 20px;
+}
+
+.unavailable[b-0npzfyuhw4] {
+    width: 100%;
+    float: left;
+    padding: 20px;
+    border: 4px solid blue;
     margin: 20px;
 }
 /* _content/BlazorApp1/Pages/MakeSkillTree.razor.rz.scp.css */
