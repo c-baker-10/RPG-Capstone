@@ -5,6 +5,7 @@
 @using System;
 @using System.IO;
 @using System.Text;
+@using sf = Syncfusion.Blazor.Diagram
 @inject IJSRuntime JS;
 
 <h3>Make a Skill Tree</h3>
@@ -104,7 +105,7 @@ else
 }
 
 @code {
-
+    sf.SfDiagramComponent diagram;
     List<Node> Nodes = new List<Node>();
     List<Connectors> Connections = new List<Connectors>();
 
@@ -136,7 +137,7 @@ else
 
     private void Connectioninput()
     {
-        if (ConnectionInput == "Add Connection") { AddConnection(); } 
+        if (ConnectionInput == "Add Connection") { AddConnector(); } 
         if (ConnectionInput == "Remove Connection") { RemoveConnector(); }
     }
 
@@ -187,6 +188,17 @@ else
     }
 
     private int ConnectionsIndex = 1;
+
+    private void AddConnector()
+    {
+        diagram.InteractionController = sf.DiagramInteractions.DrawOnce;
+        diagram.DrawingObject = new sf.Connector()
+            {
+                ID = "connector1",
+                Type = sf.ConnectorSegmentType.Straight,
+            };
+    }
+
     // adds a connector to the page
     private void AddConnection()
     {

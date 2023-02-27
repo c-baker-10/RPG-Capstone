@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="IronXL.Excel" Version="2023.1.14" />
+    <PackageReference Include="Syncfusion.Blazor.Diagram" Version="20.4.0.51" />
   </ItemGroup>
 
 </Project>
