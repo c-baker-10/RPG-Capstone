@@ -1,17 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "Ult4XQIiaLDa8iXSvUL+drv2K+L+nYG2z0RhqhgWg9qpnJNUss/M/X8KTsP/sWJZtneQVAnlIurDytF4D6oFpw==",
+  "dgSpecHash": "dSP/EHeFGEehRmFljCOv9v06N8miYadXcYExAfXC2VB10beuLImWWLKv5DfyVOZg0iJMs7t0I4oKpspJ+XPtYA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Caleb\\source\\repos\\RPG-Capstone\\BlazorApp1\\BlazorApp1.csproj",
+  "projectFilePath": "C:\\Users\\Caden\\Source\\Repos\\RPG-Capstone2\\BlazorApp1\\BlazorApp1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Caleb\\.nuget\\packages\\bitmiracle.libtiff.net\\2.4.649\\bitmiracle.libtiff.net.2.4.649.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\ironsoftware.system.drawing\\2023.1.11379\\ironsoftware.system.drawing.2023.1.11379.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\ironxl.excel\\2023.1.14\\ironxl.excel.2023.1.14.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.1.0\\microsoft.extensions.logging.abstractions.2.1.0.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\sixlabors.imagesharp\\2.1.3\\sixlabors.imagesharp.2.1.3.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512"
+    "C:\\Users\\Caden\\.nuget\\packages\\bitmiracle.libtiff.net\\2.4.649\\bitmiracle.libtiff.net.2.4.649.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\ironsoftware.system.drawing\\2023.1.11379\\ironsoftware.system.drawing.2023.1.11379.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\ironxl.excel\\2023.1.14\\ironxl.excel.2023.1.14.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\2.1.0\\microsoft.extensions.logging.abstractions.2.1.0.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\sixlabors.imagesharp\\2.1.3\\sixlabors.imagesharp.2.1.3.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512",
+    "C:\\Users\\Caden\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
