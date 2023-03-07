@@ -104,6 +104,11 @@ else
     <div class="draggable" @onclick="() => SelectedNodeMethod(node)" id="@node.name"> <p style="color:black"> @node.name </p> </div>
 }
 
+<!--
+    work in progress
+    <SfDiagramComponent @ref="diagram" Height="600px" />
+-->
+
 @code {
     sf.SfDiagramComponent diagram;
     List<Node> Nodes = new List<Node>();
@@ -189,6 +194,7 @@ else
 
     private int ConnectionsIndex = 1;
 
+    // new function to add connections, work in progress
     private void AddConnector()
     {
         diagram.InteractionController = sf.DiagramInteractions.DrawOnce;

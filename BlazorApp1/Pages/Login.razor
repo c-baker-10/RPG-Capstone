@@ -11,18 +11,26 @@
 @inject NavigationManager UriHelper
 @inject IJSRuntime JS;
 
+<script suppress-error="BL9992">
+    function ShowHideDiv() {
+    var studentCheck = document.getElementById("StudentBtn");
+    var dvStudent = document.getElementById("dvStudent");
+    dvStudent.style.display = studentCheck.checked ? "block" : "none";
+}
+</script>
+
 @if (hasAccount)
 {
     <h1> RPG Classroom Login</h1>
 
     <EditForm Model="@user">
-        @if (!currectAccount)
+        @if (!correctAccount)
         {
             <p>Your user name is not correct</p>
         }
         <label for="UserName"> User Name</label>
         <InputText id="UserName" @bind-Value="@name" placeholder="username" /> <br />
-        @if (!currectPassword)
+        @if (!correctPassword)
         {
             <p>Your password is not correct</p>
         }
@@ -48,22 +56,30 @@ else
         <p>Please enter in the password again</p>
         <label for="UserPassword"> Password </label>
         <InputText id="UserPassword" @bind-Value="newPassword2" placeholder="password" type="password" /> <br />
+        <br/>
+        <h>Check which apply</h>
+        <br />
 
-        <p>Please enter your teachers access code</p>
-        <label for="AccessCode"> Access Code </label>
-        <InputText id="AccessCode" @bind-Value="accessCode" placeholder="Access Code" /> <br />
-    </EditForm>
 
-    <br />
+        <span>Are you a student or teacher?</span>
+        <label for="StudentBtn">
+            <input type="radio" id="StudentBtn" name="accountType" onclick="ShowHideDiv()"/>
+            Student
+        </label>
+        <label for="TeacherBtn">
+            <input type="radio" id="TeacherBtn" name="accountType" onclick="ShowHideDiv()"/>
+            Teacher
+        </label>
+        <hr/>
+        <div id="dvStudent" style="display: none">
+            Please enter your teachers access code
+            <br/>
+            <label for="AccessCode"> Access Code </label>
+            <InputText id="AccessCode" @bind-Value="accessCode" placeholder="Ex: 12345" /> <br />
+        </div>
 
-    <h>Check which apply</h>
-    <br />
-
-    <input type="radio" id="TeacherBtn" name="accountType" value="Teacher">
-    <label for="TeacherBtn">Teacher</label>
-    <br />
-    <input type="radio" id="StudentgBtn" name="accountType" value="Student">
-    <label for="StudentgBtn">Student</label>
+      
+    
     <br />
 
     <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
@@ -72,6 +88,9 @@ else
     <br />
 
     <button class="btn btn-primary" @onclick="Back"> Back </button>
+    </EditForm>
+
+    
 }
 @code {
 
@@ -81,7 +100,7 @@ else
     private string UserFolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
     private string GenFolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\General\";
 
-    private bool currectAccount = true, currectPassword = true, Teacher = false, Student = false;
+    private bool correctAccount = true, correctPassword = true, Teacher = false, Student = false;
 
     HashAlgorithmName hashAlgorthm = HashAlgorithmName.SHA512;
 
@@ -95,10 +114,11 @@ else
         }
     }
 
+
     private void Submit()
     {
-        currectAccount = true;
-        currectPassword = true;
+        correctAccount = true;
+        correctPassword = true;
 
         // for testing purposes only
         if(name == "test")
@@ -112,18 +132,18 @@ else
 
         if(name == null)
         {
-            currectAccount = false;
+            correctAccount = false;
             return;
         }
         else if(password == null)
         {
-            currectPassword = false;
+            correctPassword = false;
             return;
         }
 
         if (!accounts.Contains(name))
         {
-            currectAccount = false;
+            correctAccount = false;
             return;
         }
 
@@ -151,7 +171,7 @@ else
             UriHelper.NavigateTo($"home");
         }
         else{
-            currectPassword = false;
+            correctPassword = false;
             return;
         }
     }

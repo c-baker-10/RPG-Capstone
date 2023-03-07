@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\BlazorApp1",
-    "\\BlazorApp1\\Objects"
+    "\\BlazorApp1\\Pages"
   ],
+  "SelectedNode": "\\BlazorApp1\\Pages\\MakeSkillTree.razor",
   "PreviewInSolutionExplorer": false
 }
