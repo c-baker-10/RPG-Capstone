@@ -1,0 +1,90 @@
+﻿@page "/persona"
+
+@using Objects
+
+@inject NavigationManager UriHelper
+
+<h3>Welcome @User.UserName (@User.user.Type): general level #@User.user.Level</h3>
+
+<br/>
+
+<img src=@PersonaImgSource alt="Example Persona" class="avater">
+
+<div class="center">
+@if (Imgs != null)
+{
+    <label for="Files">Choose a persona:</label>
+    <select name="Files" id="Files" @bind="PersonaImgName">
+        @foreach (string file in Imgs)
+        {
+            <option>@Path.GetFileNameWithoutExtension(file) </option>
+        }
+    </select>
+    <button class="btn btn-primary" @onclick="UpdateImg">Update</button>
+}
+</div>
+<br />
+
+<div class="container">
+    @User.user.General
+</div>
+
+<div class="container">
+    @User.user.Badges
+</div>
+
+<div class="container">
+    @User.user.Items
+</div>
+
+<div class="container">
+    @User.user.Stuff
+</div>
+
+<div class="container">
+    Current skill level distribution:
+    <br />
+    @foreach (string[] s in User.user.skillDistribution)
+    {
+        <p style="display:inline">@s[0]</p>
+        <p style="display:inline"> - </p>
+        <p style="display:inline">@s[1]</p>
+        <progress value="@s[1]" max="100"> </progress>
+        <br />
+    }
+</div>
+
+<div class="container">
+    <p>Assignment Lists:</p>
+    @foreach (Assignment A in Assignment.AssignmentList)
+    {
+        <p @onclick="assignment" >@A.assignmentName  due: @A.dueDate</p>
+    }
+</div>
+
+
+@code {
+
+    private string FolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\";
+    private string PersonaImgPath = @"PersonaImages\";
+    private string PersonaImgName = "Example Image.PNG";
+    private string PersonaImgSource;
+    private string[] Imgs;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Assignment.getAssignments();
+        Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
+        PersonaImgSource = PersonaImgPath + PersonaImgName;
+    }
+
+    private void UpdateImg()
+    {
+        PersonaImgSource = PersonaImgPath + PersonaImgName + ".PNG";
+    }
+
+    private void assignment()
+    {
+        UriHelper.NavigateTo($"assignments");
+    }
+}
