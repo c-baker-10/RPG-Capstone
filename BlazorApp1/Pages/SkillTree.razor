@@ -34,7 +34,7 @@
 
 @if (Nodes != null)
 {
-    @foreach (Node node in Nodes)
+    @foreach (Branch node in Nodes)
     {
         <div id="@node.name" class="nodeCSS" @onclick="() => NodePage(node)"> <p style="color:black"> @node.name </p> </div>
         @if (node.userAt)
@@ -50,7 +50,7 @@
 
     bool NodeSec, ConnectionSec, Connectors;
 
-    private List<Node> Nodes;
+    private List<Branch> Nodes;
     private List<Connectors> Connections;
 
     private string FolderPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\";
@@ -77,7 +77,7 @@
     {
         if(Nodes != null && Connections != null)
         {
-            foreach (Node node in Nodes)
+            foreach (Branch node in Nodes)
             {
                 await JS.InvokeVoidAsync("setNodePosistion", node.name, node.xPosistion, node.yPosistion);
                 if (node.userAt)
@@ -94,7 +94,7 @@
 
     private async void LoadTree()
     {
-        Nodes = new List<Node>();
+        Nodes = new List<Branch>();
         Connections = new List<Connectors>();
 
         NodeSec = false;
@@ -132,7 +132,7 @@
 
             if(NodeSec)
             {
-                Node node = new Node(info[0]);
+                Branch node = new Branch(info[0]);
 
                 if(info[1] != "null")
                 {
@@ -157,7 +157,7 @@
             }
             else if (ConnectionSec)
             {
-                foreach(Node node in Nodes)
+                foreach (Branch node in Nodes)
                 {
                     if(node.name == info[0])
                     {
@@ -165,7 +165,7 @@
                         {
                             if(name != info[0])
                             {
-                                foreach (Node connectNode in Nodes)
+                                foreach (Branch connectNode in Nodes)
                                 {
                                     if(connectNode.name == name)
                                     {
@@ -196,12 +196,12 @@
 
     private void UserLocation()
     {
-        foreach(Node node in Nodes)
+        foreach (Branch node in Nodes)
         {
             if(node.startingNode || node.userAt)
             {
                 node.userAt = true;
-                foreach(Node n in node.NodeConnections)
+                foreach (Branch n in node.NodeConnections)
                 {
                     foreach (string[] skill in User.user.skillDistribution)
                     {
@@ -216,7 +216,7 @@
         }
     }
 
-    private void NodePage(Node node)
+    private void NodePage(Branch node)
     {
         UriHelper.NavigateTo($"nodeinformation/{node.name}/{FileName}");
     }

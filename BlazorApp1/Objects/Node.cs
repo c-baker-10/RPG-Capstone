@@ -1,12 +1,12 @@
 ﻿namespace BlazorApp1.Objects
 {
-    public class Node
+    public class Branch
     {
         public string name;
 
-        public List<Node> NodeConnections = new List<Node>();
+        public List<Branch> NodeConnections = new List<Branch>();
 
-        public Node(string name)
+        public Branch(string name)
         {
             this.name = name;
         }

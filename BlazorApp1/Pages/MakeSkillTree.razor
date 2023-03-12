@@ -82,7 +82,7 @@ else
                 }
                 else
                 {
-                    @foreach (Node node in SelectedNode.NodeConnections)
+                    @foreach (Branch node in SelectedNode.NodeConnections)
                     {
                         <p style="display:inline"> @node.name </p>
                     }
@@ -99,7 +99,7 @@ else
     <div class="resizedrag" @onclick="() => SelectedConnectorMethod(Connect)" id="@Connect.name"> <p> @Connect.name </p></div>
 }
 
-@foreach (Node node in Nodes)
+@foreach (Branch node in Nodes)
 {
     <div class="draggable" @onclick="() => SelectedNodeMethod(node)" id="@node.name"> <p style="color:black"> @node.name </p> </div>
 }
@@ -111,10 +111,10 @@ else
 
 @code {
     sf.SfDiagramComponent diagram;
-    List<Node> Nodes = new List<Node>();
+    List<Branch> Nodes = new List<Branch>();
     List<Connectors> Connections = new List<Connectors>();
 
-    Node SelectedNode, node;
+    Branch SelectedNode, node;
     Connectors SelectedConnector, connector;
 
     string NodeInput;
@@ -147,7 +147,7 @@ else
     }
 
     // sets clicked node to be selected
-    private void SelectedNodeMethod(Node node)
+    private void SelectedNodeMethod(Branch node)
     {
         if (!connecting)
         {
@@ -179,7 +179,7 @@ else
     // adds a node to the page
     private void AddNode()
     {
-        Node node = new Node("N" + index);
+        Branch node = new Branch("N" + index);
         editing = true;
         Nodes.Add(node);
         index++;
@@ -291,7 +291,7 @@ else
         // node info section
         TreeInfo = "NODE|\n";
 
-        foreach (Node node in Nodes)
+        foreach (Branch node in Nodes)
         {
             // store node name
             //TreeInfo += "Node name: " + node.name + "\n";
@@ -345,10 +345,10 @@ else
 
         // node connection info section
         TreeInfo += "NODE-CONNECTIONS|\n";
-        foreach (Node node in Nodes)
+        foreach (Branch node in Nodes)
         {
             TreeInfo += node.name + ";";
-            foreach(Node ConnectNode in node.NodeConnections)
+            foreach(Branch ConnectNode in node.NodeConnections)
             {
                 TreeInfo += ConnectNode.name + ";";
             }
