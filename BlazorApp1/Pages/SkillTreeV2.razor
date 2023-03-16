@@ -1,0 +1,175 @@
+﻿@page "/skilltreeV2"
+@page "/skilltreeV2/{sentFile}"
+
+@using Objects
+@using Syncfusion.Blazor.Diagram
+
+@inject NavigationManager UriHelper
+
+@if (Files != null)
+{
+    <label for="Files">Choose a file:</label>
+    <select name="Files" id="Files" @bind="FileName">
+        <option disabled selected value> -- select an option -- </option>
+        @foreach (string file in Files)
+        {
+            <option>@Path.GetFileNameWithoutExtension(file) </option>
+        }
+    </select>
+}
+<button class="btn btn-primary" @onclick="LoadTree">Load Tree</button>
+
+<SfDiagramComponent @ref="diagram" Nodes="@nodes"
+                    Height="800px"
+                    Connectors="@connectors"
+                    Click="@OnClick"
+                    CollectionChanged="@OnCollectionChanged"
+                    PositionChanging="@OnPositionChanging" />
+
+@code {
+    //Reference to diagram.
+    SfDiagramComponent diagram;
+
+    //Defines diagram's nodes collection.
+    DiagramObjectCollection<Node> nodes;
+
+    DiagramObjectCollection<Connector> connectors;
+
+    private string FolderPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\";
+    private string FileName;
+    private string[] Files;
+    private string[] info;
+
+    Branch SelectedBranch;
+    List<Branch> Branchs = new List<Branch>();
+
+    [Parameter]
+    public string sentFile { get; set; }
+
+    protected override void OnInitialized()
+    {
+        nodes = new DiagramObjectCollection<Node>();
+        connectors = new DiagramObjectCollection<Connector>();
+
+        Files = Directory.GetFiles(FolderPath);
+
+        if (sentFile != null)
+        {
+            FileName = sentFile;
+            LoadTree();
+        }
+    }
+
+    private void LoadTree()
+    {
+        // Read a text file line by line.
+        string[] lines = File.ReadAllLines(FolderPath + FileName);
+
+        bool n = false;
+        bool c = false;
+        foreach (string line in lines)
+        {
+            if (line == "NODE|")
+            {
+                n = true;
+                c = false;
+                continue;
+            }
+            else if (line == "CONNECTOR|")
+            {
+                n = false;
+                c = true;
+                continue;
+            }
+
+            info = line.Split(";");
+            if (n)
+            {
+                Node node = new Node()
+                    {
+                        ID = info[0],
+
+                        // Position of the node.
+                        OffsetX = Int32.Parse(info[1]),
+                        OffsetY = Int32.Parse(info[2]),
+                        // Size of the node.
+                        Width = 100,
+                        Height = 100,
+
+                       Annotations = new DiagramObjectCollection<ShapeAnnotation>()
+                       {
+                           new ShapeAnnotation()
+                           {
+                               Content = info[3],
+
+                               Style = new TextStyle()
+                               {
+                                   Color = "white",
+                               }
+
+                           }
+                       },
+
+                       Style = new ShapeStyle() { Fill = "#6495ED", StrokeColor = "white" },
+
+                        Constraints = ~NodeConstraints.Resize
+
+                    };
+
+                Branch branch = new Branch(info[3]);
+                branch.ID = info[0];
+                branch.EducationType = info[4];
+                branch.entryScore = info[5];
+
+                nodes.Add(node);
+                Branchs.Add(branch);
+            }
+            else if (c)
+            {
+                Connector Connector = new Connector()
+                    // Enable the segment editing.
+                    {
+                        ID = info[0],
+                        Constraints = ConnectorConstraints.Default | ConnectorConstraints.DragSegmentThumb,
+                        Type = ConnectorSegmentType.Orthogonal,
+                        SourcePoint = new DiagramPoint { X = Int32.Parse(info[1]), Y = Int32.Parse(info[2]) },
+                        TargetPoint = new DiagramPoint { X = Int32.Parse(info[4]), Y = Int32.Parse(info[5]) }
+                    };
+                connectors.Add(Connector);
+            }
+        }
+        StateHasChanged();
+    }
+
+    // To notify the position changing event before dragging the diagram elements.
+    public void OnPositionChanging(PositionChangingEventArgs args)
+    {
+        //Sets true to cancel the dragging.
+        args.Cancel = true;
+    }
+
+    private void OnClick(ClickEventArgs args)
+    {
+        foreach (Node n in nodes)
+        {
+            if (args.ActualObject == n)
+            {
+                foreach(Branch b in Branchs)
+                {
+                    if(n.ID == b.ID)
+                    {
+                        UriHelper.NavigateTo($"nodeinformation/{b.name}/{FileName}");
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnCollectionChanged(CollectionChangedEventArgs args)
+    {
+        if (args.Action.ToString().Equals("Add"))
+        {
+            // node has been added
+        }
+    }
+}

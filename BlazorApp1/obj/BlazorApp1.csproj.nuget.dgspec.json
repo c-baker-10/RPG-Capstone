@@ -45,10 +45,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "IronXL.Excel": {
-              "target": "Package",
-              "version": "[2023.1.14, )"
-            },
             "Syncfusion.Blazor.Diagram": {
               "target": "Package",
               "version": "[20.4.0.51, )"

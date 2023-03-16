@@ -104,13 +104,8 @@ else
     <div class="draggable" @onclick="() => SelectedNodeMethod(node)" id="@node.name"> <p style="color:black"> @node.name </p> </div>
 }
 
-<!--
-    work in progress
-    <SfDiagramComponent @ref="diagram" Height="600px" />
--->
-
 @code {
-    sf.SfDiagramComponent diagram;
+
     List<Branch> Nodes = new List<Branch>();
     List<Connectors> Connections = new List<Connectors>();
 
@@ -194,17 +189,6 @@ else
 
     private int ConnectionsIndex = 1;
 
-    // new function to add connections, work in progress
-    private void AddConnector()
-    {
-        diagram.InteractionController = sf.DiagramInteractions.DrawOnce;
-        diagram.DrawingObject = new sf.Connector()
-            {
-                ID = "connector1",
-                Type = sf.ConnectorSegmentType.Straight,
-            };
-    }
-
     // adds a connector to the page
     private void AddConnection()
     {
@@ -265,7 +249,7 @@ else
     {
         // set file name and destination path
         FileName = "SkillTree" + FileIndex;
-        FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + FileName;
+        FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\V1\" + FileName;
 
         // Check if file already exists. If yes, adds one to the exisiting file name
         while (true)
@@ -275,7 +259,7 @@ else
                 // update file name and destination path if current file name exists
                 FileIndex++;
                 FileName = "SkillTree" + FileIndex;
-                FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + FileName;
+                FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\V1\" + FileName;
             }
             else
             {

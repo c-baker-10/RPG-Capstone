@@ -1,12 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "MLkYJVZD5HD7Sd7AZ5nLSf99L+hSyKqR5RLrurFIqKovfLuQyXn8zYVCd6yZbC7Hy3XGJqtHH8wrMt7jpyFAGw==",
+  "dgSpecHash": "jBNt7MDVNuQq5qnehACeSMQSBhcLeREv2Gy9WO14rv9TpfuhZ9kH0Dwn3Onl1YOmJKLKN54RuSpx3w+Nd5YxUA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Caleb\\source\\Repos2\\BlazorApp1\\BlazorApp1.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Caleb\\.nuget\\packages\\bitmiracle.libtiff.net\\2.4.649\\bitmiracle.libtiff.net.2.4.649.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\ironsoftware.system.drawing\\2023.1.11379\\ironsoftware.system.drawing.2023.1.11379.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\ironxl.excel\\2023.1.14\\ironxl.excel.2023.1.14.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.5\\microsoft.aspnetcore.authorization.6.0.5.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.5\\microsoft.aspnetcore.components.6.0.5.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\6.0.5\\microsoft.aspnetcore.components.analyzers.6.0.5.nupkg.sha512",
@@ -19,8 +16,6 @@
     "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.jsinterop\\6.0.5\\microsoft.jsinterop.6.0.5.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\sixlabors.imagesharp\\2.1.3\\sixlabors.imagesharp.2.1.3.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\syncfusion.blazor.buttons\\20.4.0.51\\syncfusion.blazor.buttons.20.4.0.51.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\syncfusion.blazor.core\\20.4.0.51\\syncfusion.blazor.core.20.4.0.51.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\syncfusion.blazor.data\\20.4.0.51\\syncfusion.blazor.data.20.4.0.51.nupkg.sha512",
@@ -35,7 +30,6 @@
     "C:\\Users\\Caleb\\.nuget\\packages\\syncfusion.licensing\\20.4.0.51\\syncfusion.licensing.20.4.0.51.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\system.io.pipelines\\6.0.3\\system.io.pipelines.6.0.3.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
-    "C:\\Users\\Caleb\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
     "C:\\Users\\Caleb\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512"
   ],

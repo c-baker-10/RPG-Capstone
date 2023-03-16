@@ -1,0 +1,9 @@
+NODE|
+branch1;430;290;branch 1;test ed;test sc
+branch2;750;230;branch 2;;
+branch3;910;430;branch 3;;
+branch4;590;530;branch 4;;
+CONNECTOR|
+JwiAwHwWMh;480;290;branch1;700;230;branch2
+Connector2;750;280;branch2;910;380;branch3
+kTunBkTRFs;910;480;branch3;640;530;branch4

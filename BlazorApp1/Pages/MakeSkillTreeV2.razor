@@ -1,0 +1,344 @@
+﻿@page "/makeskilltreeV2"
+
+@using Objects
+@using System.Text;
+@using Syncfusion.Blazor.Diagram
+
+<input Type="button" value="addNode" @onclick="AddNode" />
+<input Type="button" value="AddConnector" @onclick="AddConnector" />
+<input type="button" value="Save" @onclick="@Save" />
+<input type="button" value="Clear" @onclick="Clear" />
+<SfDiagramComponent @ref="diagram" Nodes="@nodes"
+                                   Height="700px"
+                                   Click="@OnClick"
+                                   Connectors="@connectors" 
+                                   CollectionChanged="@OnCollectionChanged" />
+
+@if (SelectedBranch != null)
+{
+    <div align="left">
+        <EditForm Model="@SelectedBranch">
+            <p> User Input for @SelectedBranch.name : </p>
+            <label for="Edtype"> Node Education Type</label>
+            <InputText style="display:inline" id="Edtype" @bind-Value="SelectedBranch.EducationType" placeholder="@SelectedBranch.EducationType" />
+            <label for="Entype" style="margin-left: 20px;"> Node Entry Score</label>
+            <InputText style="display:inline" id="Entype" @bind-Value="SelectedBranch.entryScore" placeholder="@SelectedBranch.entryScore"/>
+        </EditForm>
+        <ul>
+            @if (SelectedBranch.NodeConnections != null)
+            {
+                <p style="display:inline">Node Connections: </p>
+                @if (SelectedBranch.NodeConnections.Count == 0)
+                {
+                    <p style="display:inline"> None </p>
+                }
+                else
+                {
+                    @foreach (Branch node in SelectedBranch.NodeConnections)
+                    {
+                        <p style="display:inline"> @node.name </p>
+                    }
+                }
+            }
+        </ul>
+        <input type="button" value="Done" @onclick="@DoneEdit" />
+    </div>
+}
+
+@code
+{
+    //Reference to diagram.
+    SfDiagramComponent diagram;
+
+    //Defines diagram's nodes collection.
+    DiagramObjectCollection<Node> nodes;
+
+    DiagramObjectCollection<Connector> connectors;
+
+    int NodeIndex = 1;
+    Branch SelectedBranch;
+    List<Branch> Branchs = new List<Branch>();
+
+
+    protected override void OnInitialized()
+    {
+        nodes = new DiagramObjectCollection<Node>();
+        connectors = new DiagramObjectCollection<Connector>();
+    }
+
+    //To export the diagram as base64 string.
+    private void Save()
+    {
+        string FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + "test1";
+        FileStream FileWrite = new FileStream(FileDesPath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+        // node info section
+        string TreeInfo = "NODE|\n";
+
+        foreach(Node n in nodes)
+        {
+            string label = "";
+            foreach (Annotation annotation in n.Annotations as IEnumerable<object>)
+            {
+                //You can do you own stuff here. For example getting label of the Annotation.
+                label = annotation.Content.ToString();
+            }
+
+            TreeInfo += n.ID + ";" + 
+                        n.OffsetX + ";" + 
+                        n.OffsetY + ";" +
+                        label + ";";
+
+            foreach(Branch b in Branchs)
+            {
+                if(b.ID == n.ID)
+                {
+                    TreeInfo += b.EducationType + ";" +
+                                b.entryScore;
+                }
+            }
+
+            TreeInfo += "\n";
+        }
+
+        // node info section
+        TreeInfo += "CONNECTOR|\n";
+
+        foreach (Connector c in connectors)
+        {
+
+            TreeInfo += c.ID + ";" +
+                        c.SourcePoint.X + ";" +
+                        c.SourcePoint.Y + ";" +
+                        c.SourceID + ";" +
+                        c.TargetPoint.X + ";" +
+                        c.TargetPoint.Y + ";" +
+                        c.TargetID + "\n";
+        }
+
+        // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
+        byte[] writeArr = Encoding.UTF8.GetBytes(TreeInfo);
+
+        // Using the Write method write the encoded byte array to the textfile
+        FileWrite.Write(writeArr, 0, TreeInfo.Length);
+
+        // Closee the FileStream object
+        FileWrite.Close();
+    }
+
+    private void OnCollectionChanged(CollectionChangedEventArgs args)
+    {
+        if (args.Action.ToString().Equals("Remove") && Branchs.Any())
+        {
+            // node has been added
+            bool del = true;
+            foreach(Branch b in Branchs)
+            {
+                foreach(Node n in nodes)
+                {
+                    if(n.ID == b.ID)
+                    {
+                        del = false;
+                        break;
+                    }
+                }
+                if(del)
+                {
+                    Branchs.Remove(b);
+                }
+            }
+        }
+    }
+
+    private void OnClick(ClickEventArgs args)
+    {
+        foreach (Node n in nodes)
+        {
+            if (args.ActualObject == n)
+            {
+                foreach(Branch b in Branchs)
+                {
+                    if(n.ID == b.ID)
+                    {
+                        string label = "";
+                        foreach (Annotation annotation in n.Annotations as IEnumerable<object>)
+                        {
+                            //You can do you own stuff here. For example getting label of the Annotation.
+                            label = annotation.Content.ToString();
+                        }
+
+                        foreach(Connector c in connectors)
+                        {
+                            if(c.SourceID == n.ID)
+                            {
+                                foreach (Branch branch in Branchs)
+                                {
+                                    if (c.TargetID == branch.ID)
+                                    {
+                                        b.NodeConnections.Add(branch);
+                                    }
+                                }
+                            }
+                        }
+
+                        b.name = label;
+                        SelectedBranch = b;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void AddConnector()
+    {
+        Connector Connector = new Connector()
+            // Enable the segment editing.
+            {
+                ID = "Connector2",
+                Constraints = ConnectorConstraints.Default | ConnectorConstraints.DragSegmentThumb,
+                Type = ConnectorSegmentType.Orthogonal,
+                SourcePoint = new DiagramPoint { X = 400, Y = 100 },
+                TargetPoint = new DiagramPoint { X = 500, Y = 200 }
+            };
+        connectors.Add(Connector);
+    }
+
+    private void AddNode()
+    {
+        Node node = new Node()
+        {
+            ID = "branch" + NodeIndex,
+
+            // Position of the node.
+            OffsetX = 250,
+            OffsetY = 250,
+            // Size of the node.
+            Width = 100,
+            Height = 100,
+
+            Annotations = new DiagramObjectCollection<ShapeAnnotation>()
+            {
+                new ShapeAnnotation()
+                {
+                    Content = "branch " + NodeIndex,
+
+                    Style = new TextStyle()
+                    {
+                        Color = "white",
+                    }
+                }
+            },
+
+            Style = new ShapeStyle() { Fill = "#6495ED", StrokeColor = "white" },
+        };
+
+        string label = "";
+        foreach (Annotation annotation in node.Annotations as IEnumerable<object>)
+        {
+            label = annotation.Content.ToString();
+        }
+
+        Branch branch = new Branch(label);
+
+        branch.ID = node.ID;
+
+        SelectedBranch = branch;
+
+        Branchs.Add(branch);
+
+        NodeIndex++;
+
+        PointPort port1 = new PointPort()
+        {
+            ID = "port1",
+            Offset = new DiagramPoint() { X = 0, Y = 0.5 },
+            //Visibility = PortVisibility.Visible,
+            //Set the style for the port.
+            Style = new ShapeStyle()
+            {
+                Fill = "gray",
+                StrokeColor = "black"
+            },
+            Width = 12,
+            Height = 12,
+            // Sets the shape of the port as Square.
+            Shape = PortShapes.Square,
+            // Enable draw operation for Port
+            Constraints = PortConstraints.Default | PortConstraints.Draw
+        };
+        PointPort port2 = new PointPort()
+        {
+            ID = "port2",
+            Offset = new DiagramPoint() { X = 1, Y = 0.5 },
+            //Visibility = PortVisibility.Visible,
+            //Set the style for the port.
+            Style = new ShapeStyle()
+            {
+                Fill = "gray",
+                StrokeColor = "black"
+            },
+            Width = 12,
+            Height = 12,
+            // Sets the shape of the port as Square.
+            Shape = PortShapes.Square,
+            // Enable draw operation for Port
+            Constraints = PortConstraints.Default | PortConstraints.Draw
+        };
+        PointPort port3 = new PointPort()
+        {
+            ID = "port3",
+            Offset = new DiagramPoint() { X = 0.5, Y = 0 },
+            //Visibility = PortVisibility.Visible,
+            //Set the style for the port.
+            Style = new ShapeStyle()
+            {
+                Fill = "gray",
+                StrokeColor = "black"
+            },
+            Width = 12,
+            Height = 12,
+            // Sets the shape of the port as Square.
+            Shape = PortShapes.Square,
+            // Enable draw operation for Port
+            Constraints = PortConstraints.Default | PortConstraints.Draw
+        };
+        PointPort port4 = new PointPort()
+        {
+            ID = "port4",
+            Offset = new DiagramPoint() { X = 0.5, Y = 1 },
+            //Visibility = PortVisibility.Visible,
+            //Set the style for the port.
+            Style = new ShapeStyle()
+            {
+                Fill = "gray",
+                StrokeColor = "black"
+            },
+            Width = 12,
+            Height = 12,
+            // Sets the shape of the port as Square.
+            Shape = PortShapes.Square,
+            // Enable draw operation for Port
+            Constraints = PortConstraints.Default | PortConstraints.Draw
+        };
+
+        // Add multiple ports in the port collection.
+        node.Ports.Add(port1);
+        node.Ports.Add(port2);
+        node.Ports.Add(port3);
+        node.Ports.Add(port4);
+
+        nodes.Add(node);
+    }
+
+    private void DoneEdit()
+    {
+        SelectedBranch = null;
+    }
+
+    private void Clear()
+    {
+        Branchs.Clear();
+        diagram.Clear();
+    }
+}
