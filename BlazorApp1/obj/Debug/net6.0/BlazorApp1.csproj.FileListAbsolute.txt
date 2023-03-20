@@ -76,12 +76,6 @@ C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\BlazorApp1
 C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\BlazorApp1.runtimeconfig.json
 C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\BlazorApp1.dll
 C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\BlazorApp1.pdb
-C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\BitMiracle.LibTiff.NET.dll
-C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\IronSoftware.Drawing.Common.dll
-C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\SixLabors.Fonts.dll
-C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\SixLabors.ImageSharp.Drawing.dll
-C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\IronXL.dll
-C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\bin\Debug\net6.0\SixLabors.ImageSharp.dll
 C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\obj\Debug\net6.0\BlazorApp1.csproj.AssemblyReference.cache
 C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\obj\Debug\net6.0\BlazorApp1.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Caden\Source\Repos\RPG-Capstone2\BlazorApp1\obj\Debug\net6.0\BlazorApp1.AssemblyInfoInputs.cache
