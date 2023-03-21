@@ -124,6 +124,12 @@
                 branch.ID = info[0];
                 branch.EducationType = info[4];
                 branch.entryScore = info[5];
+                branch.startingNode = bool.Parse(info[6]);
+
+                if (branch.startingNode)
+                {
+                    node.Style.Fill = "red";
+                }
 
                 nodes.Add(node);
                 Branchs.Add(branch);
@@ -134,10 +140,11 @@
                     // Enable the segment editing.
                     {
                         ID = info[0],
-                        Constraints = ConnectorConstraints.Default | ConnectorConstraints.DragSegmentThumb,
+                        Constraints = ~ConnectorConstraints.Interaction,
                         Type = ConnectorSegmentType.Orthogonal,
                         SourcePoint = new DiagramPoint { X = Int32.Parse(info[1]), Y = Int32.Parse(info[2]) },
-                        TargetPoint = new DiagramPoint { X = Int32.Parse(info[4]), Y = Int32.Parse(info[5]) }
+                        TargetPoint = new DiagramPoint { X = Int32.Parse(info[4]), Y = Int32.Parse(info[5]) },
+
                     };
                 connectors.Add(Connector);
             }

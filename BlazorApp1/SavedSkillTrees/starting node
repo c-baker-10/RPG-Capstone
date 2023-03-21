@@ -1,0 +1,5 @@
+NODE|
+branch1;550;410;branch 1;;;True
+branch2;730;190;branch 2;;;False
+CONNECTOR|
+CmAzzCnEEH;550;360;branch1;730;240;branch2

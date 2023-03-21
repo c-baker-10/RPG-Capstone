@@ -6,7 +6,7 @@
 
 <input Type="button" value="addNode" @onclick="AddNode" />
 <input Type="button" value="AddConnector" @onclick="AddConnector" />
-<input type="button" value="Save" @onclick="@Save" />
+<input type="button" value="Save" @onclick="Save" />
 <input type="button" value="Clear" @onclick="Clear" />
 <input type="text"  @bind-value=Name  placeholder="file name" style="float:right" />
 <SfDiagramComponent @ref="diagram" Nodes="@nodes"
@@ -25,6 +25,19 @@
             <label for="Entype" style="margin-left: 20px;"> Node Entry Score</label>
             <InputText style="display:inline" id="Entype" @bind-Value="SelectedBranch.entryScore" placeholder="@SelectedBranch.entryScore"/>
         </EditForm>
+
+        <form>
+            @if(SelectedBranch.startingNode)
+            {
+                <input type="checkbox"  checked="checked" id="Startnode" @onclick="Start">
+            }
+            else
+            {
+                <input type="checkbox" id="Startnode" @onclick="Start">
+            }
+            <label for="Startnode"> Is start node</label><br>
+        </form>
+
         <ul>
             @if (SelectedBranch.NodeConnections != null)
             {
@@ -121,7 +134,8 @@
                 if(b.ID == n.ID)
                 {
                     TreeInfo += b.EducationType + ";" +
-                                b.entryScore;
+                                b.entryScore + ";" +
+                                b.startingNode;
                 }
             }
 
@@ -173,7 +187,7 @@
 
     private void OnClick(ClickEventArgs args)
     {
-        
+
         foreach (Node n in nodes)
         {
             if (args.ActualObject == n)
@@ -366,6 +380,40 @@
     private void DoneEdit()
     {
         SelectedBranch = null;
+    }
+
+    private void Start()
+    {
+        foreach(Node n in nodes)
+        {
+            if(n.ID == SelectedBranch.ID)
+            {
+                foreach(Branch b in Branchs)
+                {
+                    if (SelectedBranch.ID == b.ID)
+                    {
+                        if (b.startingNode)
+                        {
+                            b.startingNode = false;
+                            n.Style.Fill = "#6495ED";
+                        }
+                        else
+                        {
+                            foreach (Branch branch in Branchs)
+                            {
+                                branch.startingNode = false;
+                            }
+                            foreach (Node node in nodes)
+                            {
+                                node.Style.Fill = "#6495ED";
+                            }
+                            b.startingNode = true;
+                            n.Style.Fill = "red";
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void Clear()
