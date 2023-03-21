@@ -62,6 +62,10 @@
 
     private void LoadTree()
     {
+        nodes.Clear();
+        connectors.Clear();
+        Branchs.Clear();
+
         // Read a text file line by line.
         string[] lines = File.ReadAllLines(FolderPath + FileName);
 

@@ -8,6 +8,7 @@
 <input Type="button" value="AddConnector" @onclick="AddConnector" />
 <input type="button" value="Save" @onclick="@Save" />
 <input type="button" value="Clear" @onclick="Clear" />
+<input type="text"  @bind-value=Name  placeholder="file name" style="float:right" />
 <SfDiagramComponent @ref="diagram" Nodes="@nodes"
                                    Height="700px"
                                    Click="@OnClick"
@@ -37,6 +38,7 @@
                     @foreach (Branch node in SelectedBranch.NodeConnections)
                     {
                         <p style="display:inline"> @node.name </p>
+                        <p style="display:inline"> </p>
                     }
                 }
             }
@@ -57,6 +59,7 @@
 
     int NodeIndex = 1;
     int ConnectorIndex = 1;
+    string Name = "";
     Branch SelectedBranch;
     List<Branch> Branchs = new List<Branch>();
 
@@ -70,7 +73,30 @@
     //To export the diagram as base64 string.
     private void Save()
     {
-        string FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + "test1";
+        string FileDesPath;
+        int FileIndex = 1;
+        if(Name == "")
+        {
+            while (true)
+            {
+                if (File.Exists(Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + "SkillTree" + FileIndex ))
+                {
+                    // update file name and destination path if current file name exists
+                    FileIndex++;
+                    FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + "SkillTree" + FileIndex;
+                }
+                else
+                {
+                    FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + "SkillTree" + FileIndex;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            FileDesPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\" + Name;
+        }
+
         FileStream FileWrite = new FileStream(FileDesPath, FileMode.Create, FileAccess.Write, FileShare.None);
 
         // node info section
@@ -147,6 +173,7 @@
 
     private void OnClick(ClickEventArgs args)
     {
+        
         foreach (Node n in nodes)
         {
             if (args.ActualObject == n)
@@ -168,7 +195,7 @@
                             {
                                 foreach (Branch branch in Branchs)
                                 {
-                                    if (c.TargetID == branch.ID)
+                                    if (c.TargetID == branch.ID && !b.NodeConnections.Contains(branch))
                                     {
                                         b.NodeConnections.Add(branch);
                                     }
