@@ -147,8 +147,23 @@
 
                     };
                 connectors.Add(Connector);
+
+                foreach(Branch b in Branchs)
+                {
+                    if (b.ID == info[3])
+                    {
+                        foreach (Branch branch in Branchs)
+                        {
+                            if (branch.ID == info[6])
+                            {
+                                b.NodeConnections.Add(branch);
+                            }
+                        }
+                    }
+                }
             }
         }
+        UserLocation();
         StateHasChanged();
     }
 
@@ -171,6 +186,60 @@
                     {
                         UriHelper.NavigateTo($"nodeinformation/{b.name}/{FileName}");
                     }
+                }
+            }
+        }
+    }
+
+    private void UserLocation()
+    {
+        foreach (Branch b in Branchs)
+        {
+            if (b.startingNode)
+            {
+                b.userAt = true;
+                break;
+            }
+        }
+
+        bool moved = false;
+        while(true)
+        {
+            foreach (Branch b in Branchs)
+            {
+                if (b.userAt)
+                {
+                    foreach(Branch c in b.NodeConnections)
+                    {
+                        foreach (string[] skill in User.user.skillDistribution)
+                        {
+                            if (c.EducationType.Equals(skill[0]) && Int32.Parse(c.entryScore) <= Int32.Parse(skill[1]))
+                            {
+                                c.userAt = true;
+                                b.userAt = false;
+                                moved = true;
+                            }
+                        }
+                    }
+                }
+            }
+            if(!moved)
+            {
+                break;
+            }
+            else
+            {
+                moved = false;
+            }
+        }
+
+        foreach(Node n in nodes)
+        {
+            foreach(Branch b in Branchs)
+            {
+                if(n.ID == b.ID && b.userAt)
+                {
+                    n.Style.Fill = "green";
                 }
             }
         }

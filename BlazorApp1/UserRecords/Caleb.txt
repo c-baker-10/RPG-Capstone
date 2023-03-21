@@ -16,6 +16,6 @@ LEVEL|
 1
 DISTRIBUTION|
 addition;20
-subtraction;0
+subtraction;10
 TAKEN ASSIGNMENTS|
 
