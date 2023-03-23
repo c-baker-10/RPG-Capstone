@@ -1,0 +1,7 @@
+NODE|
+branch1;570;450;branch 1;;;False
+branch2;750;190;branch 2;;;False
+branch3;270;150;branch 3;;;False
+CONNECTOR|
+HFJHgDBPcg;570;400;branch1;750;240;branch2;False
+xeiKdVSJsh;570;400;branch1;270;200;branch3;True

@@ -2,6 +2,8 @@
 {
     public class Connectors
     {
+        public string ID { get; set; }
+
         public string name;
 
         public Connectors(string name)
@@ -13,5 +15,7 @@
         public string yPosistion { get; set; }
         public string width { get; set; }
         public string height { get; set; }
+
+        public bool Visible = true;
     }
 }

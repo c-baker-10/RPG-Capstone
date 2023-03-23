@@ -55,9 +55,28 @@
                     }
                 }
             }
+
         </ul>
         <input type="button" value="Done" @onclick="@DoneEdit" />
     </div>
+}
+
+@if (SelectedConnector != null)
+{
+    <p> User Input for @SelectedConnector.name : </p>
+    <form>
+        @if (SelectedConnector.Visible)
+        {
+            <input type="checkbox" id="Startnode" @onclick="Visible">
+        }
+        else
+        {
+            <input type="checkbox" checked="checked" id="Startnode" @onclick="Visible">
+        }
+        <label for="Startnode"> Is connector not visible?</label><br>
+
+        <input type="button" value="Done" @onclick="@DoneEdit" />
+    </form>
 }
 
 @code
@@ -74,7 +93,9 @@
     int ConnectorIndex = 1;
     string Name = "";
     Branch SelectedBranch;
+    Connectors SelectedConnector;
     List<Branch> Branchs = new List<Branch>();
+    List<Connectors> connectorsList = new List<Connectors>();
 
 
     protected override void OnInitialized()
@@ -154,7 +175,15 @@
                         c.SourceID + ";" +
                         c.TargetPoint.X + ";" +
                         c.TargetPoint.Y + ";" +
-                        c.TargetID + "\n";
+                        c.TargetID + ";";
+
+            foreach (Connectors connect in connectorsList)
+            {
+                if (connect.ID == c.ID)
+                {
+                    TreeInfo += connect.Visible + "\n";
+                }
+            }
         }
 
         // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
@@ -224,6 +253,57 @@
                 }
             }
         }
+
+        SelectedBranch = null;
+
+        bool found = false;
+        if(connectorsList.Count == 0)
+        {
+            foreach (Connector c in connectors)
+            {
+                Connectors connect = new Connectors(c.ID);
+                connect.ID = c.ID;
+                connectorsList.Add(connect);
+            }
+        }
+        else
+        {
+            foreach (Connector c in connectors)
+            {
+                foreach(Connectors connection in connectorsList)
+                {
+                    if(connection.ID == c.ID)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if(found)
+                {
+                    found = false;
+                    continue;
+                }
+                Connectors connect = new Connectors(c.ID);
+                connect.ID = c.ID;
+                connectorsList.Add(connect);
+            }
+        }
+
+        foreach (Connector c in connectors)
+        {
+            if (args.ActualObject == c)
+            {
+                foreach (Connectors connect in connectorsList)
+                {
+                    if(c.ID == connect.ID)
+                    {
+                        SelectedConnector = connect;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     private void AddConnector()
@@ -237,6 +317,7 @@
                 SourcePoint = new DiagramPoint { X = 400, Y = 100 },
                 TargetPoint = new DiagramPoint { X = 500, Y = 200 }
             };
+
         connectors.Add(Connector);
 
         ConnectorIndex++;
@@ -380,6 +461,7 @@
     private void DoneEdit()
     {
         SelectedBranch = null;
+        SelectedConnector = null;
     }
 
     private void Start()
@@ -416,10 +498,24 @@
         }
     }
 
+    private void Visible()
+    {
+
+        foreach (Connectors c in connectorsList)
+        {
+            if (c.ID == SelectedConnector.ID)
+            {
+                c.Visible = !c.Visible;
+            }
+        }
+    }
+
     private void Clear()
     {
         Branchs.Clear();
         diagram.Clear();
+        connectorsList.Clear();
         NodeIndex = 1;
+        ConnectorIndex = 1;
     }
 }

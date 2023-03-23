@@ -136,6 +136,12 @@
             }
             else if (c)
             {
+                int opacity = 0;
+                if (info[7] == "False")
+                {
+                    opacity = 100;
+                }
+
                 Connector Connector = new Connector()
                     // Enable the segment editing.
                     {
@@ -144,6 +150,17 @@
                         Type = ConnectorSegmentType.Orthogonal,
                         SourcePoint = new DiagramPoint { X = Int32.Parse(info[1]), Y = Int32.Parse(info[2]) },
                         TargetPoint = new DiagramPoint { X = Int32.Parse(info[4]), Y = Int32.Parse(info[5]) },
+
+                        Style = new ShapeStyle() { Opacity = opacity },
+                        TargetDecorator = new DecoratorSettings()
+                        {
+                            Shape = DecoratorShape.Arrow,
+                            Style = new ShapeStyle()
+                            {
+                                Opacity = opacity,
+                                Fill= "black"
+                            }
+                        }
 
                     };
                 connectors.Add(Connector);
