@@ -44,20 +44,26 @@
     <h1> RPG Classroom Login</h1>
 
     <EditForm Model="@user">
+        <div class="container">
+            <div class="form-group">
         @if (!correctAccount)
         {
             <p>Your user name is not correct</p>
         }
         <label for="UserName"> User Name</label>
-        <InputText id="UserName" @bind-Value="@name" placeholder="username" /> <br />
+        <InputText id="UserName" @bind-Value="@name" placeholder="username" class="form-control" /> <br />
         @if (!correctPassword)
         {
             <p>Your password is not correct</p>
         }
+        </div>
+        <div class="form-group">
         <label for="UserPassword"> Password</label>
-        <InputText id="UserPassword" @bind-Value="@password" placeholder="password" type="password" /> <br />
+        <InputText id="UserPassword" @bind-Value="@password" placeholder="password" type="password" class="form-control"/> <br />
+            </div>
+        </div>
     </EditForm>
-
+    
     <button class="btn btn-primary" @onclick="newAccount"> Make a Account </button>  <br />
 
     <button class="btn btn-primary" @onclick="Submit"> Submit </button>
