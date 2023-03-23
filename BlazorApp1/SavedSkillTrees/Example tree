@@ -6,8 +6,8 @@ branch4;850;150;Super Addition;addition;50;False
 branch5;1150;150;Addition.2;addition;15;False
 branch6;390;130;Supper Subtraction;subtraction;50;False
 CONNECTOR|
-xDwLZzfqkn;700;550;branch1;550;400;branch3
-UeQBcHFxNW;800;550;branch1;950;400;branch2
-eZqGrcKInC;900;350;branch2;850;200;branch4
-nAtsfpaFkp;1000;350;branch2;1150;200;branch5
-SDLvzLeoxP;550;300;branch3;390;180;branch6
+xDwLZzfqkn;700;550;branch1;550;400;branch3;False
+UeQBcHFxNW;800;550;branch1;950;400;branch2;False
+eZqGrcKInC;900;350;branch2;850;200;branch4;False
+nAtsfpaFkp;1000;350;branch2;1150;200;branch5;True
+SDLvzLeoxP;550;300;branch3;390;180;branch6;False
