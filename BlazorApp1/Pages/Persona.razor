@@ -46,10 +46,15 @@
     <br />
     @foreach (string[] s in User.user.skillDistribution)
     {
+        int levelCap = 100;//To be replaced with file referenced number
+        int levelExp = Int32.Parse(@s[1]) % 100;
+        int curLevel = Int32.Parse(@s[1]) / 100;
         <p style="display:inline">@s[0]</p>
         <p style="display:inline"> - </p>
-        <p style="display:inline">@s[1]</p>
-        <progress value="@s[1]" max="100"> </progress>
+        <p style="display:inline">Level: @curLevel</p>
+        <p style="display:inline"> - </p>
+        <p style="display:inline">Exp: @levelExp / @levelCap</p>
+        <progress @onclick="progress" value="@levelExp" max="@levelCap"> </progress>
         <br />
     }
 </div>
@@ -86,5 +91,10 @@
     private void assignment()
     {
         UriHelper.NavigateTo($"assignments");
+    }
+
+    private void progress()
+    {
+        UriHelper.NavigateTo($"progress");
     }
 }
