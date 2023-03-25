@@ -1,0 +1,56 @@
+﻿@page "/progress"
+
+@using Objects
+
+@inject NavigationManager UriHelper
+@inject IJSRuntime JS;
+
+<h3>Welcome @User.UserName (@User.user.Type): general level #@User.user.Level</h3>
+
+<br />
+<h3>Progress</h3>
+<h2>Current skill level distribution:</h2>
+<br />
+
+@foreach (string[] s in User.user.skillDistribution)
+{
+    int levelCap = 100;//To be replaced with file referenced number
+    int levelExp = Int32.Parse(@s[1]) % levelCap;
+    int curLevel = Int32.Parse(@s[1]) / levelCap;
+    string levelWidth = (100 * levelExp / levelCap) + 1 + "%";
+    string barName = @s[0];
+    string barHeight = (10 + (curLevel * 5)) + "px";
+    string bar2Height = ((curLevel * 5)) + "px";
+    <!--string barColor = "#" + curLevel + "4AA" + curLevel*2 + "D";-->
+    <style>
+        #myProgress {
+          width: 100%;
+          height: 30px;
+          background-color: #ddd;
+        }
+        #lastBar {
+          width: 100%;
+          background-color: #0074DA;
+        }
+        #@barName {
+          <!--background-color: @barColor;-->
+          background-color: #04AA0D;
+        }
+    </style>
+    
+    <p style="display:inline">@s[0]</p>
+    <p style="display:inline"> - </p>
+    <p style="display:inline">Current level: @curLevel</p>
+    <p style="display:inline"> - </p>
+    <p style="display:inline">Exp: @levelExp / @levelCap</p>
+    <div id="myProgress">
+        <div id="lastBar" style="height:@bar2Height;">
+            <div id=@s[0] style="height:@barHeight;width:@levelWidth;"> </div>
+        </div>
+    </div>
+    <br />
+}
+
+@code {
+
+}

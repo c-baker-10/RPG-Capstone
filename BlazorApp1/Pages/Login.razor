@@ -111,7 +111,7 @@ else
     <br />
 
     <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
-
+    <Popup @ref="popupRef" />
     <br />
     <br />
 
@@ -120,6 +120,7 @@ else
     
     
 }
+
 @code {
 
     private User user = new User();
@@ -215,35 +216,79 @@ else
 
     private string newName, newPassword1, newPassword2, accountInfo, accountType, accessCode;
     private bool validCode;
+    private string message;
     private async void SubmitNewAccount()
     {
         accountInfo = "";
 
         accountType = await JS.InvokeAsync<string>("RadioButtons", "accountType");
 
+        bool specChar = true;
+        var regexItem = new Regex("^[!@#$%^&*(),.?\":{ }|<>]*$");
+        if(regexItem.IsMatch(newPassword1))
+        {
+            specChar = false;
+        }
+
         if (newName == null || newPassword1 == null || newPassword2 == null)
         {
             // please fill in all your infomation
+            message = "Information missing";
+            await Alert(message);
         }
         else if (accounts.Contains(newName))
         {
             // account name already taken
+            message = "Account name invalid";
+            await Alert(message);
         }
         else if (newPassword1 != newPassword2)
         {
             // passwords are not the same
-        }   
+            message = "Passwords do not match";
+            await Alert(message);
+        }
         else if (newPassword1.Length < 9)
         {
             //password too short
+            message = "Password too short";
+            await Alert(message);
+        }
+        else if (!newPassword1.Any(char.IsUpper))
+        {
+            //No uppercase number in password
+            message = "No uppercase letter in password";
+            await Alert(message);
+        }
+        else if (!newPassword1.Any(char.IsLower))
+        {
+            //No lowercase letter in password
+            message = "No lowercase letter in password";
+            await Alert(message);
+        }
+        else if (specChar)
+        {
+            //No special character in password
+            message = "No special character";
+            await Alert(message);
+        }
+        else if (newPassword1.Contains(" "))
+        {
+            //Whitespace found in password
+            message = "Space in password";
+            await Alert(message);
         }
         else if (Regex.Match(newPassword1, @"\d+").Success)
         {
             //No number in password
+            message = "No number in password";
+            await Alert(message);
         }
         else if (accountType == "none")
         {
             // please select a account type
+            message = "No valid account type";
+            await Alert(message);
         }
         else
         {
@@ -300,7 +345,7 @@ else
             // Using the Write method write the encoded byte array to the textfile
             FileWrite.Write(writeArr, 0, accountInfo.Length);
 
-            // Closee the FileStream object
+            // Close the FileStream object
             FileWrite.Close();
 
             User.UserName = newName;
@@ -309,5 +354,10 @@ else
 
             UriHelper.NavigateTo($"home");
         }
+    }
+    private Popup popupRef;
+    public async Task Alert(string message)
+    {
+        popupRef.Show(message);
     }
 }
