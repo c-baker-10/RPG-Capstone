@@ -3,7 +3,7 @@ Caleb
 PASSWORD|
 AJ6NLuwnRv52+goUVYYvKWIYvfZ6gU2t27RxRjGDVPw=
 TYPE|
-Studnet
+Student
 GENERAL|
 General information
 BADGES|

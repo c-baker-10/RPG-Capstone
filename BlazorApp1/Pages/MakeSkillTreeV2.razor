@@ -2,7 +2,10 @@
 
 @using Objects
 @using System.Text;
+@using System.Threading;
 @using Syncfusion.Blazor.Diagram
+
+<Popup @ref="popupRef" />
 
 <input Type="button" value="addNode" @onclick="AddNode" />
 <input Type="button" value="AddConnector" @onclick="AddConnector" />
@@ -109,6 +112,22 @@
     {
         string FileDesPath;
         int FileIndex = 1;
+
+        bool hasStart = false;
+        foreach(Branch b in Branchs)
+        {
+            if(b.startingNode)
+            {
+                hasStart = true;
+            }
+        }
+
+        if(!hasStart)
+        {
+            Alert("You need to set a branch as the starting branch");
+            return;
+        }
+
         if(Name == "")
         {
             while (true)
@@ -194,6 +213,9 @@
 
         // Closee the FileStream object
         FileWrite.Close();
+
+        Alert("Saved");
+
     }
 
     private void OnCollectionChanged(CollectionChangedEventArgs args)
@@ -500,7 +522,6 @@
 
     private void Visible()
     {
-
         foreach (Connectors c in connectorsList)
         {
             if (c.ID == SelectedConnector.ID)
@@ -532,5 +553,11 @@
         connectorsList.Clear();
         NodeIndex = 1;
         ConnectorIndex = 1;
+    }
+
+    private Popup popupRef;
+    public async Task Alert(string message)
+    {
+        popupRef.Show(message);
     }
 }

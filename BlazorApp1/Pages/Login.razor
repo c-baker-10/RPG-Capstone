@@ -38,7 +38,6 @@
 </div>
  -->
 
-
 @if (hasAccount)
 {
     <h1> RPG Classroom Login</h1>
@@ -70,6 +69,10 @@
 }
 else
 {
+    <Popup @ref="popupRef"/>
+    <br />
+    <br />
+
     <EditForm Model="@user">
         <div class="container">
         <p>Please enter a username</p>
@@ -105,15 +108,16 @@ else
         </div>
 
         </div>
-
-      
     
     <br />
 
     <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
+
+        <!--
     <Popup @ref="popupRef" />
     <br />
     <br />
+        -->
 
     <button class="btn btn-primary" @onclick="Back"> Back </button>
     </EditForm>
@@ -225,10 +229,12 @@ else
 
         bool specChar = true;
         var regexItem = new Regex("^[!@#$%^&*(),.?\":{ }|<>]*$");
-        if(regexItem.IsMatch(newPassword1))
+        
+        if (newPassword1 == null || regexItem.IsMatch(newPassword1))
         {
             specChar = false;
         }
+        
 
         if (newName == null || newPassword1 == null || newPassword2 == null)
         {

@@ -6,6 +6,8 @@
 
 @inject NavigationManager UriHelper
 
+<Popup @ref="popupRef" />
+
 @if (Files != null)
 {
     <label for="Files">Choose a file:</label>
@@ -17,13 +19,13 @@
         }
     </select>
 }
-<button class="btn btn-primary" @onclick="LoadTree">Load Tree</button>
+
+<input Type="button" value="Load Tree" @onclick="LoadTree" />
 
 <SfDiagramComponent @ref="diagram" Nodes="@nodes"
                     Height="800px"
                     Connectors="@connectors"
                     Click="@OnClick"
-                    CollectionChanged="@OnCollectionChanged"
                     PositionChanging="@OnPositionChanging" />
 
 @code {
@@ -62,6 +64,17 @@
 
     private void LoadTree()
     {
+
+        if (FileName == null)
+        {
+            Alert("Please selected a file to load");
+            return;
+        }
+        else if (sentFile == null)
+        {
+            popupRef.Close();
+        }
+
         nodes.Clear();
         connectors.Clear();
         Branchs.Clear();
@@ -262,11 +275,9 @@
         }
     }
 
-    private void OnCollectionChanged(CollectionChangedEventArgs args)
+    private Popup popupRef;
+    public async Task Alert(string message)
     {
-        if (args.Action.ToString().Equals("Add"))
-        {
-            // node has been added
-        }
+        popupRef.Show(message);
     }
 }
