@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\Objects",
-    "\\Pages"
+    "\\Pages",
+    "\\Shared"
   ],
   "SelectedNode": "\\BlazorApp1.sln",
   "PreviewInSolutionExplorer": false

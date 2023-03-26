@@ -35,6 +35,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm9kZUluZm9ybWF0aW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/Popup.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUG9wdXAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/Progress.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZ3Jlc3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/SkillTreeV2.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2tpbGxUcmVlVjIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

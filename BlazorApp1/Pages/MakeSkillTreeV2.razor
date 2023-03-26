@@ -506,6 +506,21 @@
             if (c.ID == SelectedConnector.ID)
             {
                 c.Visible = !c.Visible;
+
+                foreach (Connector connect in connectors)
+                {
+                    if(c.ID == connect.ID)
+                    {
+                        if(c.Visible)
+                        {
+                            connect.Style.StrokeColor = "black";
+                        }
+                        else
+                        {
+                            connect.Style.StrokeColor = "yellow";
+                        }
+                    }
+                }
             }
         }
     }
