@@ -6,6 +6,23 @@
 
 <h3> @name Information</h3>
 
+<p>Education type: @branch.EducationType</p>
+
+<p>Assignemnts that have questions based on this branch's education type:</p>
+@if(Assignments.Count == 0)
+{
+    <p>None</p>
+}
+else
+{
+    foreach (Assignment A in Assignments)
+    {
+        <div>
+            @Path.GetFileNameWithoutExtension(A.assignmentName)
+        </div>
+    }
+}
+
 <button class="btn btn-primary" @onclick="Back">Back</button>
 
 @code {
@@ -16,10 +33,72 @@
     [Parameter]
     public string fileName { get; set; }
 
+    private string FolderPath = Directory.GetCurrentDirectory() + @"\SavedSkillTrees\";
+
+    private Branch branch;
+
+    private List<Assignment> Assignments = new List<Assignment>();
+
+    protected override void OnInitialized()
+    {
+        loadBranch();
+        getAssignments();
+    }
+
+    public void loadBranch()
+    {
+        // Read a text file line by line.
+        string[] lines = File.ReadAllLines(FolderPath + fileName);
+
+        bool n = false;
+        foreach (string line in lines)
+        {
+            if (line == "NODE|")
+            {
+                n = true;
+                continue;
+            }
+
+            string[] info = line.Split(";");
+            if (n)
+            {
+                if (info[3] == name)
+                {
+                    branch = new Branch(info[3]);
+                    branch.ID = info[0];
+                    branch.EducationType = info[4];
+                    branch.entryScore = info[5];
+                    branch.startingNode = bool.Parse(info[6]);
+
+                    return;
+                }
+            }
+        }
+    }
+
+    public void getAssignments()
+    {
+        foreach (Assignment A in Assignment.AssignmentList)
+        {
+            foreach (AssignmentQuestion Q in AssignmentQuestion.loadQuestions(A.assignmentName))
+            {
+                foreach (string[] s in Q.skillValueDistribution)
+                {
+                    if (s[0] == branch.EducationType && Int32.Parse(s[1]) > 0)
+                    {
+                        if (!Assignments.Contains(A))
+                        {
+                            Assignments.Add(A);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     public void Back()
     {
-        //UriHelper.NavigateTo($"skilltree/{fileName}");
-
         UriHelper.NavigateTo($"skilltreeV2/{fileName}");
     }
 }
