@@ -8,10 +8,12 @@
 <Popup @ref="popupRef" />
 
 <input Type="button" value="addNode" @onclick="AddNode" />
-<input Type="button" value="AddConnector" @onclick="AddConnector" />
-<input type="button" value="Save" @onclick="Save" />
-<input type="button" value="Clear" @onclick="Clear" />
+<input Type="button" value="AddConnector" @onclick="AddConnector" style="margin-left: 10px;" />
+<input type="button" value="Clear" @onclick="Clear" style="margin-left: 10px;"/>
+<input type="button" value="Undo" @onclick="Undo" style="margin-left: 10px;"/>
+<input type="button" value="Redo" @onclick="Redo" style="margin-left: 10px;" />
 <input type="text"  @bind-value=Name  placeholder="file name" style="float:right" />
+<input type="button" value="Save" @onclick="Save" style="float:right" />
 <SfDiagramComponent @ref="diagram" Nodes="@nodes"
                                    Height="700px"
                                    Click="@OnClick"
@@ -105,6 +107,18 @@
     {
         nodes = new DiagramObjectCollection<Node>();
         connectors = new DiagramObjectCollection<Connector>();
+    }
+
+    private void Undo()
+    {
+        //Revert the changes.
+        diagram.Undo();
+    }
+
+    private void Redo()
+    {
+        //Restore the changes.
+        diagram.Redo();
     }
 
     //To export the diagram as base64 string.
