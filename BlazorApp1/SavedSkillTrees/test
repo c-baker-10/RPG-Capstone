@@ -1,0 +1,7 @@
+NODE|
+node1;870;430;node 1;;;True
+node2;490;430;node 2;;;False
+node3;1150;430;node 3;;;False
+node4;490;170;node 4;;;False
+CONNECTOR|
+PWdoTpzJyW;820;430;node1;540;440;;EBrbZywlMb;490;380;node2;500;220;;PzLFFtpEMU;920;430;node1;1100;430;node3;

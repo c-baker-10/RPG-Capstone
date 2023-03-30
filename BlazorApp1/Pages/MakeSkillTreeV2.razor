@@ -7,13 +7,17 @@
 
 <Popup @ref="popupRef" />
 
-<input Type="button" value="addNode" @onclick="AddNode" />
-<input Type="button" value="AddConnector" @onclick="AddConnector" style="margin-left: 10px;" />
-<input type="button" value="Clear" @onclick="Clear" style="margin-left: 10px;"/>
-<input type="button" value="Undo" @onclick="Undo" style="margin-left: 10px;"/>
-<input type="button" value="Redo" @onclick="Redo" style="margin-left: 10px;" />
-<input type="text"  @bind-value=Name  placeholder="file name" style="float:right" />
-<input type="button" value="Save" @onclick="Save" style="float:right" />
+<div class="btn-group">
+    <button @onclick="AddNode">Add Node</button>
+    <button @onclick="AddConnector">Add Connector</button>
+    <button @onclick="Clear">Clear</button>
+    <button @onclick="Undo">Undo</button>
+    <button @onclick="Redo">Redo</button>
+    <button @onclick="Save">Save Skilltree</button>
+    <input type="text" @bind-value="Name" placeholder="File Name" />
+</div>
+
+
 <SfDiagramComponent @ref="diagram" Nodes="@nodes"
                                    Height="700px"
                                    Click="@OnClick"
@@ -138,7 +142,7 @@
 
         if(!hasStart)
         {
-            Alert("You need to set a branch as the starting branch");
+            Alert("You need to set a node as the starting node");
             return;
         }
 
@@ -575,3 +579,28 @@
         popupRef.Show(message);
     }
 }
+
+<style>
+    .btn-group button {
+        background-color: #04AA6D; 
+        border: 1px solid green; 
+        color: white;
+        padding: 10px 24px; 
+        cursor: pointer; 
+        float: left; 
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    .btn-group button:not(:last-child) {
+        border-right: none; 
+    }
+    .btn-group button:hover {
+        background-color: #3e8e41;
+    }
+</style>
