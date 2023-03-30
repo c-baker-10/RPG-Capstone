@@ -22,21 +22,34 @@
 <link rel="stylesheet" href="styles.css" />
 
 
+
 <!--
-<div class="container">
-<form action="">
-    <div class="form-group">
-        <label for="">Username</label>
-        <input type="text" class="form-control" required />
+<body>
+    <div class="container">
+    <form action="">
+        <h1>RPG Classroom Login</h1>
+        <div class="form-group">
+                @if (!correctAccount)
+                {
+                    <p>Your username is not correct</p>
+                }
+            <label for="">Username</label>
+            <input type="text" @bind="name" class="form-control" placeholder="Username" required />
+        </div>
+        <div class="form-group">
+                @if (!correctPassword)
+                {
+                    <p>Your password is not correct</p>
+                }
+            <label for="">Password</label>
+            <input type="password" @bind="password" class="form-control" placeholder="Password" />
+        </div>
+        <input type="submit" @onclick="Submit" class="btn" value="Login" />
+    </form>
     </div>
-    <div class="form-group">
-        <label for="">Password</label>
-        <input type="password" class="form-control" required />
-    </div>
-    <input type="submit" class="btn" value="Login" />
-</form>
-</div>
- -->
+</body>
+-->
+ 
 
 @if (hasAccount)
 {
