@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PaMZ0wNnBQPtpbIYgmOV+Lqgy7ukOrhxTIunKiURFxRCKHqNIOa3VvaFg4DVt4YgbewUvcmtSOpHt+YQv7beDw==",
+  "dgSpecHash": "D3MwLqwIvsLAbhaT0r0ZLsIWgKbWfa5sxDbvWMrbzkwQ4qKfgJYT0fieUhjgcw4RT9FxdmfcXEVHpLj4S8x6pg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Caden\\Source\\Repos\\RPG-Capstone\\BlazorApp1\\BlazorApp1.csproj",
+  "projectFilePath": "C:\\Users\\Caden\\source\\repos\\RPG-Capstone\\BlazorApp1\\BlazorApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Caden\\.nuget\\packages\\microsoft.aspnetcore.authorization\\6.0.5\\microsoft.aspnetcore.authorization.6.0.5.nupkg.sha512",
     "C:\\Users\\Caden\\.nuget\\packages\\microsoft.aspnetcore.components\\6.0.5\\microsoft.aspnetcore.components.6.0.5.nupkg.sha512",
