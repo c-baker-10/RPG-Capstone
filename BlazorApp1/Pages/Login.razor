@@ -27,7 +27,7 @@
 
 @if (hasAccount)
 {
-    <!--
+    
     <body>
         <div class="container">
             <form action="">
@@ -48,43 +48,17 @@
                     <label for="">Password</label>
                     <input type="password" @bind="password" class="form-control" placeholder="Password" />
                 </div>
-                <input type="submit" @onclick="Submit" class="btn" value="Login" /> <br /><br />
-                <input type="submit" @onclick="newAccount" class="btn" value="New User" />
+                <input type="button" @onclick="Submit" class="btn" value="Login" /> <br /><br />
+                <input type="button" @onclick="newAccount" class="btn" value="New User" />
             </form>
         </div>
     </body>
-    -->
-    <h1> RPG Classroom Login</h1>
-
-    <EditForm Model="@user">
-        <div class="container">
-            <div class="form-group">
-        @if (!correctAccount)
-        {
-            <p>Your user name is not correct</p>
-        }
-        <label for="UserName"> User Name</label>
-        <InputText id="UserName" @bind-Value="@name" placeholder="username" class="form-control" /> <br />
-        @if (!correctPassword)
-        {
-            <p>Your password is not correct</p>
-        }
-        </div>
-        <div class="form-group">
-        <label for="UserPassword"> Password</label>
-        <InputText id="UserPassword" @bind-Value="@password" placeholder="password" type="password" class="form-control"/> <br />
-            </div>
-        </div>
-    </EditForm>
-    
-    <button class="btn btn-primary" @onclick="newAccount"> Make a Account </button>  <br />
-
-    <button class="btn btn-primary" @onclick="Submit"> Submit </button>
+  
 }
 else
 {
     
-    <!--
+    
     <body>
         <div class="container">
             <form action="">
@@ -117,72 +91,19 @@ else
                         <input type="text" id="AccessCode" @bind="accessCode" placeholder="Ex: 12345" /> <br />
                     </div>
                     <br/>
-                    <input type="submit" @onclick="SubmitNewAccount" class="btn" value="Submit"/>
+                    <input type="button" @onclick="SubmitNewAccount" class="btn" value="Submit"/>
 
                     <Popup @ref="popupRef" />
                     
                     <br/> <br/>
-                    <input type="submit" @onclick="Back" class="btn" value="Back"/>
+                    <input type="button" @onclick="Back" class="btn" value="Back"/>
 
                 </div>
             </form>
             
         </div>
     </body>
-    -->
-
-    <Popup @ref="popupRef" />
-    <br />
-    <br />
-
-    <EditForm Model="@user">
-        <div class="container">
-            <p>Please enter a username</p>
-            <label for="UserName"> User Name</label>
-            <InputText id="UserName" @bind-Value="newName" placeholder="username" /> <br />
-
-            <p>Please enter a password</p>
-            <label for="UserPassword"> Password </label>
-            <InputText id="UserPassword" @bind-Value="newPassword1" placeholder="password" type="password" /> <br />
-
-            <p>Confirm your password</p>
-            <label for="UserPassword"> Password </label>
-            <InputText id="UserPassword" @bind-Value="newPassword2" placeholder="password" type="password" /> <br />
-            <br />
-            <br />
-
-
-            <span>Are you a student or teacher?</span>
-            <label for="StudentBtn">
-                <input type="radio" id="StudentBtn" name="accountType" onclick="ShowHideDiv()" />
-                Student
-            </label>
-            <label for="TeacherBtn">
-                <input type="radio" id="TeacherBtn" name="accountType" onclick="ShowHideDiv()" />
-                Teacher
-            </label>
-            <hr />
-            <div id="dvStudent" style="display: none">
-                Please enter your class access code
-                <br />
-                <label for="AccessCode"> Access Code </label>
-                <InputText id="AccessCode" @bind-Value="accessCode" placeholder="Ex: 12345" /> <br />
-            </div>
-
-        </div>
-
-        <br />
-
-        <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
-
-        <!--
-        <Popup @ref="popupRef" />
-        <br />
-        <br />
-            -->
-
-        <button class="btn btn-primary" @onclick="Back"> Back </button>
-    </EditForm>
+    
     
 }
 
