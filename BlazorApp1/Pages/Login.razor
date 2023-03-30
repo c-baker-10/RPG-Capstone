@@ -81,62 +81,113 @@
         </div>
     </body>
     -->
+
+    
 }
 else
 {
-    <Popup @ref="popupRef"/>
+    <Popup @ref="popupRef" />
     <br />
     <br />
 
     <EditForm Model="@user">
         <div class="container">
-        <p>Please enter a username</p>
-        <label for="UserName"> User Name</label>
-        <InputText id="UserName" @bind-Value="newName" placeholder="username" /> <br />
+            <p>Please enter a username</p>
+            <label for="UserName"> User Name</label>
+            <InputText id="UserName" @bind-Value="newName" placeholder="username" /> <br />
 
-        <p>Please enter a password</p>
-        <label for="UserPassword"> Password </label>
-        <InputText id="UserPassword" @bind-Value="newPassword1" placeholder="password" type="password" /> <br />
+            <p>Please enter a password</p>
+            <label for="UserPassword"> Password </label>
+            <InputText id="UserPassword" @bind-Value="newPassword1" placeholder="password" type="password" /> <br />
 
-        <p>Confirm your password</p>
-        <label for="UserPassword"> Password </label>
-        <InputText id="UserPassword" @bind-Value="newPassword2" placeholder="password" type="password" /> <br />
-        <br/>
+            <p>Confirm your password</p>
+            <label for="UserPassword"> Password </label>
+            <InputText id="UserPassword" @bind-Value="newPassword2" placeholder="password" type="password" /> <br />
+            <br />
+            <br />
+
+
+            <span>Are you a student or teacher?</span>
+            <label for="StudentBtn">
+                <input type="radio" id="StudentBtn" name="accountType" onclick="ShowHideDiv()" />
+                Student
+            </label>
+            <label for="TeacherBtn">
+                <input type="radio" id="TeacherBtn" name="accountType" onclick="ShowHideDiv()" />
+                Teacher
+            </label>
+            <hr />
+            <div id="dvStudent" style="display: none">
+                Please enter your class access code
+                <br />
+                <label for="AccessCode"> Access Code </label>
+                <InputText id="AccessCode" @bind-Value="accessCode" placeholder="Ex: 12345" /> <br />
+            </div>
+
+        </div>
+
         <br />
 
-
-        <span>Are you a student or teacher?</span>
-        <label for="StudentBtn">
-            <input type="radio" id="StudentBtn" name="accountType" onclick="ShowHideDiv()"/>
-            Student
-        </label>
-        <label for="TeacherBtn">
-            <input type="radio" id="TeacherBtn" name="accountType" onclick="ShowHideDiv()"/>
-            Teacher
-        </label>
-        <hr/>
-        <div id="dvStudent" style="display: none">
-            Please enter your class access code
-            <br/>
-            <label for="AccessCode"> Access Code </label>
-            <InputText id="AccessCode" @bind-Value="accessCode" placeholder="Ex: 12345" /> <br />
-        </div>
-
-        </div>
-    
-    <br />
-
-    <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
+        <button class="btn btn-primary" @onclick="SubmitNewAccount"> Submit </button>
 
         <!--
-    <Popup @ref="popupRef" />
-    <br />
-    <br />
-        -->
+        <Popup @ref="popupRef" />
+        <br />
+        <br />
+            -->
 
-    <button class="btn btn-primary" @onclick="Back"> Back </button>
+        <button class="btn btn-primary" @onclick="Back"> Back </button>
     </EditForm>
+
+
+    <!--
+    <Popup @ref="popupRef" />
+    <br/> <br/>
     
+    <body>
+        <div class="container">
+            <form action="">
+                <h1>Create Account</h1>
+                <div class="form-group">
+                    <label for="">Username</label>
+                    <input type="text" @bind="newName" class="form-control" placeholder="Username" required />
+
+                    <label for="">Password</label>
+                    <input type="password" @bind="newPassword1" class="form-control" placeholder="Password" required />
+
+                    <label for="">Confirm Password</label>
+                    <input type="password" @bind="newPassword2" class="form-control" placeholder="Confirm Password" required />
+                    <br /><br /><br />
+
+                    <span>Are you a student or teacher?</span>
+                    <label for="StudentBtn">
+                        <input type="radio" id="StudentBtn" name="accountType" onclick="ShowHideDiv()" />
+                        Student
+                    </label>
+                    <label for="TeacherBtn">
+                        <input type="radio" id="TeacherBtn" name="accountType" onclick="ShowHideDiv()" />
+                        Teacher
+                    </label>
+                    <hr />
+                    <div id="dvStudent" style="display: none">
+                        Please enter your class access code
+                        <br />
+                        <label for="AccessCode"> Access Code </label>
+                        <input type="text" id="AccessCode" @bind="accessCode" placeholder="Ex: 12345" /> <br />
+                    </div>
+
+                    <input type="submit" @onclick="SubmitNewAccount" class="btn" value="Submit"/>
+
+                    
+                    <br/> <br/>
+                    <input type="submit" @onclick="Back" class="btn" value="Back"/>
+
+                </div>
+            </form>
+            
+        </div>
+    </body>
+    -->
     
 }
 
