@@ -13,6 +13,7 @@
     <button @onclick="Clear">Clear</button>
     <button @onclick="Undo">Undo</button>
     <button @onclick="Redo">Redo</button>
+    <button @onclick="Delete">Delete</button>
     <button @onclick="Save">Save Skilltree</button>
     <input type="text" @bind-value="Name" placeholder="File Name" />
 </div>
@@ -560,6 +561,37 @@
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void Delete()
+    {
+        foreach(Connectors c in connectorsList.ToList())
+        {
+            if(c.ID == SelectedConnector.ID){
+                foreach(Connector connector in connectors.ToList())
+                {
+                    if(connector.ID == SelectedConnector.ID)
+                    {
+                        connectors.Remove(connector);
+                    }
+                }
+                connectorsList.Remove(c);
+            }
+        }
+        foreach(Branch branch in Branchs.ToList())
+        {
+            if(branch.ID == SelectedBranch.ID)
+            {
+                foreach(Node node in nodes.ToList())
+                {
+                    if(node.ID == SelectedBranch.ID)
+                    {
+                        nodes.Remove(node);
+                    }
+                }
+                Branchs.Remove(branch);
             }
         }
     }
