@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "oTQIR/LRDvpL/f39Sg2iPWj4xtbxn4esDQRgmcO3yWA=",
+  "Hash": "4Zegur7y2x8DqxxfyA2uzrJ33aQKYKE5wCHjS/xX+B8=",
   "Source": "BlazorApp1",
   "BasePath": "_content/BlazorApp1",
   "Mode": "Default",
@@ -1018,6 +1018,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\Caden\\source\\repos\\RPG-Capstone\\BlazorApp1\\wwwroot\\css\\style.css",
+      "SourceId": "BlazorApp1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Caden\\source\\repos\\RPG-Capstone\\BlazorApp1\\wwwroot\\",
+      "BasePath": "_content/BlazorApp1",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
       "Identity": "C:\\Users\\Caden\\source\\repos\\RPG-Capstone\\BlazorApp1\\wwwroot\\favicon.ico",
