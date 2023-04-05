@@ -9,6 +9,12 @@
     return "none";
 }
 
+function clickButton(ID) {
+    document.getElementById(ID).click();
+
+    return "clicked"
+}
+
 function input(name) {
 
     if (name == "radio") {

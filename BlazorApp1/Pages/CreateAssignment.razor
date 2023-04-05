@@ -5,27 +5,31 @@
 @using Objects
 @using System.Text;
 
+@inject IJSRuntime JS;
+
 <h3>CreateAssignment</h3>
+<br>
 
 <Popup @ref="popupRef" />
 
 @foreach (AssignmentQuestion Q in questions)
 {
-    <div style="border-style: double">
+    <p>Question @Q.ID</p>
+    <div class="questionBox">
 
-        <label for="">question</label>
+        <label for="">Question</label>
         <input type="text" @bind="Q.question" placeholder="@Q.question" required /> <br><br>
 
         <label for="radioBtn">
-            <input type="radio" id="radioBtn" name="accountType" />
+            <input type="radio" id="radioBtn" name="@Q.ID" value="radio"/>
             radio
         </label>
         <label for="checkboxBtn">
-            <input type="radio" id="checkboxBtn" name="accountType" />
+            <input type="radio" id="checkboxBtn" name="@Q.ID" value="checkbox" />
             checkbox
         </label>
         <label for="textBtn">
-            <input type="radio" id="textBtn" name="accountType" />
+            <input type="radio" id="textBtn" name="@Q.ID" value="text" />
             text
         </label><br><br>
 
@@ -38,32 +42,43 @@
         <label for="">Points</label>
         <input type="text" @bind="Q.StringPoints" placeholder="@Q.StringPoints" required /><br> <br>
 
-        <label for="">Distribution</label>
-        <input type="text" @bind="Q.Distribution" placeholder="@Q.Distribution" required /><br><br>
+        <label for="">Distribution</label><br>
+        <div class="questionBox">
+            @foreach (string[] s in Q.skills)
+            {
+                <div class="skillBox">
+                    <input type="text" @bind="s[0]" placeholder="skill" required /> <br><br>
+
+                    <input type="text" @bind="s[1]" placeholder="XP" required /> <br>
+                </div>
+
+            }
+            <button @onclick="() => addSkill(Q)" style="float: right">add skill</button><br>
+        </div>
 
     </div>
     <br>
 }
 
-<div style="border-style: double">
+<button @onclick="add" style="float: right">add question</button><br><br>
 
-    <label for="">due date</label>
-    <input type="text" @bind="Due" placeholder="XX/XX/XXXX XX:XX PM" required />
+<label for="">Due date</label>
+<input type="date" @bind="Due" id="start" name="trip-start" min="2000-01-01" max="2099-12-31"><br><br>
 
-</div>
-<br>
-
-<input type="text" @bind-value="Name" placeholder="Assignment name" />
-<br>
-
-<button @onclick="add" style="float: right">add question</button>
+<label for="">Assignment name</label>
+<input type="text" @bind-value="Name" placeholder="Assignment name" /><br><br>
 
 <button @onclick="done" style="float: left">done</button>
 
+<button @onclick="back" style="float: left">back</button><br><br>
+
 @code {
 
-    List<AssignmentQuestion> questions = new List<AssignmentQuestion>();
-    string Due, Name, FileDesPath;
+    private List<AssignmentQuestion> questions = new List<AssignmentQuestion>();
+    private List<string[]> skills = new List<string[]>();
+    private string Name, FileDesPath, questionType;
+    private DateTime Due;
+    int QuestionCount = 1;
 
     protected override void OnInitialized()
     {
@@ -73,10 +88,20 @@
     public void add()
     {
         AssignmentQuestion Q = new AssignmentQuestion();
+        Q.ID = QuestionCount+"";
+        QuestionCount++;
+        string[] hold = { "", "" };
+        Q.skills.Add(hold);
         questions.Add(Q);
     }
 
-    public void done()
+    public void addSkill(AssignmentQuestion Q)
+    {
+        string[] hold = { "", "" };
+        Q.skills.Add(hold);
+    }
+
+    public async void done()
     {
         if (Name == null)
         {
@@ -97,17 +122,23 @@
 
         foreach(AssignmentQuestion Q in questions)
         {
+            questionType = await JS.InvokeAsync<string>("RadioButtons", Q.ID);
+
             AssignmentInfo += "questions|\n" + Q.question + "\n";
 
-            //  AssignmentInfo += "type|\n" + Q.type;
+            AssignmentInfo += "type|\n" + questionType.Replace(";","") + "\n";
 
-            AssignmentInfo += "options|\n" + Q.StringOptions + "\n";
+            AssignmentInfo += "options|\n" + Q.StringOptions.Replace(" ", ";").Remove(Q.StringOptions.Replace(" ", ";").Length - 1, 1) + "\n";
 
-            AssignmentInfo += "answer|\n" + Q.StringAnswers + "\n";
+            AssignmentInfo += "answer|\n" + Q.StringAnswers.Replace(" ", ";") + "\n";
 
             AssignmentInfo += "Points|\n" + Q.StringPoints+ "\n";
 
-            AssignmentInfo += "DISTRIBUTION|\n" + Q.Distribution + "\n";
+            AssignmentInfo += "DISTRIBUTION|\n";
+            foreach(string[] s in skills)
+            {
+                AssignmentInfo += s[0] + ";" + s[1] + ";\n";
+            }
 
             AssignmentInfo += "end|\n";
         }
@@ -121,6 +152,11 @@
         // Closee the FileStream object
         FileWrite.Close();
 
+        UriHelper.NavigateTo($"assignments");
+    }
+
+    public void back()
+    {
         UriHelper.NavigateTo($"assignments");
     }
 

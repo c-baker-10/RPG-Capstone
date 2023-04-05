@@ -14,6 +14,18 @@
     border: 4px solid blue;
     margin: 20px;
 }
+/* _content/BlazorApp1/Pages/CreateAssignment.razor.rz.scp.css */
+.questionBox[b-ow4ewanefx] {
+    border-style: groove;
+    border-color: gray;
+    padding: 10px;
+}
+
+.skillBox[b-ow4ewanefx] {
+    border-style: dotted;
+    border-color: gray;
+    padding: 10px;
+}
 /* _content/BlazorApp1/Pages/MakeSkillTree.razor.rz.scp.css */
 .draggable[b-w8rhkp1k05] {
     margin: 1rem 0 0 1rem;

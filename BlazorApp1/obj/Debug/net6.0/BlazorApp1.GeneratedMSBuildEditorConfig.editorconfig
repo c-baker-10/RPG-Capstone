@@ -19,10 +19,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/CreateAssignment.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlQXNzaWdubWVudC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/Assignments.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXNzaWdubWVudHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-0npzfyuhw4
+
+[C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/CreateAssignment.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlQXNzaWdubWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ow4ewanefx
 
 [C:/Users/Caleb/source/Repos2/BlazorApp1/Pages/MakeSkillTree.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFrZVNraWxsVHJlZS5yYXpvcg==

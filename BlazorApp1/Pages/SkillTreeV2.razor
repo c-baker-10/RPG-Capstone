@@ -5,6 +5,7 @@
 @using Syncfusion.Blazor.Diagram
 
 @inject NavigationManager UriHelper
+@inject IJSRuntime JS;
 
 <Popup @ref="popupRef" />
 
@@ -21,6 +22,8 @@
 }
 
 <input Type="button" value="Load Tree" @onclick="LoadTree" style="margin-left: 10px;" />
+
+<input Type="button" value="" @onclick="Here" style="display: none;" name="stupid" id="dumb" />
 
 <SfDiagramComponent @ref="diagram" Nodes="@nodes"
                     Height="800px"
@@ -62,7 +65,12 @@
         }
     }
 
-    private void LoadTree()
+    private void Here()
+    {
+
+    }
+
+    private async void LoadTree()
     {
 
         if (FileName == null)
@@ -195,6 +203,8 @@
         }
         UserLocation();
         StateHasChanged();
+
+        string questionType = await JS.InvokeAsync<string>("clickButton", "dumb");
     }
 
     // To notify the position changing event before dragging the diagram elements.

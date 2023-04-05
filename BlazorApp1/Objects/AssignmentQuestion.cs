@@ -2,6 +2,8 @@
 {
     public class AssignmentQuestion
     {
+        public string ID;
+
         public string question;
 
         public AssignmentQuestion(string question)
@@ -22,7 +24,7 @@
 
         public List<string[]> skillValueDistribution = new List<string[]>();
 
-        public string Distribution { get; set; }
+        public List<string[]> skills = new List<string[]>();
 
         public void correctInput()
         {

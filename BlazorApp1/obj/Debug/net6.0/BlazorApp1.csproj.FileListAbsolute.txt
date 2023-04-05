@@ -234,3 +234,4 @@ C:\Users\Caden\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\refint\Blaz
 C:\Users\Caden\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\BlazorApp1.pdb
 C:\Users\Caden\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\BlazorApp1.genruntimeconfig.cache
 C:\Users\Caden\Source\Repos\RPG-Capstone\BlazorApp1\obj\Debug\net6.0\ref\BlazorApp1.dll
+C:\Users\Caleb\source\Repos2\BlazorApp1\obj\Debug\net6.0\scopedcss\Pages\CreateAssignment.razor.rz.scp.css
