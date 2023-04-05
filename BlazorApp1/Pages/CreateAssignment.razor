@@ -1,0 +1,132 @@
+﻿@page "/createassignment"
+
+@inject NavigationManager UriHelper
+
+@using Objects
+@using System.Text;
+
+<h3>CreateAssignment</h3>
+
+<Popup @ref="popupRef" />
+
+@foreach (AssignmentQuestion Q in questions)
+{
+    <div style="border-style: double">
+
+        <label for="">question</label>
+        <input type="text" @bind="Q.question" placeholder="@Q.question" required /> <br><br>
+
+        <label for="radioBtn">
+            <input type="radio" id="radioBtn" name="accountType" />
+            radio
+        </label>
+        <label for="checkboxBtn">
+            <input type="radio" id="checkboxBtn" name="accountType" />
+            checkbox
+        </label>
+        <label for="textBtn">
+            <input type="radio" id="textBtn" name="accountType" />
+            text
+        </label><br><br>
+
+        <label for="">Options</label>
+        <input type="text" @bind="Q.StringOptions" placeholder="@Q.StringOptions" required /> <br><br>
+
+        <label for="">Answer</label>
+        <input type="text" @bind="Q.StringAnswers" placeholder="@Q.StringAnswers" required /> <br><br>
+
+        <label for="">Points</label>
+        <input type="text" @bind="Q.StringPoints" placeholder="@Q.StringPoints" required /><br> <br>
+
+        <label for="">Distribution</label>
+        <input type="text" @bind="Q.Distribution" placeholder="@Q.Distribution" required /><br><br>
+
+    </div>
+    <br>
+}
+
+<div style="border-style: double">
+
+    <label for="">due date</label>
+    <input type="text" @bind="Due" placeholder="XX/XX/XXXX XX:XX PM" required />
+
+</div>
+<br>
+
+<input type="text" @bind-value="Name" placeholder="Assignment name" />
+<br>
+
+<button @onclick="add" style="float: right">add question</button>
+
+<button @onclick="done" style="float: left">done</button>
+
+@code {
+
+    List<AssignmentQuestion> questions = new List<AssignmentQuestion>();
+    string Due, Name, FileDesPath;
+
+    protected override void OnInitialized()
+    {
+        add();
+    }
+
+    public void add()
+    {
+        AssignmentQuestion Q = new AssignmentQuestion();
+        questions.Add(Q);
+    }
+
+    public void done()
+    {
+        if (Name == null)
+        {
+            Alert("Need to give assignment a name");
+            return;
+        }
+        else if(Due == null)
+        {
+            Alert("Need to give assignment a due date");
+            return;
+        }
+
+        FileDesPath = Directory.GetCurrentDirectory() + @"\AssignmentFolder\" + Name;
+
+        FileStream FileWrite = new FileStream(FileDesPath, FileMode.Create, FileAccess.Write, FileShare.None);
+
+        string AssignmentInfo = "DUE|\n" + Due +"\n";
+
+        foreach(AssignmentQuestion Q in questions)
+        {
+            AssignmentInfo += "questions|\n" + Q.question + "\n";
+
+            //  AssignmentInfo += "type|\n" + Q.type;
+
+            AssignmentInfo += "options|\n" + Q.StringOptions + "\n";
+
+            AssignmentInfo += "answer|\n" + Q.StringAnswers + "\n";
+
+            AssignmentInfo += "Points|\n" + Q.StringPoints+ "\n";
+
+            AssignmentInfo += "DISTRIBUTION|\n" + Q.Distribution + "\n";
+
+            AssignmentInfo += "end|\n";
+        }
+
+        // Store the text in a byte array with. UTF8 encoding (8-bit Unicode. Transformation Format)
+        byte[] writeArr = Encoding.UTF8.GetBytes(AssignmentInfo);
+
+        // Using the Write method write the encoded byte array to the textfile
+        FileWrite.Write(writeArr, 0, AssignmentInfo.Length);
+
+        // Closee the FileStream object
+        FileWrite.Close();
+
+        UriHelper.NavigateTo($"assignments");
+    }
+
+    private Popup popupRef;
+    public async Task Alert(string message)
+    {
+        popupRef.Show(message);
+    }
+}

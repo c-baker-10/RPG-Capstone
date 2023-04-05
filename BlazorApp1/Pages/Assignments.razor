@@ -7,6 +7,11 @@
 <h3>Assignments</h3>
 <br/>
 
+@if (User.user.Type == "Teacher")
+{
+    <button @onclick="create" style="float: right">Create Assignment</button>
+}
+
 @foreach (Assignment A in Assignment.AssignmentList)
 {
     @if (A.taken || DateTime.Compare(DateTime.Parse(time.ToString("g")), DateTime.Parse(A.dueDate)) > 0)
@@ -30,9 +35,18 @@
     private string[] Files;
     private DateTime time = DateTime.Now;
 
+    protected override void OnInitialized()
+    {
+        Assignment.getAssignments();
+    }
 
     public void TakeAssignment(string fileName)
     {
         UriHelper.NavigateTo($"takeassignment/{fileName}");
+    }
+
+    public void create()
+    {
+        UriHelper.NavigateTo($"createassignment");
     }
 }

@@ -8,14 +8,21 @@
         {
             this.question = question;
         }
+
+        public AssignmentQuestion() { }
         public string type { get; set; }
         public string[] options { get; set; }
+        public string StringOptions { get; set; }
         public string[] answers { get; set; }
+        public string StringAnswers { get; set; }
         public string[] inputedAnswers { get; set; }
         public bool correct { get; set; }
         public int points { get; set; }
+        public string StringPoints { get; set; }
 
         public List<string[]> skillValueDistribution = new List<string[]>();
+
+        public string Distribution { get; set; }
 
         public void correctInput()
         {
