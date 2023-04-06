@@ -47,13 +47,22 @@
             @foreach (string[] s in Q.skills)
             {
                 <div class="skillBox">
-                    <input type="text" @bind="s[0]" placeholder="skill" required /> <br><br>
+
+                    <select name="Files" id="Files" @bind="s[0]">
+                        <option disabled selected value> -- select an option -- </option>
+                        @foreach (string file in File.ReadAllLines(GenFolderPath + "User Skills.txt"))
+                        {
+                            <option>@file</option>
+                        }
+                    </select>
 
                     <input type="text" @bind="s[1]" placeholder="XP" required /> <br>
+
+                    <button @onclick="() => deleteSkill(s,Q)" style="float: right">Delete Skill</button><br>
                 </div>
 
             }
-            <button @onclick="() => addSkill(Q)" style="float: right">add skill</button><br>
+            <button @onclick="() => addSkill(Q)" style="float: right">Add Skill</button><br>
         </div>
 
     </div>
@@ -74,6 +83,7 @@
 
 @code {
 
+    private string GenFolderPath = Directory.GetCurrentDirectory() + @"\UserRecords\General\";
     private List<AssignmentQuestion> questions = new List<AssignmentQuestion>();
     private List<string[]> skills = new List<string[]>();
     private string Name, FileDesPath, questionType;
@@ -93,6 +103,11 @@
         string[] hold = { "", "" };
         Q.skills.Add(hold);
         questions.Add(Q);
+    }
+
+    public void deleteSkill(String[] s, AssignmentQuestion Q)
+    {
+        Q.skills.Remove(s);
     }
 
     public void addSkill(AssignmentQuestion Q)
@@ -128,14 +143,14 @@
 
             AssignmentInfo += "type|\n" + questionType.Replace(";","") + "\n";
 
-            AssignmentInfo += "options|\n" + Q.StringOptions.Replace(" ", ";").Remove(Q.StringOptions.Replace(" ", ";").Length - 1, 1) + "\n";
+            AssignmentInfo += "options|\n" + Q.StringOptions.Replace(" ", ";").Substring(0, Q.StringOptions.Replace(" ", ";").Length) + "\n";
 
             AssignmentInfo += "answer|\n" + Q.StringAnswers.Replace(" ", ";") + "\n";
 
             AssignmentInfo += "Points|\n" + Q.StringPoints+ "\n";
 
             AssignmentInfo += "DISTRIBUTION|\n";
-            foreach(string[] s in skills)
+            foreach(string[] s in Q.skills)
             {
                 AssignmentInfo += s[0] + ";" + s[1] + ";\n";
             }
