@@ -7,19 +7,29 @@
 
 @inject IJSRuntime JS;
 
+<script suppress-error="BL9992">
+   function display(){
+        var fileCheck = document.getElementById("fileBtn");
+        var dvFile = document.getElementById("dvFile");
+        fileUpload.style.display = fileCheck.checked ? "block" : "none";
+   }
+</script>
+
 <h3>CreateAssignment</h3>
 <br>
 
 <Popup @ref="popupRef" />
+
+
 
 @foreach (AssignmentQuestion Q in questions)
 {
     <p>Question @Q.ID</p>
     <div class="questionBox">
 
-        <label for="">Question</label>
+        Question:
         <input type="text" @bind="Q.question" placeholder="@Q.question" required /> <br><br>
-
+        Question Type:
         <label for="radioBtn">
             <input type="radio" id="radioBtn" name="@Q.ID" value="radio"/>
             radio
@@ -31,16 +41,31 @@
         <label for="textBtn">
             <input type="radio" id="textBtn" name="@Q.ID" value="text" />
             text
+        </label>
+
+        <label for="fileBtn">
+            <input type="radio" id="fileBtn" name="@Q.ID" value="file" />
+            file
         </label><br><br>
 
-        <label for="">Options</label>
+        <div id="dvFile" style="display: none">
+                <form>
+                    <input type="file" id="myFile" name="filename">
+                    <input type="submit">
+                </form>
+        </div>
+
+        
+
+        Options: 
         <input type="text" @bind="Q.StringOptions" placeholder="@Q.StringOptions" required /> <br><br>
 
-        <label for="">Answer</label>
+        Correct Answer:
         <input type="text" @bind="Q.StringAnswers" placeholder="@Q.StringAnswers" required /> <br><br>
 
-        <label for="">Points</label>
+        Points:
         <input type="text" @bind="Q.StringPoints" placeholder="@Q.StringPoints" required /><br> <br>
+
 
         <label for="">Distribution</label><br>
         <div class="questionBox">
