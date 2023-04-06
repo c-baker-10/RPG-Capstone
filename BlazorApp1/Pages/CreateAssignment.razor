@@ -8,10 +8,10 @@
 @inject IJSRuntime JS;
 
 <script suppress-error="BL9992">
-   function display(){
+   function ShowHideDiv(){
         var fileCheck = document.getElementById("fileBtn");
         var dvFile = document.getElementById("dvFile");
-        fileUpload.style.display = fileCheck.checked ? "block" : "none";
+        dvFile.style.display = fileCheck.checked ? "block" : "none";
    }
 </script>
 
@@ -31,27 +31,27 @@
         <input type="text" @bind="Q.question" placeholder="@Q.question" required /> <br><br>
         Question Type:
         <label for="radioBtn">
-            <input type="radio" id="radioBtn" name="@Q.ID" value="radio"/>
+            <input type="radio" id="radioBtn" name="@Q.ID" value="radio" onclick="ShowHideDiv()"/>
             radio
         </label>
         <label for="checkboxBtn">
-            <input type="radio" id="checkboxBtn" name="@Q.ID" value="checkbox" />
+            <input type="radio" id="checkboxBtn" name="@Q.ID" value="checkbox" onclick="ShowHideDiv()" />
             checkbox
         </label>
         <label for="textBtn">
-            <input type="radio" id="textBtn" name="@Q.ID" value="text" />
+            <input type="radio" id="textBtn" name="@Q.ID" value="text" onclick="ShowHideDiv()" />
             text
         </label>
 
         <label for="fileBtn">
-            <input type="radio" id="fileBtn" name="@Q.ID" value="file" />
+            <input type="radio" id="fileBtn" name="@Q.ID" value="file" onclick="ShowHideDiv()" />
             file
         </label><br><br>
 
         <div id="dvFile" style="display: none">
                 <form>
                     <input type="file" id="myFile" name="filename">
-                    <input type="submit">
+                    <input type="submit" value="Submit">
                 </form>
         </div>
 
