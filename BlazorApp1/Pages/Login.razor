@@ -65,16 +65,23 @@ else
 
                     <label for="">Confirm Password</label>
                     <input type="password" @bind="newPassword2" class="form-control" placeholder="Confirm Password" required />
-                    <br /><br /><br />
+                    <br /><br />
 
-                    <span>Are you a student or teacher?</span>
+                    <span>Please select your account type?</span>
+                    <br>
                     <label for="StudentBtn">
                         <input type="radio" id="StudentBtn" name="accountType" onclick="ShowHideDiv()" />
                         Student
                     </label>
+                    <br>
                     <label for="TeacherBtn">
                         <input type="radio" id="TeacherBtn" name="accountType" onclick="ShowHideDiv()" />
                         Teacher
+                    </label>
+                    <br>
+                    <label for="AdvisorBtn">
+                        <input type="radio" id="AdvisorBtn" name="accountType" onclick="ShowHideDiv()" />
+                        Advisor
                     </label>
                     <hr />
                     <div id="dvStudent" style="display: none">
@@ -202,14 +209,21 @@ else
 
         accountType = await JS.InvokeAsync<string>("RadioButtons", "accountType");
 
-        bool specChar = true;
-        var regexItem = new Regex("^[!@#$%^&*(),.?\":{ }|<>]*$");
-        
-        if (newPassword1 == null || regexItem.IsMatch(newPassword1))
+        bool specChar = false;
+        bool numChar = false;
+        string regexItem = "^[!@#$%^&*(),.?\":{ }|<>]*$";
+
+        foreach(char s in newPassword1)
         {
-            specChar = false;
+            if (regexItem.Contains(s))
+            {
+                specChar = true;
+            }
+            else if (char.IsDigit(s))
+            {
+                numChar = true;
+            }
         }
-        
 
         if (newName == null || newPassword1 == null || newPassword2 == null)
         {
@@ -247,7 +261,7 @@ else
             message = "No lowercase letter in password";
             await Alert(message);
         }
-        else if (specChar)
+        else if (!specChar)
         {
             //No special character in password
             message = "No special character";
@@ -259,7 +273,7 @@ else
             message = "Space in password";
             await Alert(message);
         }
-        else if (Regex.Match(newPassword1, @"\d+").Success)
+        else if (!numChar)
         {
             //No number in password
             message = "No number in password";
@@ -273,22 +287,26 @@ else
         }
         else
         {
-            // Read a text file line by line.
-            string[] lines = File.ReadAllLines(GenFolderPath + "Access Codes.txt");
-            validCode = false;
-            foreach(string code in lines)
+            if (accountType == "Student")
             {
-                if(accessCode == code)
+
+                // Read a text file line by line.
+                validCode = false;
+                foreach (string code in File.ReadAllLines(GenFolderPath + "Access Codes.txt"))
                 {
-                    validCode = true;
+                    if (accessCode == code)
+                    {
+                        validCode = true;
+                    }
+                }
+
+                if (!validCode)
+                {
+                    message = "Wrong access code";
+                    await Alert(message);
+                    return;
                 }
             }
-            if (!validCode)
-            {
-                // wrong access code given
-                return;
-            }
-
             FileStream FileWrite = new FileStream(UserFolderPath + newName + ".txt", FileMode.Create, FileAccess.Write, FileShare.None);
 
             accountInfo += "NAME|\n" + newName + "\n";
@@ -312,8 +330,7 @@ else
             accountInfo += "DISTRIBUTION|\n";
 
             // Read a text file line by line.
-            lines = File.ReadAllLines(GenFolderPath + "User Skills.txt");
-            foreach (string skill in lines)
+            foreach (string skill in File.ReadAllLines(GenFolderPath + "User Skills.txt"))
             {
                 accountInfo += skill + ";0\n";
             }

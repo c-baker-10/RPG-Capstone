@@ -3,7 +3,9 @@
     "",
     "\\Objects",
     "\\Pages",
-    "\\Shared"
+    "\\Shared",
+    "\\wwwroot",
+    "\\wwwroot\\JSFolder"
   ],
   "SelectedNode": "\\BlazorApp1.sln",
   "PreviewInSolutionExplorer": false
