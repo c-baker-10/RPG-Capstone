@@ -14,37 +14,38 @@
 
 @foreach (string[] s in User.user.skillDistribution)
 {
-    int levelCap = 100;//To be replaced with file referenced number
+    int levelCap = Convert.ToInt32(@s[2] ?? "100");
+    int levelMax = Convert.ToInt32(@s[3] ?? "5");
     int levelExp = Int32.Parse(@s[1]) % levelCap;
     int curLevel = Int32.Parse(@s[1]) / levelCap;
+    int highestLevel = Math.Min(levelMax, curLevel);
     string levelWidth = (100 * levelExp / levelCap) + 1 + "%";
+    if (curLevel > highestLevel) { levelWidth = "100%"; }
     string barName = @s[0];
-    string barHeight = (10 + (curLevel * 5)) + "px";
-    string bar2Height = ((curLevel * 5)) + "px";
+    string barHeight = ((30/levelMax) * (1 + highestLevel)) + "px";
+    string bar2Height = ((30/levelMax) * highestLevel) + "px";
+    if(((30/levelMax) * (1 + highestLevel)) > 30 ) { barHeight = "30px"; }
     <!--string barColor = "#" + curLevel + "4AA" + curLevel*2 + "D";-->
+    string barColor = "#0000" + Convert.ToString((238/levelMax * (highestLevel)) + 17, 16);
     <style>
         #myProgress {
           width: 100%;
           height: 30px;
           background-color: #ddd;
         }
-        #lastBar {
+        /*#lastBar {
           width: 100%;
-          background-color: #0074DA;
-        }
+          background-color: @barColor;
+        }*/
         #@barName {
-          <!--background-color: @barColor;-->
-          background-color: #04AA0D;
+          background-color: @barColor;
+          <!--background-color: #0074DA;-->
         }
     </style>
     
-    <p style="display:inline">@s[0]</p>
-    <p style="display:inline"> - </p>
-    <p style="display:inline">Current level: @curLevel</p>
-    <p style="display:inline"> - </p>
-    <p style="display:inline">Exp: @levelExp / @levelCap</p>
+    <p style="display:inline">@s[0] - Current level: @highestLevel - Exp: @levelExp / @levelCap</p>
     <div id="myProgress">
-        <div id="lastBar" style="height:@bar2Height;">
+        <div id=@s[0] style="height:@bar2Height;width:100%">
             <div id=@s[0] style="height:@barHeight;width:@levelWidth;"> </div>
         </div>
     </div>
