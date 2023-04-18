@@ -7,7 +7,7 @@
 
 @inject IJSRuntime JS;
 
-
+<head>
 <script suppress-error="BL9992">
    function ShowHideDiv(){
         var fileCheck = document.getElementById("fileBtn");
@@ -16,7 +16,12 @@
    }
 </script>
 
-<script suppress-error="BL9992" src="~/JSFolder/upload.js"></script>
+<script suppress-error="BL9992" src="JSFolder/upload.js"></script>
+
+</head>
+
+
+
 
 <h3>Create Assignment</h3>
 <br>
@@ -50,18 +55,17 @@
             <input type="radio" id="fileBtn" name="@Q.ID" value="file" onclick="ShowHideDiv()" />
             file
         </label><br><br>
-
+        
+        <script suppress-error="BL9992" src="JSFolder\upload.js"></script>
         <div id="dvFile" style="display: none">
             <br>
         
-          <div class="drag-area">
-              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-            <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
-            <header>Drag & Drop to Upload File</header>
-            <span>OR</span>
-            <button>Browse File</button>
-            <input type="file" hidden>
-          </div>
+          <div class="file-upload">
+              
+                <input class="file-upload__input" type="file" name="myFile[]" id="myFile" multiple>
+                <button class="file-upload__button" type="button">Choose File(s)</button>
+                <span class="file-upload__label"></span>
+            </div>
 
            
                 <br> <br>
@@ -117,6 +121,7 @@
 <button @onclick="done" style="float: left">done</button>
 
 <button @onclick="back" style="float: left">back</button><br><br>
+
 
 @code {
 
@@ -221,49 +226,41 @@
 
 <style>
 
-.drag-area{
-  border: 2px dashed black;
-  height: 500px;
-  width: 700px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.drag-area.active{
-  border: 2px solid black;
-}
-.drag-area .icon{
-  font-size: 100px;
-            color: black;
-}
-.drag-area header{
-  font-size: 30px;
-  font-weight: 500;
-            color: black;
-}
-.drag-area span{
-  font-size: 25px;
-  font-weight: 500;
-            color: black;
-  margin: 10px 0 15px 0;
-}
-.drag-area button{
-  padding: 10px 25px;
-  font-size: 20px;
-  font-weight: 500;
-  border: none;
-  outline: none;
-            background: black;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.drag-area img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-}
+    .file-upload {
+        display: inline-flex;
+        align-items: center;
+        font-size: 15px;
+    }
+
+    .file-upload__input {
+        display: none;
+    }
+
+    .file-upload__button {
+        -webkit-appearance: none;
+        background: blue;
+        border: 2px solid blue;
+        border-radius: 4px;
+        outline: none;
+        padding: 0.5em 0.8em;
+        margin-right: 15px;
+        color: #ffffff;
+        font-size: 1em;
+        font-family: "Quicksand", sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+        .file-upload__button:active {
+            background: blue;
+        }
+
+    .file-upload__label {
+        max-width: 250px;
+        font-size: 0.95em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-family: "Quicksand", sans-serif;
+    }
 </style>
