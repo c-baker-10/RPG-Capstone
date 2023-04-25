@@ -330,9 +330,10 @@ else
             accountInfo += "DISTRIBUTION|\n";
 
             // Read a text file line by line.
-            foreach (string skill in File.ReadAllLines(GenFolderPath + "User Skills.txt"))
+            foreach (string skills in File.ReadAllLines(GenFolderPath + "User Skills.txt"))
             {
-                accountInfo += skill + ";0\n";
+                string[] skill = skills.Split(";");
+                accountInfo += skill[0] + ";0;" + skill[1] + ";" + skill[2] + "\n";
             }
 
             accountInfo += "TAKEN ASSIGNMENTS|\n";

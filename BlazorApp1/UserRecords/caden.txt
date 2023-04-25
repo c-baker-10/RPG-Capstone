@@ -1,9 +1,9 @@
 NAME|
-test
+caden
 PASSWORD|
-
+1DHdoh9vjiPgK9DSOt8htyx/6JOjZfUgvI0fw9iE5/Q=
 TYPE|
-Teacher
+on;
 GENERAL|
 General information
 BADGES|
@@ -13,8 +13,8 @@ No items yet
 STUFF|
 Random information
 LEVEL|
-1
+0
 DISTRIBUTION|
-addition;300
-subtraction;60
+addition;0;60;4
+subtraction;0;120;2
 TAKEN ASSIGNMENTS|

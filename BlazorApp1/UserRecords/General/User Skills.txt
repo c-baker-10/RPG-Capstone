@@ -1,2 +1,2 @@
-﻿addition
-subtraction
+﻿addition;60;4
+subtraction;120;2
