@@ -229,7 +229,7 @@ namespace BlazorApp1.Objects
             {
                 foreach (string[] skill in this.skillDistribution)
                 {
-                    accountInfo += skill[0] + ";" + skill[1] + "\n";
+                    accountInfo += skill[0] + ";" + skill[1] + ";" + skill[2] + ";" + skill[3] + "\n";
                 }
             }
 
