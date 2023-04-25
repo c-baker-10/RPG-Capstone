@@ -29,7 +29,7 @@
 {
     <div align="left">
         <EditForm Model="@SelectedBranch">
-            <p> User Input for @SelectedBranch.name : </p>
+            <p> <b> User Input for @SelectedBranch.name : </b></p>
             <label for="Edtype"> Node Education Type</label>
             <InputText style="display:inline" id="Edtype" @bind-Value="SelectedBranch.EducationType" placeholder="@SelectedBranch.EducationType" />
             <label for="Entype" style="margin-left: 20px;"> Node Entry Score</label>
@@ -39,16 +39,16 @@
         <form>
             @if(SelectedBranch.startingNode)
             {
-                <input type="checkbox"  checked="checked" id="Startnode" @onclick="Start">
+                <input type="checkbox" checked="checked" id="Startnode"  style="margin:5px" @onclick="Start">
             }
             else
             {
-                <input type="checkbox" id="Startnode" @onclick="Start">
+                <input type="checkbox" id="Startnode" style="margin:5px" @onclick="Start">
             }
-            <label for="Startnode"> Is start node</label><br>
+            <label for="Startnode"> Is start node</label>
         </form>
 
-        <ul>
+
             @if (SelectedBranch.NodeConnections != null)
             {
                 <p style="display:inline">Node Connections: </p>
@@ -65,8 +65,8 @@
                     }
                 }
             }
+            <br>
 
-        </ul>
         <input type="button" value="Done" @onclick="@DoneEdit" />
     </div>
 }

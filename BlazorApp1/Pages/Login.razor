@@ -141,7 +141,7 @@ else
             User.UserName = name;
             User.user = user;
             User.user.buildUser();
-            UriHelper.NavigateTo($"home");
+            UriHelper.NavigateTo($"persona");
             return;
         }
 
@@ -183,7 +183,7 @@ else
 
         if (User.user.Password == hashed)
         {
-            UriHelper.NavigateTo($"home");
+            UriHelper.NavigateTo($"persona");
         }
         else{
             correctPassword = false;
@@ -351,7 +351,7 @@ else
             User.user = user;
             User.user.buildUser();
 
-            UriHelper.NavigateTo($"home");
+            UriHelper.NavigateTo($"persona");
         }
     }
     private Popup popupRef;

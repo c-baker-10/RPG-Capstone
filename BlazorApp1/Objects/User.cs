@@ -15,7 +15,7 @@ namespace BlazorApp1.Objects
         public string Badges { get; set; }
         public string Items { get; set; }
         public string Stuff { get; set; }
-
+        public string PersonaPic { get; set; }
         public string[] Grades { get; set; }
 
         public List<string[]> skillDistribution = new List<string[]>();

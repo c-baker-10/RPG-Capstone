@@ -18,14 +18,14 @@
     {
         <div class="unavailable" style="outline-color: blue">
             @Path.GetFileNameWithoutExtension(A.assignmentName)
-            <p style="display:inline; float: right">  Grade: @A.score%  Due: @A.dueDate</p>
+            <p style="display:inline; float: right">  <b> Grade: </b> @A.score%  <b>Due: </b>  @A.dueDate</p>
         </div>
     }
     else
     {
         <div class="available" @onclick="() => TakeAssignment(A.assignmentName)">
             @Path.GetFileNameWithoutExtension(A.assignmentName)
-            <p style="display:inline; float: right">  Grade: not taken  Due: @A.dueDate</p>
+            <p style="display:inline; float: right">  <b> Grade: </b> not taken  <b>Due: </b> @A.dueDate</p>
         </div>
     }
 }

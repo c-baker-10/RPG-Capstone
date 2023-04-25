@@ -84,12 +84,21 @@
     {
         Assignment.getAssignments();
         Imgs = Directory.GetFiles(Directory.GetCurrentDirectory() + @"\wwwroot\" + PersonaImgPath);
-        PersonaImgSource = PersonaImgPath + PersonaImgName;
+
+        if (User.user.PersonaPic != null)
+        {
+            PersonaImgSource = User.user.PersonaPic;
+        }
+        else
+        {
+            PersonaImgSource = PersonaImgPath + PersonaImgName;
+        }
     }
 
     private void UpdateImg()
     {
         PersonaImgSource = PersonaImgPath + PersonaImgName + ".PNG";
+        User.user.PersonaPic = PersonaImgSource;
     }
 
     private void assignment()
