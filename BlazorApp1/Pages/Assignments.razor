@@ -12,6 +12,8 @@
     <button @onclick="create" style="float: right">Create Assignment</button>
 }
 
+
+
 @foreach (Assignment A in Assignment.AssignmentList)
 {
     @if (A.taken || DateTime.Compare(DateTime.Parse(time.ToString("g")), DateTime.Parse(A.dueDate)) > 0)
@@ -38,6 +40,7 @@
     protected override void OnInitialized()
     {
         Assignment.getAssignments();
+        Assignment.AssignmentList.Sort((a1, a2) => a1.assignmentName.CompareTo(a2.assignmentName));
     }
 
     public void TakeAssignment(string fileName)
