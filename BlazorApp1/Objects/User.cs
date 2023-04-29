@@ -35,7 +35,12 @@ namespace BlazorApp1.Objects
             }
             catch(FileNotFoundException e)
             {
-                lines = File.ReadAllLines(FolderPath + "testUser.txt");
+                lines = File.ReadAllLines(FolderPath + "test.txt");
+            }
+
+            if (User.UserName == "Caleb")
+            {
+                this.PersonaPic = @"PersonaImages\Man1.PNG";
             }
 
             bool UserName = false;

@@ -8,8 +8,7 @@
 <h3>Welcome @User.UserName (@User.user.Type): general level #@User.user.Level</h3>
 
 <br />
-<h3>Progress</h3>
-<h2>Current skill level distribution:</h2>
+<h2>Current skill level distribution</h2>
 <br />
 
 @foreach (string[] s in User.user.skillDistribution)
@@ -52,6 +51,11 @@
     <br />
 }
 
-@code {
+<button @onclick="back" style="float: left">back</button><br><br>
 
+@code {
+    public void back()
+    {
+        UriHelper.NavigateTo($"persona");
+    }
 }

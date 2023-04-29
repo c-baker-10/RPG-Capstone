@@ -20,9 +20,6 @@
 
 </head>
 
-
-
-
 <h3>Create Assignment</h3>
 <br>
 
@@ -40,20 +37,20 @@
         Question Type:
         <label for="radioBtn">
             <input type="radio" id="radioBtn" name="@Q.ID" value="radio" onclick="ShowHideDiv()"/>
-            radio
+            Single choice
         </label>
         <label for="checkboxBtn">
             <input type="radio" id="checkboxBtn" name="@Q.ID" value="checkbox" onclick="ShowHideDiv()" />
-            checkbox
+            Multiple choice
         </label>
         <label for="textBtn">
             <input type="radio" id="textBtn" name="@Q.ID" value="text" onclick="ShowHideDiv()" />
-            text
+            Text field
         </label>
 
         <label for="fileBtn">
             <input type="radio" id="fileBtn" name="@Q.ID" value="file" onclick="ShowHideDiv()" />
-            file
+            File
         </label><br><br>
         
         <script suppress-error="BL9992" src="JSFolder\upload.js"></script>
@@ -70,7 +67,6 @@
            
                 <br> <br>
         </div>
-
         
 
         Options: 
@@ -83,7 +79,7 @@
         <input type="text" @bind="Q.StringPoints" placeholder="@Q.StringPoints" required /><br> <br>
 
 
-        <label for="">Distribution</label><br>
+        <label for="">Skill earned</label><br>
         <div class="questionBox">
             @foreach (string[] s in Q.skills)
             {
@@ -113,7 +109,8 @@
 <button @onclick="add" style="float: right">add question</button><br><br>
 
 <label for="">Due date</label>
-<input type="date" @bind="Due" id="start" name="trip-start" min="2000-01-01" max="2099-12-31"><br><br>
+<input type="date" @bind="Due" id="start" name="trip-start" min=@currentDate max="2099-12-31">
+<br><br>
 
 <label for="">Assignment name</label>
 <input type="text" @bind-value="Name" placeholder="Assignment name" /><br><br>
@@ -130,10 +127,13 @@
     private List<string[]> skills = new List<string[]>();
     private string Name, FileDesPath, questionType;
     private DateTime Due;
+    private DateTime Today = DateTime.Today;
+    private string currentDate;
     int QuestionCount = 1;
 
     protected override void OnInitialized()
     {
+        currentDate = Today.ToString("yyyy-MM-dd");
         add();
     }
 

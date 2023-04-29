@@ -17,8 +17,4 @@ LEVEL|
 DISTRIBUTION|
 addition;20;60;4
 subtraction;10;120;2
-addition;20;60;4
-subtraction;10;120;2
 TAKEN ASSIGNMENTS|
-
-

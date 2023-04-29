@@ -54,8 +54,16 @@
         int levelExp = Int32.Parse(@s[1]) % levelCap;
         int curLevel = Int32.Parse(@s[1]) / levelCap;
         int highestLevel = Math.Min(levelMax, curLevel);
-        string levelWidth = (100 * levelExp / levelCap) + 1 + "%";
-        if (curLevel > highestLevel) { levelWidth = "100%"; }
+
+        // levelWidth var never seems to be used
+        //string levelWidth = (100 * levelExp / levelCap) + 1 + "%";
+        //if (curLevel > highestLevel) { levelWidth = "100%"; }
+
+        if (highestLevel == levelMax)
+        {
+            levelExp = levelCap;
+        }
+
         <p style="display:inline">@s[0] - Current level: @highestLevel - Exp: @levelExp / @levelCap</p>
         <br />
         <progress @onclick="progress" value="@levelExp" max="@levelCap"> </progress>
