@@ -42,6 +42,10 @@ namespace BlazorApp1.Objects
             {
                 this.PersonaPic = @"PersonaImages\Man1.PNG";
             }
+            else if (User.UserName == "Gray")
+            {
+                this.PersonaPic = @"PersonaImages\Woman1.PNG";
+            }
 
             bool UserName = false;
             bool Password = false;

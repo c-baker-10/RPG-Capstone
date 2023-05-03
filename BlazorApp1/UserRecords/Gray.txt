@@ -1,7 +1,7 @@
 NAME|
-test
+Gray
 PASSWORD|
-
+AGhIsQ8mnV2RbMD02TM57a/l02iMqN4IK8ddqN8esvg=
 TYPE|
 Teacher
 GENERAL|
@@ -13,8 +13,8 @@ No items yet
 STUFF|
 Random information
 LEVEL|
-1
+0
 DISTRIBUTION|
-addition;300;60;4
-subtraction;160;120;2
+addition;0;60;4
+subtraction;0;120;2
 TAKEN ASSIGNMENTS|

@@ -74,7 +74,14 @@
 </div>
 
 <div class="container">
-    <p>Assignment Lists:</p>
+    @if(User.user.Type== "Student")
+    {
+        <p>Assignment Lists:</p>
+    }
+    else
+    {
+        <p>Posted Assignment:</p>
+    }
     @foreach (Assignment A in Assignment.AssignmentList)
     {
         <p @onclick="assignment" >@A.assignmentName  due: @A.dueDate</p>
