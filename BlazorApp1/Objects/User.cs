@@ -197,7 +197,7 @@ namespace BlazorApp1.Objects
                 {
                     this.Level = line;
                 }
-                else if (Distribution)
+                else if (Distribution && skillDistribution.Count < 2)
                 {
                     this.skillDistribution.Add(line.Split(";"));
                 }

@@ -1,0 +1,15 @@
+NODE|
+node1;750;650;Start;;;True
+node2;950;450;Addition 1;addition;5;False
+node3;550;450;Subtraction 1;subtraction;5;False
+node4;250;350;Subtraction 2;subtraction;20;False
+node5;750;250;Addition 2;addition;20;False
+node6;1150;250;Presentation;addition;20;False
+node7;850;50;Addition 3;addition;30;False
+CONNECTOR|
+SIEePpoyoL;800;650;node1;950;500;node2;True
+mzcTJLIWTo;1000;450;node2;1150;300;node6;False
+TBBvVynhZd;900;450;node2;750;300;node5;True
+QJbpPTvUEU;800;250;node5;850;100;node7;True
+KRIrIbDpWW;700;650;node1;550;500;node3;True
+ZiFDLpBABB;500;450;node3;250;400;node4;True

@@ -15,6 +15,6 @@ Random information
 LEVEL|
 1
 DISTRIBUTION|
-addition;20;60;4
+addition;21;60;4
 subtraction;10;120;2
 TAKEN ASSIGNMENTS|
